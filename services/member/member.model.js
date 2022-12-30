@@ -111,6 +111,12 @@ const usersSchema = new Schema(
         github:{
             type: String,
             required: false
+        },
+        working:{
+            type: String,
+            enum: ["work from home","work from office"],
+            default: "work from office",
+            required: false,
         }
         
     },
