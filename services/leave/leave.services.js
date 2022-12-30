@@ -50,7 +50,7 @@ exports.list = async (reqQuery) => {
     returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
     returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
 
-    returnData.list = await leaveModel.find(query).skip(skip).limit(limit).lean();
+    returnData.list = await leaveModel.find(query).skip(skip).limit(limit).populate("employeeID").lean();
 
     return returnData;
 };
@@ -63,7 +63,7 @@ exports.list = async (reqQuery) => {
 *  Update leave
 */
 exports.update = async (id, reqBody) => {
-    return await leaveModel.findOneAndUpdate({ _id: id }, {$set:reqBody}, {new: true,}).lean();
+    return await leaveModel.findOneAndUpdate({ _id: id }, { $set: reqBody }, { new: true, }).lean();
 };
 
 
@@ -71,5 +71,5 @@ exports.update = async (id, reqBody) => {
 *  Delete leave
 */
 exports.delete = async (id) => {
-    return await leaveModel.removeOne({ _id: id },{new: true}).lean();
+    return await leaveModel.removeOne({ _id: id }, { new: true }).lean();
 };

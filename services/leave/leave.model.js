@@ -19,11 +19,11 @@ const leaveSchema = new Schema(
     },
     leave_approval_date:{
         type: String,
-        required: true
+        required: false
     },
     leave_requesting_date:{
         type: String,
-        required: true
+        required: false
     },
     from_date:{
         type:String,
