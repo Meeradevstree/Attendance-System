@@ -21,7 +21,9 @@
   "LOGIN_SUCCESS": "Login Successfully.",
   "INVALID_LOGIN_SUCCESS": "Invalid Login Credential.",
   "NOT_FOUND": "Wrong Route!!",
-  "DATA_NOT_FOUND":"User not Found, please try again",
-  "SERVER_ERROR":"Something went wrong please try again",
-  "GET_ROLE":"Role successfully created"
+  "DATA_NOT_FOUND": "User not Found, please try again",
+  "SERVER_ERROR": "Something went wrong please try again",
+  "GET_ROLE": "Role successfully created",
+  "DEPARTMENT_CRREATED": "department created successfully",
+  "GET_DEPARTMENT_DATA": "department data found"
 }

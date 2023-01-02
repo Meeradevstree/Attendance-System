@@ -10,10 +10,11 @@ exports.save = async (reqBody) => {
 
 
 /*
-*  Get By Id
+*  Get Role By Id
 */
-exports.get = async () => {
-    return await sub_depModel.find({}).lean();
+exports.get_id = async (id) => {
+    return await sub_depModel.findOne({ _id: id }).lean();
+    
 };
 
 // /*

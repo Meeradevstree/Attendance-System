@@ -9,10 +9,10 @@ router.post(
     controller.department
 );
 
-// read
+// Get user by id
 router.get(
     "/get/:id",
-    controller.getdepartmentById
+    controller.getById
 );
 
 

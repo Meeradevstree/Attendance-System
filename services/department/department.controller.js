@@ -84,19 +84,21 @@ module.exports = {
 
 ////////////////////////////////////////////////////////
 
-    // get by id
-    getdepartmentById: async (req, res, next) => {
-        try {
-            let department = await departmentService.get(req.role.id);
-            if (department) {
-                commonResponse.success(res, "GET_DEPARTMENT_DATA", 200, department);
-            } else {
-                return commonResponse.customResponse(res, "DATA_NOT_FOUND", 404);
-            }
-        } catch (error) {
-            return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+   //   Get Department By Id 
+    
+   getById: async(req,res,next)=>{
+    try{
+        let department_by_id=await departmentService.get_id(req.params.id);
+        if (department_by_id) {
+            commonResponse.success(res, "GET_DEPARTMENT", 200, department_by_id, "Success");
+        } else {
+            return commonResponse.customResponse(res, "DEPARTMENT_NOT_FOUND", 404, {}, "Department not found, please try again");
         }
-    },
+    }
+    catch (error) {
+        return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+    }
+},
 
 
  /* 
