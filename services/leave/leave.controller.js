@@ -28,7 +28,7 @@ module.exports = {
         try {
             let leave = await leaveService.get();
             if (leave) {
-                commonResponse.success(res, "GET_LEAVE", 200, leave, "Success");
+                commonResponse.success(res, "GET_LEAVE_BY_ID", 200, leave);
             } else {
                 return commonResponse.customResponse(res, "LEAVE_NOT_FOUND", 404, {}, "Leave not found, please try again");
             }

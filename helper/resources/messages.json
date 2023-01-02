@@ -42,5 +42,8 @@
   "SUB_DEP_CREATED":"Sub department created successfully",
   "GET_SUB_DEPARTMENT":"Get sub_department data",
   "SUB_DEPARTMENT_PROFILE_UPDATE":"sub_department profile updated successfully",
-  "SUB_DEPARTMENT_PROFILE_DELETED":"sub_department profile deleted successfully"
+  "SUB_DEPARTMENT_PROFILE_DELETED":"sub_department profile deleted successfully",
+  "GET_USER":"Get user by id",
+  "GET_LEAVE_BY_ID":"Get leave by id",
+  "GET_DEPARTMENT":"Get department data"
 }

@@ -418,7 +418,7 @@ module.exports = {
         try {
             let User = await UsersService.getbyid(req.params.id);
             if (User) {
-                commonResponse.success(res, "GET_USER", 200, User, "Success");
+                commonResponse.success(res, "GET_USER", 200, User);
             } else {
                 return commonResponse.customResponse(res, "USER_NOT_FOUND", 404, {}, "User not found, please try again");
             }

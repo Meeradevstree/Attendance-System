@@ -90,7 +90,7 @@ module.exports = {
     try{
         let department_by_id=await departmentService.get_id(req.params.id);
         if (department_by_id) {
-            commonResponse.success(res, "GET_DEPARTMENT", 200, department_by_id, "Success");
+            commonResponse.success(res, "GET_DEPARTMENT", 200, department_by_id);
         } else {
             return commonResponse.customResponse(res, "DEPARTMENT_NOT_FOUND", 404, {}, "Department not found, please try again");
         }
