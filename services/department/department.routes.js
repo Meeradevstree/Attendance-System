@@ -3,9 +3,7 @@ const controller = require("./department.controller");
 const { guard } = require('../../helper');
 
 
-/*
- *  create 
- */
+// create
 router.post(
     "/create",
     controller.department
