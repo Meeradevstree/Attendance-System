@@ -11,7 +11,7 @@ router.post (
 
 // read
 router.get(
-    "/read",
+    "/read/:id",
     controller.getleaveById
 );
 

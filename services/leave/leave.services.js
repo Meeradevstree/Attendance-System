@@ -12,8 +12,8 @@ exports.save = async (reqBody) => {
 /*
 *  Get By Id
 */
-exports.get = async () => {
-    return await leaveModel.find({}).populate("employeeID").lean();
+exports.get = async (id) => {
+    return await leaveModel.find({ _id: id }, { new: true }).populate("employeeID").lean();
 };
 
 

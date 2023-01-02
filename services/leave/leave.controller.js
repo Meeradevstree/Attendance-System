@@ -26,7 +26,7 @@ module.exports = {
 
     getleaveById: async (req, res, next) => {
         try {
-            let leave = await leaveService.get();
+            let leave = await leaveService.get(req.params.id);
             if (leave) {
                 commonResponse.success(res, "GET_LEAVE_BY_ID", 200, leave);
             } else {
