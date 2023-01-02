@@ -10,7 +10,7 @@ module.exports = {
         try {
             const sub_dep = await sub_depService.save(req.body);
             if (sub_dep) {
-                commonResponse.success(res, "DEPARTMENT_CRREATED", 200, sub_dep);
+                commonResponse.success(res, "SUB_DEP_CREATED", 200, sub_dep);
             } else {
                 return commonResponse.customResponse(res, "DATA_NOT_FOUND", 404);
             }
@@ -60,8 +60,8 @@ module.exports = {
                 resp = {
                     error: false,
                     statusCode: 200,
-                    messageCode: 'NO_LOYALTY_POINTS',
-                    message: `No loyalty points found.`,
+                    messageCode: 'NO_DATA',
+                    message: `No Sub_department data.`,
                     pagination: {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
@@ -86,7 +86,7 @@ module.exports = {
     try{
         let sub_dep_by_id=await sub_depService.get_id(req.params.id);
         if (sub_dep_by_id) {
-            commonResponse.success(res, "GET_SUB_DEP", 200, sub_dep_by_id, "Success");
+            commonResponse.success(res, "GET_SUB_DEPARTMENT", 200, sub_dep_by_id, "Success");
         } else {
             return commonResponse.customResponse(res, "SUB_DEP_NOT_FOUND", 404, {}, "Sub_Department not found, please try again");
         }
@@ -103,7 +103,7 @@ module.exports = {
         try {
             let updatesub_dep = await sub_depService.update(req.params.id, req.body);
             if (updatesub_dep) {
-                return commonResponse.success(res, "DEPARTMENT_PROFILE_UPDATE", 201, updatesub_dep);
+                return commonResponse.success(res, "SUB_DEPARTMENT_PROFILE_UPDATE", 201, updatesub_dep);
             } else {
                 return commonResponse.customResponse(res, "DEPARTMENT_NOT_FOUND", 404, {}, "sub_dep not found, please try again");
             }
@@ -119,7 +119,7 @@ module.exports = {
         try {
             let deletesub_dep = await sub_depService.delete(req.params.id);
             if (deletesub_dep) {
-                return commonResponse.success(res, "SUB_DEP_PROFILE_DELETED", 202, deletesub_dep);
+                return commonResponse.success(res, "SUB_DEPARTMENT_PROFILE_DELETED", 202, deletesub_dep);
             } else {
                 return commonResponse.customResponse(res, "SUB_DEP_NOT_FOUND", 404, {}, "sub_dep not found, please try again");
             }

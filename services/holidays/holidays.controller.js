@@ -47,8 +47,8 @@ module.exports = {
                 resp = {
                     error: false,
                     statusCode: 200,
-                    messageCode: 'LIST_ROLE_MANAGEMENT',
-                    message: `List of Role Management`,
+                    messageCode: 'LIST_OF_HOLIDAYS',
+                    message: `List of Holidays`,
                     pagination: {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
@@ -61,8 +61,8 @@ module.exports = {
                 resp = {
                     error: false,
                     statusCode: 200,
-                    messageCode: 'NO_LOYALTY_POINTS',
-                    message: `No loyalty points found.`,
+                    messageCode: 'NO_DATA',
+                    message: `Holiday data not found.`,
                     pagination: {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,

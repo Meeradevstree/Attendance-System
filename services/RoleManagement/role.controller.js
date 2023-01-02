@@ -59,8 +59,8 @@ module.exports = {
                 resp = {
                     error: false,
                     statusCode: 200,
-                    messageCode: '',
-                    message: `No loyalty points found.`,
+                    messageCode: 'NO_ROLE',
+                    message: `No Role data.`,
                     pagination: {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
@@ -87,7 +87,7 @@ module.exports = {
         try{
             let role_by_id=await roleService.get_id(req.params.id);
             if (role_by_id) {
-                commonResponse.success(res, "GET_ROLE", 200, role_by_id, "Success");
+                commonResponse.success(res, "GET_ROLE_BY_ID", 200, role_by_id, "Success");
             } else {
                 return commonResponse.customResponse(res, "ROLE_NOT_FOUND", 404, {}, "Role not found, please try again");
             }

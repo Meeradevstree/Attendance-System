@@ -12,7 +12,7 @@ module.exports = {
             if (department) {
                 commonResponse.success(res, "DEPARTMENT_CRREATED", 200, department);
             } else {
-                return commonResponse.customResponse(res, "DATA_NOT_FOUND", 404);
+                return commonResponse.customResponse(res, "DEPARTMENT_DATA_NOT_FOUND", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -50,8 +50,8 @@ module.exports = {
                 resp = {
                     error: false,
                     statusCode: 200,
-                    messageCode: 'LIST_ROLE_MANAGEMENT',
-                    message: `List of Role Management`,
+                    messageCode: 'LIST_OF_DEPARTMENT',
+                    message: `List of Department data`,
                     pagination: {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
@@ -64,8 +64,8 @@ module.exports = {
                 resp = {
                     error: false,
                     statusCode: 200,
-                    messageCode: 'NO_LOYALTY_POINTS',
-                    message: `No loyalty points found.`,
+                    messageCode: 'NO_DEPARTMENT_DATA',
+                    message: `Department data not found.`,
                     pagination: {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
