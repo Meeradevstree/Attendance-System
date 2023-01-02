@@ -5,7 +5,22 @@ const Schema = mongoose.Schema;
 
 const dashboardSchema = new Schema(
     {
-        
+        total_employee: {
+            type: String,
+            required: false
+        },
+        present: {
+            type: String,
+            required: false
+        },
+        absent: {
+            type: String,
+            required: false
+        },
+        leave_apply: {
+            type: String,
+            required: false
+        },
     },
 );
 

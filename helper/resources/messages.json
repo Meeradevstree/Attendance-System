@@ -21,6 +21,7 @@
   "LOGIN_SUCCESS": "Login Successfully.",
   "INVALID_LOGIN_SUCCESS": "Invalid Login Credential.",
   "NOT_FOUND": "Wrong Route!!",
-  "DATA_NOT_FOUND":"User not Found",
-  "ROLE_NOT_FOUND":"ROLEFG"
+  "DATA_NOT_FOUND":"User not Found, please try again",
+  "SERVER_ERROR":"Something went wrong please try again",
+  "GET_ROLE":"Role successfully created"
 }

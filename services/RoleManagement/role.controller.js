@@ -9,7 +9,7 @@ module.exports = {
         try {
             const role = await roleService.save(req.body);
             if (role) {
-                commonResponse.success(res, "GET_ROLE", 200, role, "Success");
+                commonResponse.success(res, "GET_ROLE", 200, role );
             } else {
                 return commonResponse.customResponse(res, "ROLE_NOT_FOUND", 404, {}, "Role not found, please try again");
             }
@@ -59,7 +59,7 @@ module.exports = {
                 resp = {
                     error: false,
                     statusCode: 200,
-                    messageCode: 'NO_LOYALTY_POINTS',
+                    messageCode: '',
                     message: `No loyalty points found.`,
                     pagination: {
                         total_counts: list.total_counts,

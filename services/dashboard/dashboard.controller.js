@@ -10,7 +10,7 @@ module.exports = {
         try {
             const dashboard = await dashboardService.save(req.body);
             if (dashboard) {
-                commonResponse.success(res, "DEPARTMENT_CRREATED", 200, dashboard);
+                commonResponse.success(res, "DASHBOARD_CRREATED", 200, dashboard);
             } else {
                 return commonResponse.customResponse(res, "DATA_NOT_FOUND", 404);
             }
@@ -22,20 +22,50 @@ module.exports = {
 
 
     
-    //   Get dashboard
-
-    get: async (req, res, next) => {
+    //////////////////////////////////////////////////////
+     
+    list: async (req, res, next) => {
+        // let language_code = req.headers.language_code ? req.headers.language_code : 'en';
         try {
-            let dashboard = await dashboardService.getall(req.body._id);
-            if (dashboard) {
-                commonResponse.success(res, "GET_PROFILE", 200, dashboard, "Success");
+            const list = await dashboardService.list(req.query);
+            let resp;
+            if (list.list.length > 0) {
+                resp = {
+                    error: false,
+                    statusCode: 200,
+                    messageCode: 'LIST_ROLE_MANAGEMENT',
+                    message: `List of Role Management`,
+                    pagination: {
+                        total_counts: list.total_counts,
+                        total_pages: list.total_pages,
+                        current_page: list.current_page,
+                        
+                    },
+                    data: list.list
+                }
             } else {
-                return commonResponse.customResponse(res, "DASHBOARD_NOT_FOUND", 404, {}, "Dashboard not found, please try again");
+                resp = {
+                    error: false,
+                    statusCode: 200,
+                    messageCode: 'NO_LOYALTY_POINTS',
+                    message: `No loyalty points found.`,
+                    pagination: {
+                        total_counts: list.total_counts,
+                        total_pages: list.total_pages,
+                        current_page: list.current_page,
+                    },
+                    data: list.list
+                }
             }
+            return commonResponse.customSuccess(res, resp);
+
         } catch (error) {
-            return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+            console.log("TCL: error", error)
+            return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500)
         }
     },
+
+////////////////////////////////////////////////////////
 
 
     // get by id
