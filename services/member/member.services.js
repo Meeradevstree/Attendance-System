@@ -18,7 +18,7 @@ exports.is_exist = async (reqBody) => {
 //     return await UsersModel.find({}).populate('roleManagement').populate({path:'departmentdata',model:'department', populate: {path: 'sub_dep_ID',model: 'sub_dep'}}).lean();
 // };
 
-///////////////////
+//////////////////////////////
 
 
 exports.list = async (reqQuery) => {
