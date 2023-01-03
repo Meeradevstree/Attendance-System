@@ -13,7 +13,7 @@ exports.save = async (reqBody) => {
 *  Get Role By Id
 */
 exports.get_id = async (id) => {
-    return await attendanceModel.findOne({ _id: id }).populate("sub_dep_ID").lean();
+    return await attendanceModel.findOne({ _id: id }).lean();
     
 };
 
@@ -50,7 +50,7 @@ exports.list = async (reqQuery) => {
     }
 
     if (reqQuery.search && reqQuery.search != "") {
-        query["department_name"] = { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") };
+        query["employeeID"] = { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") };
     }
 
     query.deleted = false;
@@ -58,7 +58,7 @@ exports.list = async (reqQuery) => {
     returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
     returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
 
-    returnData.list = await attendanceModel.find(query).skip(skip).limit(limit).populate("sub_dep_ID").lean();
+    returnData.list = await attendanceModel.find(query).skip(skip).limit(limit).populate("employeeID").lean();
 
     return returnData;
 };
