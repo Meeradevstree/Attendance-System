@@ -14,7 +14,7 @@ module.exports = {
             if (leave) {
                 commonResponse.success(res, "GET_LEAVE", 200, leave, "Success");
             } else {
-                return commonResponse.customResponse(res, "Leave_NOT_FOUND", 404, {}, "Leave not found, please try again");
+                return commonResponse.customResponse(res, "LEAVE_NOT_FOUND", 404, {}, "Leave not found, please try again");
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
