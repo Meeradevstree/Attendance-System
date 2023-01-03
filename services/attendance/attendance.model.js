@@ -5,7 +5,10 @@ const Schema = mongoose.Schema;
 
 const attendanceSchema = new Schema(
     {
-       
+        employeeID: {
+            type: Schema.Types.ObjectId,
+            ref :"Employee"
+        }
     },
 );
 
