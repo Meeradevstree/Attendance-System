@@ -8,6 +8,10 @@ module.exports = {
 
     department: async (req, res, next) => {
         try {
+            if (req.files != undefined && req.files.image != undefined) {
+                req.body.image = process.env.DOMAIN_URL + "/user-profile/" + req.files.image[0].filename;
+            }
+            
             const department = await departmentService.save(req.body);
             if (department) {
                 commonResponse.success(res, "DEPARTMENT_CRREATED", 200, department);

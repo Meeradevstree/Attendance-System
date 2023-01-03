@@ -85,10 +85,10 @@ exports.save = async (reqBody) => {
 
 
 /*
-*  Update User
+*  Update leave
 */
 exports.update = async (id, reqBody) => {
-    return await UsersModel.findOneAndUpdate({_id: id }, {$set:reqBody}, {new: true,}).lean();
+    return await UsersModel.findOneAndUpdate({ _id: id }, { $set: reqBody }, { new: true, }).lean();
 };
 
 

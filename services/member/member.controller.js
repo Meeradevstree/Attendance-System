@@ -271,24 +271,20 @@ module.exports = {
 
 
     
-    //   Update Profile
-    
-    update: async (req, res, next) => {
-        try {
-            console.log("req > body " , req.body)
-            // if (req.files != undefined && req.files.image != undefined) {
-            //     req.body.image = process.env.DOMAIN_URL + "/user-profile/" + req.files.image[0].filename;
-            // }
-            let updatedUser = await UsersService.update(req.params.id,req.body);
-            if (updatedUser) {
-                return commonResponse.success(res, "USER_PROFILE_UPDATE", 201, updatedUser);
-            } else {
-                return commonResponse.customResponse(res, "USER_NOT_FOUND", 404, {}, "User not found, please try again");
-            }
-        } catch (error) {
-            return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+//  Update user
+
+update: async (req, res, next) => {
+    try {
+        let updateduser = await UsersService.update(req.params.id, req.body);
+        if (updateduser) {
+            return commonResponse.success(res, "USER_PROFILE_UPDATE", 201, updateduser);
+        } else {
+            return commonResponse.customResponse(res, "USER_NOT_FOUND", 404, {}, "User not found, please try again");
         }
-    },
+    } catch (error) {
+        return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+    }
+},
 
 
     
