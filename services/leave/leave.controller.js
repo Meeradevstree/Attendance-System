@@ -12,7 +12,7 @@ module.exports = {
         try {
             const leave = await leaveService.save(req.body);
             if (leave) {
-                commonResponse.success(res, "GET_LEAVE", 200, leave, "Success");
+                commonResponse.success(res, "GET_LEAVE", 200, leave);
             } else {
                 return commonResponse.customResponse(res, "LEAVE_NOT_FOUND", 404, {}, "Leave not found, please try again");
             }
