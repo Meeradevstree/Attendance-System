@@ -172,7 +172,7 @@ module.exports = {
                 if (updateUserDetails) {
                     const token = await guard.createToken(updateUserDetails, "user");
                     updateUserDetails.token = token.token;
-                    return commonResponse.success(res, "USER_VERIFIED_SUCCESS", 202, updateUserDetails, 'Success');
+                    return commonResponse.success(res, "USER_VERIFIED_SUCCESS", 202, updateUserDetails, 'User verify successfully');
                 } else {
                     return commonResponse.customResponse(res, "SERVER_ERROR", 401, {}, "Something went wrong please try again");
                 }

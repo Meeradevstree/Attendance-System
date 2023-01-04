@@ -8,7 +8,14 @@ const attendanceSchema = new Schema(
         employeeID: {
             type: Schema.Types.ObjectId,
             ref :"Employee"
-        }
+        },
+        attendance:[{
+            date:[{
+                type:Date,
+                default:Date.now,
+            }],
+            entry:{type:Date}
+        }]
     },
 );
 
