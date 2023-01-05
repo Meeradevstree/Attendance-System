@@ -67,8 +67,8 @@ exports.update = async (id, reqBody) => {
 
 
 /*
-*  Delete User
+*  Delete holiday
 */
 exports.delete = async (id) => {
-    return await holidaysModel.removeOne({ _id: id },{new: true}).lean();
+    return await holidaysModel.removeOne({ _id: id }, { new: true }).lean();
 };

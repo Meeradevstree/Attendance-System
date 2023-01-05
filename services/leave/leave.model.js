@@ -51,6 +51,10 @@ const leaveSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref :"Employee"
     },
+    employeeid:{
+        type: String,
+        required: false,
+    },
 }
 
 

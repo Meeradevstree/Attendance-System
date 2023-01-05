@@ -1,6 +1,7 @@
 const { commonResponse } = require("../../helper");
 const leaveModel = require("./leave.model");
 // const leaveModel = require("../leave/leave.model");
+const usersModel = require("../member/member.model");
 
 
 // create leave
@@ -42,7 +43,7 @@ exports.list = async (reqQuery) => {
     }
 
     if (reqQuery.search && reqQuery.search != "") {
-        query["employeeID"] = { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") };
+        query["employeeid"] = { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") };
     }
 
     query.deleted = false;
@@ -73,3 +74,15 @@ exports.update = async (id, reqBody) => {
 exports.delete = async (id) => {
     return await leaveModel.removeOne({ _id: id }, { new: true }).lean();
 };
+
+
+// getroledata
+exports.memberdata = async (id) => {
+    // let rolemanagement_data = await roleModel.findOne({_id:id}).lean();
+    let member_data = await  usersModel.findOne({_id:id}).lean();
+    console.log(member_data);
+    if(member_data){
+        return member_data._id;
+    }
+    // console.log(rolemanagement_data);
+}

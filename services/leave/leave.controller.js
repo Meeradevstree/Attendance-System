@@ -10,6 +10,9 @@ module.exports = {
     // create leave
     leave: async (req, res, next) => {
         try {
+
+            req.body.employeeid = await leaveService.memberdata(req.body.employeeID);
+            
             const leave = await leaveService.save(req.body);
             if (leave) {
                 commonResponse.success(res, "GET_LEAVE", 200, leave);
@@ -40,46 +43,46 @@ module.exports = {
     
 //////////////////////////////////////////////////////
      
-    list: async (req, res, next) => {
-        // let language_code = req.headers.language_code ? req.headers.language_code : 'en';
-        try {
-            const list = await leaveService.list(req.query);
-            let resp;
-            if (list.list.length > 0) {
-                resp = {
-                    error: false,
-                    statusCode: 200,
-                    messageCode: 'LIST_OF_LEAVE',
-                    message: `List of Leave Requesting`,
-                    pagination: {
-                        total_counts: list.total_counts,
-                        total_pages: list.total_pages,
-                        current_page: list.current_page,
-                        
-                    },
-                    data: list.list
-                }
-            } else {
-                resp = {
-                    error: false,
-                    statusCode: 200,
-                    messageCode: 'NO_LEAVE',
-                    message: `No leave data.`,
-                    pagination: {
-                        total_counts: list.total_counts,
-                        total_pages: list.total_pages,
-                        current_page: list.current_page,
-                    },
-                    data: list.list
-                }
+list: async (req, res, next) => {
+    // let language_code = req.headers.language_code ? req.headers.language_code : 'en';
+    try {
+        const list = await leaveService.list(req.query);
+        let resp;
+        if (list.list.length > 0) {
+            resp = {
+                error: false,
+                statusCode: 200,
+                messageCode: 'LIST_LEAVE_MANAGEMENT',
+                message: `List of Leave `,
+                pagination: {
+                    total_counts: list.total_counts,
+                    total_pages: list.total_pages,
+                    current_page: list.current_page,
+                    
+                },
+                data: list.list
             }
-            return commonResponse.customSuccess(res, resp);
-
-        } catch (error) {
-            console.log("TCL: error", error)
-            return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500)
+        } else {
+            resp = {
+                error: false,
+                statusCode: 200,
+                messageCode: 'NO_Leave',
+                message: `No Leave data.`,
+                pagination: {
+                    total_counts: list.total_counts,
+                    total_pages: list.total_pages,
+                    current_page: list.current_page,
+                },
+                data: list.list
+            }
         }
-    },
+        return commonResponse.customSuccess(res, resp);
+
+    } catch (error) {
+        console.log("TCL: error", error)
+        return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500)
+    }
+},
 
 ////////////////////////////////////////////////////////
 

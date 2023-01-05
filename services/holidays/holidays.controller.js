@@ -98,19 +98,18 @@ module.exports = {
 
 
 
-//  Delete
+//  Delete holiday
 
-    delete: async (req, res, next) => {
-        try {
-            let deleteholiday = await holidaysService.delete(req.params.id);
-            if (deleteholiday) {
-                return commonResponse.success(res, "HOLIDAY_PROFILE_DELETED", 202, deleteholiday);
-            } else {
-                return commonResponse.customResponse(res, "HOLIDAY_NOT_FOUND", 404, {}, "holidays not found, please try again");
-            }
-        } catch (error) {
-            return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+delete: async (req, res, next) => {
+    try {
+        let deleteholiday = await holidaysService.delete(req.params.id);
+        if (deleteholiday) {
+            return commonResponse.success(res, "HOLIDAY_PROFILE_DELETED", 202, deleteholiday);
+        } else {
+            return commonResponse.customResponse(res, "HOLIDAY_NOT_FOUND", 404, {}, "Holiday not found, please try again");
         }
-    },
-
-}
+    } catch (error) {
+        return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+    }
+},
+};
