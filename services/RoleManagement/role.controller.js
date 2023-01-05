@@ -18,24 +18,7 @@ module.exports = {
         }
     },
 
-
-    
-    // Get role 
-    
-    // getrole: async (req, res, next) => {
-    //     try {
-    //         let role = await roleService.get();
-    //         if (role) {
-    //             commonResponse.success(res, "GET_ROLE", 200, role, "Success");
-    //         } else {
-    //             return commonResponse.customResponse(res, "ROLE_NOT_FOUND", 404, {}, "Role not found, please try again");
-    //         }
-    //     } catch (error) {
-    //         return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
-    //     }
-    // },
-    //////////////////////////////////////
-
+// READ
     list: async (req, res, next) => {
         // let language_code = req.headers.language_code ? req.headers.language_code : 'en';
         try {
@@ -106,7 +89,7 @@ module.exports = {
             if (updatedrole) {
                 return commonResponse.success(res, "ROLE_PROFILE_UPDATE", 201, updatedrole);
             } else {
-                return commonResponse.customResponse(res, "ROLE_NOT_FOUND",404);
+                return commonResponse.customResponse(res, "ROLE_NOT_UPDATED",404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -123,7 +106,7 @@ module.exports = {
             if (deleterole) {
                 return commonResponse.success(res, "ROLE_PROFILE_DELETED", 202, deleterole);
             } else {
-                return commonResponse.customResponse(res, "ROLE_NOT_FOUND",404);
+                return commonResponse.customResponse(res, "ROLE_NOT_DELETED",404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);

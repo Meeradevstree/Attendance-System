@@ -15,35 +15,14 @@ module.exports = {
             if (department) {
                 commonResponse.success(res, "DEPARTMENT_CRREATED", 200, department);
             } else {
-                return commonResponse.customResponse(res, "DEPARTMENT_DATA_NOT_FOUND", 404);
+                return commonResponse.customResponse(res, "DEPARTMENT_NOT_CREATED", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
         }
     },
 
-
-
-/*
-*  Get Profile
-*/
-    // get: async (req, res, next) => {
-    //     try {
-    //         let department = await departmentService.getall(req.body._id);
-    //         if (department) {
-    //             commonResponse.success(res, "GET_PROFILE", 200, department, "Success");
-    //         } else {
-    //             return commonResponse.customResponse(res, "DEPARTMENT_NOT_FOUND", 404, {}, "Department not found, please try again");
-    //         }
-    //     } catch (error) {
-    //         return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
-    //     }
-    // },
-
-
-    
-//////////////////////////////////////////////////////
-     
+    //  READ
     list: async (req, res, next) => {
         // let language_code = req.headers.language_code ? req.headers.language_code : 'en';
         try {
@@ -109,9 +88,9 @@ module.exports = {
         try {
             let updatedepartment = await departmentService.update(req.params.id, req.body);
             if (updatedepartment) {
-                return commonResponse.success(res, "DEPARTMENT_PROFILE_UPDATE", 201, updatedepartment);
+                return commonResponse.success(res, "DEPARTMENT_PROFILE_UPDATED", 201, updatedepartment);
             } else {
-                return commonResponse.customResponse(res, "DEPARTMENT_NOT_FOUND", 404);
+                return commonResponse.customResponse(res, "DEPARTMENT_NOT_UPDATED", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -128,7 +107,7 @@ module.exports = {
             if (deletedepartment) {
                 return commonResponse.success(res, "DEPARTMENT_PROFILE_DELETED", 202, deletedepartment);
             } else {
-                return commonResponse.customResponse(res, "DEPARTMENT_NOT_FOUND", 404);
+                return commonResponse.customResponse(res, "DEPARTMENT_NOT_DELETED", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
