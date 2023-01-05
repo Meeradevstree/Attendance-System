@@ -6,12 +6,13 @@ const multerSetting = require("../../helper/multer").userImageUpload;
 // Create Leave
 router.post (
     "/create",
+    multerSetting,
     controller.leave
 );
 
 // read
 router.get(
-    "/read",
+    "/read/:id",
     controller.getleaveById
 );
 

@@ -1,11 +1,11 @@
 const { commonResponse } = require("../../helper");
-const sub_depModel = require("./sub-dep.model");
+const attendanceModel = require("./attendance.model");
 
 /*
-*  Create sub_dep
+*  Create Holidays
 */
 exports.save = async (reqBody) => {
-    return await new sub_depModel(reqBody).save();
+    return await new attendanceModel(reqBody).save();
 };
 
 
@@ -13,18 +13,20 @@ exports.save = async (reqBody) => {
 *  Get Role By Id
 */
 exports.get_id = async (id) => {
-    return await sub_depModel.findOne({ _id: id }).lean();
+    return await attendanceModel.findOne({ _id: id }).lean();
     
 };
 
-// /*
-// *  Get By Id
-// */
+/*
+*  Get
+*/
 // exports.getall = async () => {
-//     return await sub_depModel.find({}).lean();
+//     return await attendanceModel.find({}).populate("sub_dep_ID").lean();
 // };
 
-///////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////
+
 
 exports.list = async (reqQuery) => {
     let page = 0;
@@ -48,27 +50,28 @@ exports.list = async (reqQuery) => {
     }
 
     if (reqQuery.search && reqQuery.search != "") {
-        query["sub_dep_name"] = { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") };
+        query["employeeID"] = { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") };
     }
 
     query.deleted = false;
-    returnData.total_counts = await sub_depModel.countDocuments(query).lean();
+    returnData.total_counts = await attendanceModel.countDocuments(query).lean();
     returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
     returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
 
-    returnData.list = await sub_depModel.find(query).skip(skip).limit(limit).lean();
+    returnData.list = await attendanceModel.find(query).skip(skip).limit(limit).populate("employeeID").lean();
 
     return returnData;
 };
 
 
-///////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+
 
 /*
 *  Update User
 */
 exports.update = async (id, reqBody) => {
-    return await sub_depModel.findOneAndUpdate({_id: id }, {$set:reqBody}, {new: true,}).lean();
+    return await attendanceModel.findOneAndUpdate({_id: id }, {$set:reqBody}, {new: true,}).lean();
 };
 
 
@@ -76,5 +79,5 @@ exports.update = async (id, reqBody) => {
 *  Delete User
 */
 exports.delete = async (id) => {
-    return await sub_depModel.removeOne({ _id: id },{new: true}).lean();
+    return await attendanceModel.removeOne({ _id: id },{new: true}).lean();
 };

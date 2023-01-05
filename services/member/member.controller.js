@@ -97,7 +97,7 @@ module.exports = {
                 userResponse.token = token.token;
                 return commonResponse.success(res, "LOGIN_SUCCESS", 202, userResponse);
             } else {
-                return commonResponse.customResponse(res, "USER_NOT_FOUND", 404, {}, "User not found");
+                return commonResponse.customResponse(res, "USER_NOT_FOUND", 404);
             }
         })(req, res, next);
     },
@@ -134,12 +134,12 @@ module.exports = {
                     };
                     nodemailer.sendMail(emailData);
 
-                    return commonResponse.success(res, "RESEND_VERIFICATION_LINK_SUCCESS", 201, updateUser, 'We have sent account verification OTP to your email, Please verify your account to continue');
+                    return commonResponse.success(res, "RESEND_VERIFICATION_LINK_SUCCESS", 201);
                 } else {
-                    return commonResponse.customResponse(res, "SERVER_ERROR", 400, {}, "Something went wrong please try again");
+                    return commonResponse.customResponse(res, "SERVER_ERROR", 400);
                 }
             } else {
-                return commonResponse.customResponse(res, "EMAIL_NOT_EXIST", 404, {}, "Email does not exist");
+                return commonResponse.customResponse(res, "EMAIL_NOT_EXIST", 404);
             }
         } catch (error) {
             console.log("Resend User Verification Link -> ", error);
@@ -148,7 +148,6 @@ module.exports = {
     },
 
 
-    
     //   Verify User
     
     verifyUser: async (req, res, next) => {
@@ -157,10 +156,10 @@ module.exports = {
             if (getUser) {
 
                 if (getUser.status == 'deactivated') {
-                    return commonResponse.customResponse(res, "USER_DEACTIVATED", 404, getUser, "Your account has been deactivated, Please contact admin to activate your account");
+                    return commonResponse.customResponse(res, "USER_DEACTIVATED", 404, getUser);
                 }
                 if (req.body.otp != getUser.otp || req.body.otp == 0 || req.body.otp == '0') {
-                    return commonResponse.customResponse(res, "INVALID_OTP", 406, getUser, "Please enter a valid otp");
+                    return commonResponse.customResponse(res, "INVALID_OTP", 406, getUser);
                 }
 
                 let updateData = {
@@ -172,12 +171,12 @@ module.exports = {
                 if (updateUserDetails) {
                     const token = await guard.createToken(updateUserDetails, "user");
                     updateUserDetails.token = token.token;
-                    return commonResponse.success(res, "USER_VERIFIED_SUCCESS", 202, updateUserDetails, 'Success');
+                    return commonResponse.success(res, "USER_VERIFIED_SUCCESS", 202, updateUserDetails);
                 } else {
-                    return commonResponse.customResponse(res, "SERVER_ERROR", 401, {}, "Something went wrong please try again");
+                    return commonResponse.customResponse(res, "SERVER_ERROR", 401);
                 }
             } else {
-                return commonResponse.customResponse(res, "EMAIL_NOT_EXIST", 401, {}, "Email does not exist");
+                return commonResponse.customResponse(res, "EMAIL_NOT_EXIST", 401);
             }
         } catch (error) {
             console.log("Verify User -> ", error);
@@ -198,7 +197,7 @@ module.exports = {
             if (checkUserExist) {
 
                 if (checkUserExist.status == 'deactivated') {
-                    return commonResponse.customResponse(res, "USER_DEACTIVATED", 401, checkUserExist, "Your account has been deactivated, Please contact admin to activate your account");
+                    return commonResponse.customResponse(res, "USER_DEACTIVATED", 401, checkUserExist);
                 }
                 //let otp = await commonFunctions.randomSixDigit();
                 var otp = Math.random();
@@ -220,9 +219,9 @@ module.exports = {
                 };
                 nodemailer.sendMail(emailData);
 
-                return commonResponse.success(res, "FORGOT_PASSWORD_SUCCESS", 201, updateUser, 'We have send reset password OTP to your email');
+                return commonResponse.success(res, "FORGOT_PASSWORD_SUCCESS", 201, updateUser);
             } else {
-                return commonResponse.customResponse(res, "EMAIL_NOT_EXIST", 401, {}, "Email does not exist");
+                return commonResponse.customResponse(res, "EMAIL_NOT_EXIST", 401);
             }
         } catch (error) {
             console.log("User Forgot Password -> ", error);
@@ -240,10 +239,10 @@ module.exports = {
             if (user) {
 
                 if (user.status == 'pending') {
-                    return commonResponse.customResponse(res, "USER_NOT_VERIFIED", 401, user, "Please verify your email");
+                    return commonResponse.customResponse(res, "USER_NOT_VERIFIED", 401, user);
                 }
                 if (user.status == 'deactivated') {
-                    return commonResponse.customResponse(res, "USER_DEACTIVATED", 404, user, "Your account has been deactivated, Please contact admin to activate your account");
+                    return commonResponse.customResponse(res, "USER_DEACTIVATED", 404, user);
                 }
 
                 if (req.body.new_password == req.body.confirm_password) {
@@ -253,15 +252,15 @@ module.exports = {
                     };
                     let updateUserDetails = await UsersService.update(user._id, updateData);
                     if (updateUserDetails) {
-                        return commonResponse.success(res, "PASSWORD_RESET_SUCCESS", 201, updateUserDetails, 'Password reset successfully');
+                        return commonResponse.success(res, "PASSWORD_RESET_SUCCESS", 201, updateUserDetails);
                     } else {
-                        return commonResponse.customResponse(res, "SERVER_ERROR", 401, {}, "Something went wrong please try again");
+                        return commonResponse.customResponse(res, "SERVER_ERROR", 401);
                     }
                 } else {
-                    return commonResponse.customResponse(res, "INVALID_CONFIRM_PASSWORD", 400, {}, "Confirm password did not match, Please try again");
+                    return commonResponse.customResponse(res, "INVALID_CONFIRM_PASSWORD", 400);
                 }
             } else {
-                return commonResponse.customResponse(res, "USER_NOT_FOUND", 404, {}, "User not found");
+                return commonResponse.customResponse(res, "USER_NOT_FOUND", 404);
             }
         } catch (error) {
             console.log("User Reset Password -> ", error);
@@ -271,24 +270,20 @@ module.exports = {
 
 
     
-    //   Update Profile
-    
-    update: async (req, res, next) => {
-        try {
-            console.log("req > body " , req.body)
-            // if (req.files != undefined && req.files.image != undefined) {
-            //     req.body.image = process.env.DOMAIN_URL + "/user-profile/" + req.files.image[0].filename;
-            // }
-            let updatedUser = await UsersService.update(req.params.id,req.body);
-            if (updatedUser) {
-                return commonResponse.success(res, "USER_PROFILE_UPDATE", 201, updatedUser);
-            } else {
-                return commonResponse.customResponse(res, "USER_NOT_FOUND", 404, {}, "User not found, please try again");
-            }
-        } catch (error) {
-            return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+//  Update user
+
+update: async (req, res, next) => {
+    try {
+        let updateduser = await UsersService.update(req.params.id, req.body);
+        if (updateduser) {
+            return commonResponse.success(res, "USER_PROFILE_UPDATE", 201, updateduser);
+        } else {
+            return commonResponse.customResponse(res, "USER_NOT_FOUND", 404);
         }
-    },
+    } catch (error) {
+        return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+    }
+},
 
 
     
@@ -300,7 +295,7 @@ module.exports = {
             if (deleteUser) {
                 return commonResponse.success(res, "USER_PROFILE_DELETED", 202, deleteUser);
             } else {
-                return commonResponse.customResponse(res, "USER_NOT_FOUND", 404, {}, "User not found, please try again");
+                return commonResponse.customResponse(res, "USER_NOT_FOUND", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -329,18 +324,18 @@ module.exports = {
                         };
                         let updatePassword = await UsersService.update(getUser._id, updateData);
                         if (updatePassword) {
-                            return commonResponse.success(res, "PASSWORD_CHANGED_SUCCESS", 202, updatePassword, 'Password changed successfully');
+                            return commonResponse.success(res, "PASSWORD_CHANGED_SUCCESS", 202, updatePassword);
                         } else {
-                            return commonResponse.customResponse(res, "SERVER_ERROR", 400, {}, "Something went wrong please try again");
+                            return commonResponse.customResponse(res, "SERVER_ERROR", 400);
                         }
                     } else {
-                        return commonResponse.customResponse(res, "INVALID_CONFIRM_PASSWORD", 401, {}, "Confirm password did not match, Please try again");
+                        return commonResponse.customResponse(res, "INVALID_CONFIRM_PASSWORD", 401);
                     }
                 } else {
-                    return commonResponse.customResponse(res, "INVALID_OLD_PASSWORD", 406, {}, "Invalid old password");
+                    return commonResponse.customResponse(res, "INVALID_OLD_PASSWORD", 406);
                 }
             } else {
-                return commonResponse.customResponse(res, "USER_NOT_FOUND", 404, {}, "User not found");
+                return commonResponse.customResponse(res, "USER_NOT_FOUND", 404);
             }
         } catch (error) {
             console.log("User Change Password -> ", error);
@@ -349,23 +344,7 @@ module.exports = {
     },
 
 
-    
-    // //   Get Profile
-    
-    // get: async (req, res, next) => {
-    //     try {
-    //         let User = await UsersService.get(req.body._id);
-    //         if (User) {
-    //             commonResponse.success(res, "GET_PROFILE", 200, User, "Success");
-    //         } else {
-    //             return commonResponse.customResponse(res, "USER_NOT_FOUND", 404, {}, "User not found, please try again");
-    //         }
-    //     } catch (error) {
-    //         return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
-    //     }
-    // },
-
-    ///////////////////////////////////////////////////////////////////////////////
+// read
 
 
    list: async (req, res, next) => {
@@ -377,8 +356,8 @@ module.exports = {
                 resp = {
                     error: false,
                     statusCode: 200,
-                    messageCode: 'LIST_ROLE_MANAGEMENT',
-                    message: `List of Role Management`,
+                    messageCode: 'LIST_OF_PROOFILE',
+                    message: `List of all user profile`,
                     pagination: {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
@@ -391,8 +370,8 @@ module.exports = {
                 resp = {
                     error: false,
                     statusCode: 200,
-                    messageCode: 'NO_LOYALTY_POINTS',
-                    message: `No loyalty points found.`,
+                    messageCode: 'NO_DATA',
+                    message: `User data not found`,
                     pagination: {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
@@ -418,9 +397,9 @@ module.exports = {
         try {
             let User = await UsersService.getbyid(req.params.id);
             if (User) {
-                commonResponse.success(res, "GET_USER", 200, User, "Success");
+                commonResponse.success(res, "GET_USER", 200, User);
             } else {
-                return commonResponse.customResponse(res, "USER_NOT_FOUND", 404, {}, "User not found, please try again");
+                return commonResponse.customResponse(res, "USER_NOT_FOUND", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -439,9 +418,9 @@ module.exports = {
             console.log("req.body.id :" , req.body)
             let update = await UsersService.update(req.params.id, updateData);
             if (update) {
-                return commonResponse.success(res, "USER_LOGOUT", 202, update, 'Successfully logout');
+                return commonResponse.success(res, "USER_LOGOUT", 202, update);
             } else {
-                return commonResponse.customResponse(res, "SERVER_ERROR", 405, {}, "Something went wrong please try again");
+                return commonResponse.customResponse(res, "SERVER_ERROR", 405);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);

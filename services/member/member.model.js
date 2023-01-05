@@ -45,7 +45,7 @@ const usersSchema = new Schema(
             type: String,
             required: false,
         },
-        parmenant_address:{
+        permanent_address:{
             type: String,
             required: false
         },
@@ -111,8 +111,13 @@ const usersSchema = new Schema(
         github:{
             type: String,
             required: false
+        },
+        working:{
+            type: String,
+            enum: ["work from home","work from office"],
+            default: "work from office",
+            required: false,
         }
-        
     },
     { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
 );

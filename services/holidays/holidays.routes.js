@@ -31,11 +31,11 @@ router.patch(
     controller.update
 );
 
-// Delete Profile
- router.delete(
+// Delete holiday
+router.delete(
     "/delete/:id",
     guard.isAuthorized("member","delete"),
-    controller.delete  
+    controller.delete
 );
 
-module.exports = router;
+module.exports = router;  

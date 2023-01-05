@@ -1,4 +1,4 @@
-const departmentService = require("./department.services");
+const attendanceService = require("./attendance.services");
 const passport = require("passport");
 const guard = require("../../helper/guards");
 const { commonResponse, commonFunctions, nodemailer } = require("../../helper");
@@ -6,34 +6,36 @@ const { commonResponse, commonFunctions, nodemailer } = require("../../helper");
 module.exports = {
 
 
-    department: async (req, res, next) => {
+    attendance: async (req, res, next) => {
         try {
             if (req.files != undefined && req.files.image != undefined) {
                 req.body.image = process.env.DOMAIN_URL + "/user-profile/" + req.files.image[0].filename;
             }
-            const department = await departmentService.save(req.body);
-            if (department) {
-                commonResponse.success(res, "DEPARTMENT_CRREATED", 200, department);
+            const attendance = await attendanceService.save(req.body);
+            if (attendance) {
+                commonResponse.success(res, "ATTENDANCE_CRREATED", 200, attendance);
             } else {
-                return commonResponse.customResponse(res, "DEPARTMENT_NOT_CREATED", 404);
+                return commonResponse.customResponse(res, "ATTENDANCE_DATA_NOT_FOUND", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
         }
     },
-
-    //  READ
+     
+    
+//////////////////////////////////////////////////////
+     
     list: async (req, res, next) => {
         // let language_code = req.headers.language_code ? req.headers.language_code : 'en';
         try {
-            const list = await departmentService.list(req.query);
+            const list = await attendanceService.list(req.query);
             let resp;
             if (list.list.length > 0) {
                 resp = {
                     error: false,
                     statusCode: 200,
-                    messageCode: 'LIST_OF_DEPARTMENT',
-                    message: `List of Department data`,
+                    messageCode: 'LIST_OF_ATTENDANCE',
+                    message: `List of attendance data`,
                     pagination: {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
@@ -45,8 +47,8 @@ module.exports = {
                 resp = {
                     error: false,
                     statusCode: 200,
-                    messageCode: 'NO_DEPARTMENT_DATA',
-                    message: `Department data not found.`,
+                    messageCode: 'NO_ATTENDANCE_DATA',
+                    message: `Attendance data not found.`,
                     pagination: {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
@@ -64,15 +66,16 @@ module.exports = {
 
 ////////////////////////////////////////////////////////
 
-   //   Get Department By Id 
+
+   //   Get attendance By Id 
     
    getById: async(req,res,next)=>{
     try{
-        let department_by_id=await departmentService.get_id(req.params.id);
-        if (department_by_id) {
-            commonResponse.success(res, "GET_DEPARTMENT", 200, department_by_id);
+        let attendance_by_id=await attendanceService.get_id(req.params.id);
+        if (attendance_by_id) {
+            commonResponse.success(res, "GET_ATTENDANCE", 200, attendance_by_id);
         } else {
-            return commonResponse.customResponse(res, "DEPARTMENT_NOT_FOUND", 404);
+            return commonResponse.customResponse(res, "ATTENDANCE_NOT_FOUND", 404, {});
         }
     }
     catch (error) {
@@ -86,11 +89,11 @@ module.exports = {
  */
     update: async (req, res, next) => {
         try {
-            let updatedepartment = await departmentService.update(req.params.id, req.body);
-            if (updatedepartment) {
-                return commonResponse.success(res, "DEPARTMENT_PROFILE_UPDATED", 201, updatedepartment);
+            let updateattendance = await attendanceService.update(req.params.id, req.body);
+            if (updateattendance) {
+                return commonResponse.success(res, "ATTENDANCE_PROFILE_UPDATE", 201, updateattendance);
             } else {
-                return commonResponse.customResponse(res, "DEPARTMENT_NOT_UPDATED", 404);
+                return commonResponse.customResponse(res, "ATTENDANCE_NOT_FOUND", 404, {});
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -103,11 +106,11 @@ module.exports = {
 */
     delete: async (req, res, next) => {
         try {
-            let deletedepartment = await departmentService.delete(req.params.id);
-            if (deletedepartment) {
-                return commonResponse.success(res, "DEPARTMENT_PROFILE_DELETED", 202, deletedepartment);
+            let deleteattendance = await attendanceService.delete(req.params.id);
+            if (deleteattendance) {
+                return commonResponse.success(res, "ATTENDANCE_PROFILE_DELETED", 202, deleteattendance);
             } else {
-                return commonResponse.customResponse(res, "DEPARTMENT_NOT_DELETED", 404);
+                return commonResponse.customResponse(res, "ATTENDANCE_NOT_FOUND", 404, {});
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);

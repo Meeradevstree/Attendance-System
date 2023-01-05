@@ -18,7 +18,7 @@ exports.is_exist = async (reqBody) => {
 //     return await UsersModel.find({}).populate('roleManagement').populate({path:'departmentdata',model:'department', populate: {path: 'sub_dep_ID',model: 'sub_dep'}}).lean();
 // };
 
-///////////////////
+//////////////////////////////
 
 
 exports.list = async (reqQuery) => {
@@ -85,10 +85,10 @@ exports.save = async (reqBody) => {
 
 
 /*
-*  Update User
+*  Update leave
 */
 exports.update = async (id, reqBody) => {
-    return await UsersModel.findOneAndUpdate({_id: id }, {$set:reqBody}, {new: true,}).lean();
+    return await UsersModel.findOneAndUpdate({ _id: id }, { $set: reqBody }, { new: true, }).lean();
 };
 
 

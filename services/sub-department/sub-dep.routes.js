@@ -11,10 +11,10 @@ router.post(
     controller.sub_dep
 );
 
-// read
+// Get user by id
 router.get(
     "/get/:id",
-    controller.getsub_depById
+    controller.getById
 );
 
 

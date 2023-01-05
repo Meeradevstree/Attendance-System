@@ -1,13 +1,12 @@
 const router = require("express").Router();
-const controller = require("./department.controller");
+const controller = require("./attendance.controller");
 const { guard } = require('../../helper');
-const multerSetting = require("../../helper/multer").userImageUpload;
+
 
 // create
 router.post(
     "/create",
-    multerSetting,
-    controller.department
+    controller.attendance
 );
 
 // Get user by id

@@ -19,11 +19,11 @@ const leaveSchema = new Schema(
     },
     leave_approval_date:{
         type: String,
-        required: true
+        required: false
     },
     leave_requesting_date:{
         type: String,
-        required: true
+        required: false
     },
     from_date:{
         type:String,
@@ -37,8 +37,8 @@ const leaveSchema = new Schema(
     },
     status: {
         type: String,
-        enum: ["reject","approved","panding"],
-        default: "panding",
+        enum: ["reject","approved","pending"],
+        default: "pending",
         required: false,
     },
     leave_type:{
@@ -50,6 +50,10 @@ const leaveSchema = new Schema(
     employeeID: {
         type: Schema.Types.ObjectId,
         ref :"Employee"
+    },
+    employeeid:{
+        type: String,
+        required: false,
     },
 }
 

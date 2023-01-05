@@ -11,33 +11,16 @@ module.exports = {
         try {
             const holidays = await holidaysService.save(req.body);
             if (holidays) {
-                commonResponse.success(res, "HOLIDAYS_CRREATED", 200, holidays);
+                commonResponse.success(res, "HOLIDAYS_CREATED", 200, holidays);
             } else {
-                return commonResponse.customResponse(res, "DATA_NOT_FOUND", 404);
+                return commonResponse.customResponse(res, "HOLIDAY_NOT_CREATED", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
         }
     },
 
-    // // Get holiday
-    
-    // getholiday: async (req, res, next) => {
-    //     try {
-    //         let holiday = await holidaysService.get();
-    //         if (holiday) {
-    //             commonResponse.success(res, "GET_HOLIDAYS", 200, holiday, "Success");
-    //         } else {
-    //             return commonResponse.customResponse(res, "HOLIDAYS_NOT_FOUND", 404, {}, "holiday not found, please try again");
-    //         }
-    //     } catch (error) {
-    //         return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
-    //     }
-    // },
-    
-
-    //////////////////////////////////////////////////////
-     
+    // read 
     list: async (req, res, next) => {
         // let language_code = req.headers.language_code ? req.headers.language_code : 'en';
         try {
@@ -47,13 +30,12 @@ module.exports = {
                 resp = {
                     error: false,
                     statusCode: 200,
-                    messageCode: 'LIST_ROLE_MANAGEMENT',
-                    message: `List of Role Management`,
+                    messageCode: 'LIST_OF_HOLIDAYS',
+                    message: `List of Holidays`,
                     pagination: {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
                         current_page: list.current_page,
-                        
                     },
                     data: list.list
                 }
@@ -61,8 +43,8 @@ module.exports = {
                 resp = {
                     error: false,
                     statusCode: 200,
-                    messageCode: 'NO_LOYALTY_POINTS',
-                    message: `No loyalty points found.`,
+                    messageCode: 'NO_DATA',
+                    message: `Holiday data not found.`,
                     pagination: {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
@@ -72,7 +54,6 @@ module.exports = {
                 }
             }
             return commonResponse.customSuccess(res, resp);
-
         } catch (error) {
             console.log("TCL: error", error)
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500)
@@ -89,7 +70,7 @@ module.exports = {
             if (updateholiday) {
                 return commonResponse.success(res, "HOLIDAY_PROFILE_UPDATE", 201, updateholiday);
             } else {
-                return commonResponse.customResponse(res, "HOLIDAY_NOT_FOUND", 404, {}, "holiday not found, please try again");
+                return commonResponse.customResponse(res, "HOLIDAY_NOT_UPDATED", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -98,19 +79,18 @@ module.exports = {
 
 
 
-//  Delete
+//  Delete holiday
 
-    delete: async (req, res, next) => {
-        try {
-            let deleteholiday = await holidaysService.delete(req.params.id);
-            if (deleteholiday) {
-                return commonResponse.success(res, "HOLIDAY_PROFILE_DELETED", 202, deleteholiday);
-            } else {
-                return commonResponse.customResponse(res, "HOLIDAY_NOT_FOUND", 404, {}, "holidays not found, please try again");
-            }
-        } catch (error) {
-            return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+delete: async (req, res, next) => {
+    try {
+        let deleteholiday = await holidaysService.delete(req.params.id);
+        if (deleteholiday) {
+            return commonResponse.success(res, "HOLIDAY_PROFILE_DELETED", 202, deleteholiday);
+        } else {
+            return commonResponse.customResponse(res, "HOLIDAY_NOT_DELETED", 404);
         }
-    },
-
-}
+    } catch (error) {
+        return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+    }
+},
+};
