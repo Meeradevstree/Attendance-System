@@ -148,7 +148,6 @@ module.exports = {
     },
 
 
-    /xmcvab
     //   Verify User
     
     verifyUser: async (req, res, next) => {
