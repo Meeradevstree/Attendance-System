@@ -39,7 +39,6 @@ module.exports = {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
                         current_page: list.current_page,
-                        
                     },
                     data: list.list
                 }
@@ -58,7 +57,6 @@ module.exports = {
                 }
             }
             return commonResponse.customSuccess(res, resp);
-
         } catch (error) {
             console.log("TCL: error", error)
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500)

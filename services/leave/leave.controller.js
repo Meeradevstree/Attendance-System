@@ -10,14 +10,12 @@ module.exports = {
     // create leave
     leave: async (req, res, next) => {
         try {
-
             req.body.employeeid = await leaveService.memberdata(req.body.employeeID);
-            
             const leave = await leaveService.save(req.body);
             if (leave) {
                 commonResponse.success(res, "GET_LEAVE", 200, leave);
             } else {
-                return commonResponse.customResponse(res, "LEAVE_NOT_FOUND");
+                return commonResponse.customResponse(res, "LEAVE_NOT_FOUND",404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -33,7 +31,7 @@ module.exports = {
             if (leave) {
                 commonResponse.success(res, "GET_LEAVE_BY_ID", 200, leave);
             } else {
-                return commonResponse.customResponse(res, "LEAVE_NOT_FOUND");
+                return commonResponse.customResponse(res, "LEAVE_NOT_FOUND",404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -58,7 +56,6 @@ list: async (req, res, next) => {
                     total_counts: list.total_counts,
                     total_pages: list.total_pages,
                     current_page: list.current_page,
-                    
                 },
                 data: list.list
             }
@@ -77,7 +74,6 @@ list: async (req, res, next) => {
             }
         }
         return commonResponse.customSuccess(res, resp);
-
     } catch (error) {
         console.log("TCL: error", error)
         return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500)
@@ -112,7 +108,7 @@ list: async (req, res, next) => {
             if (deleteleave) {
                 return commonResponse.success(res, "LEAVE_PROFILE_DELETED", 202, deleteleave);
             } else {
-                return commonResponse.customResponse(res, "LEAVE_NOT_FOUND");
+                return commonResponse.customResponse(res, "LEAVE_NOT_FOUND",404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);

@@ -11,7 +11,7 @@ module.exports = {
             if (role) {
                 commonResponse.success(res, "GET_ROLE", 200, role );
             } else {
-                return commonResponse.customResponse(res, "ROLE_NOT_FOUND");
+                return commonResponse.customResponse(res, "ROLE_NOT_FOUND",404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -51,7 +51,6 @@ module.exports = {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
                         current_page: list.current_page,
-                        
                     },
                     data: list.list
                 }
@@ -89,7 +88,7 @@ module.exports = {
             if (role_by_id) {
                 commonResponse.success(res, "GET_ROLE_BY_ID", 200, role_by_id);
             } else {
-                return commonResponse.customResponse(res, "ROLE_NOT_FOUND");
+                return commonResponse.customResponse(res, "ROLE_NOT_FOUND",404);
             }
         }
         catch (error) {
@@ -107,7 +106,7 @@ module.exports = {
             if (updatedrole) {
                 return commonResponse.success(res, "ROLE_PROFILE_UPDATE", 201, updatedrole);
             } else {
-                return commonResponse.customResponse(res, "ROLE_NOT_FOUND");
+                return commonResponse.customResponse(res, "ROLE_NOT_FOUND",404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -124,7 +123,7 @@ module.exports = {
             if (deleterole) {
                 return commonResponse.success(res, "ROLE_PROFILE_DELETED", 202, deleterole);
             } else {
-                return commonResponse.customResponse(res, "ROLE_NOT_FOUND");
+                return commonResponse.customResponse(res, "ROLE_NOT_FOUND",404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
