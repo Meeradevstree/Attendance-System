@@ -89,7 +89,7 @@ module.exports = {
             if (updateholiday) {
                 return commonResponse.success(res, "HOLIDAY_PROFILE_UPDATE", 201, updateholiday);
             } else {
-                return commonResponse.customResponse(res, "HOLIDAY_NOT_FOUND", 404, {}, "holiday not found, please try again");
+                return commonResponse.customResponse(res, "HOLIDAY_NOT_FOUND", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -106,7 +106,7 @@ delete: async (req, res, next) => {
         if (deleteholiday) {
             return commonResponse.success(res, "HOLIDAY_PROFILE_DELETED", 202, deleteholiday);
         } else {
-            return commonResponse.customResponse(res, "HOLIDAY_NOT_FOUND", 404, {}, "Holiday not found, please try again");
+            return commonResponse.customResponse(res, "HOLIDAY_NOT_FOUND", 404);
         }
     } catch (error) {
         return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);

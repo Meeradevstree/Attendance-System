@@ -17,7 +17,7 @@ module.exports = {
             if (leave) {
                 commonResponse.success(res, "GET_LEAVE", 200, leave);
             } else {
-                return commonResponse.customResponse(res, "LEAVE_NOT_FOUND", 404, {}, "Leave not found, please try again");
+                return commonResponse.customResponse(res, "LEAVE_NOT_FOUND");
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -33,7 +33,7 @@ module.exports = {
             if (leave) {
                 commonResponse.success(res, "GET_LEAVE_BY_ID", 200, leave);
             } else {
-                return commonResponse.customResponse(res, "LEAVE_NOT_FOUND", 404, {}, "Leave not found, please try again");
+                return commonResponse.customResponse(res, "LEAVE_NOT_FOUND");
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -95,7 +95,7 @@ list: async (req, res, next) => {
             if (updatedLeave) {
                 return commonResponse.success(res, "LEAVE_PROFILE_UPDATE", 201, updatedLeave);
             } else {
-                return commonResponse.customResponse(res, "LEAVE_NOT_FOUND", 404, {}, "Leave not found, please try again");
+                return commonResponse.customResponse(res, "LEAVE_NOT_FOUND", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -112,7 +112,7 @@ list: async (req, res, next) => {
             if (deleteleave) {
                 return commonResponse.success(res, "LEAVE_PROFILE_DELETED", 202, deleteleave);
             } else {
-                return commonResponse.customResponse(res, "LEAVE_NOT_FOUND", 404, {}, "Leave not found, please try again");
+                return commonResponse.customResponse(res, "LEAVE_NOT_FOUND");
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);

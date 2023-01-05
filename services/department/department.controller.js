@@ -96,7 +96,7 @@ module.exports = {
         if (department_by_id) {
             commonResponse.success(res, "GET_DEPARTMENT", 200, department_by_id);
         } else {
-            return commonResponse.customResponse(res, "DEPARTMENT_NOT_FOUND", 404, {}, "Department not found, please try again");
+            return commonResponse.customResponse(res, "DEPARTMENT_NOT_FOUND", 404);
         }
     }
     catch (error) {
@@ -114,7 +114,7 @@ module.exports = {
             if (updatedepartment) {
                 return commonResponse.success(res, "DEPARTMENT_PROFILE_UPDATE", 201, updatedepartment);
             } else {
-                return commonResponse.customResponse(res, "DEPARTMENT_NOT_FOUND", 404, {}, "Department not found, please try again");
+                return commonResponse.customResponse(res, "DEPARTMENT_NOT_FOUND", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -131,7 +131,7 @@ module.exports = {
             if (deletedepartment) {
                 return commonResponse.success(res, "DEPARTMENT_PROFILE_DELETED", 202, deletedepartment);
             } else {
-                return commonResponse.customResponse(res, "DEPARTMENT_NOT_FOUND", 404, {}, "Department not found, please try again");
+                return commonResponse.customResponse(res, "DEPARTMENT_NOT_FOUND", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);

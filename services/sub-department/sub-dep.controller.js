@@ -88,7 +88,7 @@ module.exports = {
         if (sub_dep_by_id) {
             commonResponse.success(res, "GET_SUB_DEPARTMENT", 200, sub_dep_by_id);
         } else {
-            return commonResponse.customResponse(res, "SUB_DEP_NOT_FOUND", 404, {}, "Sub_Department not found, please try again");
+            return commonResponse.customResponse(res, "SUB_DEPARTMENT_NOT_FOUND");
         }
     }
     catch (error) {
@@ -105,7 +105,7 @@ module.exports = {
             if (updatesub_dep) {
                 return commonResponse.success(res, "SUB_DEPARTMENT_PROFILE_UPDATE", 201, updatesub_dep);
             } else {
-                return commonResponse.customResponse(res, "DEPARTMENT_NOT_FOUND", 404, {}, "sub_dep not found, please try again");
+                return commonResponse.customResponse(res, "SUB_DEPARTMENT_NOT_FOUND");
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -121,7 +121,7 @@ module.exports = {
             if (deletesub_dep) {
                 return commonResponse.success(res, "SUB_DEPARTMENT_PROFILE_DELETED", 202, deletesub_dep);
             } else {
-                return commonResponse.customResponse(res, "SUB_DEP_NOT_FOUND", 404, {}, "sub_dep not found, please try again");
+                return commonResponse.customResponse(res, "SUB_DEPARTMENT_NOT_FOUND");
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);

@@ -45,5 +45,12 @@
   "SUB_DEPARTMENT_PROFILE_DELETED":"sub_department profile deleted successfully",
   "GET_USER":"Get user by id",
   "GET_LEAVE_BY_ID":"Get leave by id",
-  "GET_DEPARTMENT":"Get department data"
+  "GET_DEPARTMENT":"Get department data",
+  "ATTENDANCE_NOT_FOUND":"attendance not found, please try again",
+  "DASHBOARD_NOT_FOUND":"Dashboard data not found",
+  "DEPARTMENT_NOT_FOUND":"Department not found, please try again",
+  "HOLIDAY_NOT_FOUND":"holiday not found, please try again",
+  "LEAVE_NOT_FOUND":"Leave not found, please try again",
+  "ROLE_NOT_FOUND":"Role not found, please try again",
+  "SUB_DEPARTMENT_NOT_FOUND":"Sub_Department not found, please try again"
 }

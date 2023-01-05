@@ -37,8 +37,8 @@ const leaveSchema = new Schema(
     },
     status: {
         type: String,
-        enum: ["reject","approved","panding"],
-        default: "panding",
+        enum: ["reject","approved","pending"],
+        default: "pending",
         required: false,
     },
     leave_type:{

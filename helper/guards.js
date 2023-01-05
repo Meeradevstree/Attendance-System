@@ -48,25 +48,21 @@ const isAuthorized =
                 if (getRoleAccessData[moduleName].includes(actionType)) {
                   next();
                 } else {
-                  return commonResponse.customResponse(res, "REQUEST_NOT_ALLOWED", 405, {}, `${moduleName} role not found`);
+                  return commonResponse.customResponse(res, "REQUEST_NOT_ALLOWED", 403, {}, `You Don't Have Access`);
                 }
               } else {
-                return commonResponse.unAuthentication(res, "ROLE_NOT_FOUND", 404, `${moduleName} role not found`);
+                return commonResponse.unAuthentication(res, "ROLE_NOT_FOUND", 403, `${moduleName} role not found`);
               }
-            
           }
           else {
-            return commonResponse.unAuthentication(res, "ROLE_NOT_FOUND", 404);
+            return commonResponse.unAuthentication(res, "ROLE_NOT_FOUND", 403, "roleaccessdata not found");
           }
-
         } else {
-          return commonResponse.unAuthentication(res, "ROLE_NOT_FOUND", 404);
+          return commonResponse.unAuthentication(res, "ROLE_NOT_FOUND", 403, "user not found");
         }
       }
-
-
       else {
-        return commonResponse.unAuthentication(res, "ROLE_NOT_FOUND", 404);
+        return commonResponse.unAuthentication(res, "ROLE_NOT_FOUND", 404, "user not verified");
       }
     };
 

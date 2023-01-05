@@ -12,7 +12,7 @@ module.exports = {
             if (dashboard) {
                 commonResponse.success(res, "DASHBOARD_CRREATED", 200, dashboard);
             } else {
-                return commonResponse.customResponse(res, "DATA_NOT_FOUND", 404);
+                return commonResponse.customResponse(res, "DASHBOARD_NOT_FOUND", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -73,9 +73,9 @@ module.exports = {
         try {
             let dashboard = await dashboardService.get(req.role.id);
             if (dashboard) {
-                commonResponse.success(res, "GET_D_DATA", 200, dashboard);
+                commonResponse.success(res, "GET_DASHBOARD_DATA", 200, dashboard);
             } else {
-                return commonResponse.customResponse(res, "DATA_NOT_FOUND", 404);
+                return commonResponse.customResponse(res, "DASHBOARD_NOT_FOUND", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -92,7 +92,7 @@ module.exports = {
             if (updatedashboard) {
                 return commonResponse.success(res, "DASHBOARD_PROFILE_UPDATE", 201, updatedashboard);
             } else {
-                return commonResponse.customResponse(res, "DASHBOARD_NOT_FOUND", 404, {}, "dashboard not found, please try again");
+                return commonResponse.customResponse(res, "DASHBOARD_NOT_FOUND", 404 );
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -108,7 +108,7 @@ module.exports = {
             if (deletedashboard) {
                 return commonResponse.success(res, "DASHBOARD_PROFILE_DELETED", 202, deletedashboard);
             } else {
-                return commonResponse.customResponse(res, "DASHBOARD_NOT_FOUND", 404, {}, "Dashboard not found, please try again");
+                return commonResponse.customResponse(res, "DASHBOARD_NOT_FOUND", 404 );
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);

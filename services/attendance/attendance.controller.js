@@ -80,7 +80,7 @@ module.exports = {
         if (attendance_by_id) {
             commonResponse.success(res, "GET_ATTENDANCE", 200, attendance_by_id);
         } else {
-            return commonResponse.customResponse(res, "ATTENDANCE_NOT_FOUND", 404, {}, "attendance not found, please try again");
+            return commonResponse.customResponse(res, "ATTENDANCE_NOT_FOUND", 404, {});
         }
     }
     catch (error) {
@@ -98,7 +98,7 @@ module.exports = {
             if (updateattendance) {
                 return commonResponse.success(res, "ATTENDANCE_PROFILE_UPDATE", 201, updateattendance);
             } else {
-                return commonResponse.customResponse(res, "ATTENDANCE_NOT_FOUND", 404, {}, "attendance not found, please try again");
+                return commonResponse.customResponse(res, "ATTENDANCE_NOT_FOUND", 404, {});
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -115,7 +115,7 @@ module.exports = {
             if (deleteattendance) {
                 return commonResponse.success(res, "ATTENDANCE_PROFILE_DELETED", 202, deleteattendance);
             } else {
-                return commonResponse.customResponse(res, "ATTENDANCE_NOT_FOUND", 404, {}, "attendance not found, please try again");
+                return commonResponse.customResponse(res, "ATTENDANCE_NOT_FOUND", 404, {});
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
