@@ -10,6 +10,14 @@ module.exports = {
     // create leave
     leave: async (req, res, next) => {
         try {
+            // if(req.body.email){
+            //     req.body.email = req.body.email.toLowerCase();
+            // }
+            // let is_exist = await leaveService.is_exist(req.body);
+            // if (is_exist) {
+            //     return next(new Error("EMAIL_EXIST"));
+            // }
+
             req.body.employeeid = await leaveService.memberdata(req.body.employeeID);
             const leave = await leaveService.save(req.body);
             if (leave) {

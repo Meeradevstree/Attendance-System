@@ -4,6 +4,12 @@ const leaveModel = require("./leave.model");
 const usersModel = require("../member/member.model");
 
 
+// // gmail
+// exports.is_exist = async (reqBody) => {
+//     return  await leaveModel.findOne({email: reqBody.email}).lean();
+// };
+
+
 // create leave
 exports.save = async (reqBody) => {
     return await new leaveModel(reqBody).save();
