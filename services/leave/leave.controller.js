@@ -18,7 +18,7 @@ module.exports = {
             //     return next(new Error("EMAIL_EXIST"));
             // }
 
-            req.body.employeeid = await leaveService.memberdata(req.body.employeeID);
+            req.body.employeeid = await leaveService.employeedata(req.body.employeeID);
             const leave = await leaveService.save(req.body);
             if (leave) {
                 commonResponse.success(res, "GET_LEAVE", 200, leave);

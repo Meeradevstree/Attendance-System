@@ -3,7 +3,7 @@ let softDelete = require('mongoosejs-soft-delete');
 
 const Schema = mongoose.Schema;
 
-const usersSchema = new Schema(
+const employeeSchema = new Schema(
     {
         email: {
             type: String,
@@ -125,8 +125,8 @@ const usersSchema = new Schema(
 
 
 
-usersSchema.plugin(softDelete);
+employeeSchema.plugin(softDelete);
 
-const Users = mongoose.model("Employee", usersSchema);
+const employee = mongoose.model("Employee", employeeSchema);
 
-module.exports = Users;
+module.exports = employee;

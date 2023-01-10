@@ -1,5 +1,5 @@
 const { commonResponse } = require("../../helper");
-const UsersModel = require("./member.model");
+const employeeModel = require("./employee.model");
 const roleModel = require("../RoleManagement/role.model");
 const departmentModel = require("../department/department.model");
 
@@ -114,10 +114,13 @@ exports.roledata = async (id) => {
 
 // getdepartmentdata
 exports.departmentdata = async (id) => {
-    // let rolemanagement_data = await roleModel.findOne({_id:id}).lean();
-    let department_data = await  departmentModel.findOne({_id:id}).lean();
+    let department_data = await departmentModel.findOne({_id:id}).lean();
     console.log(department_data);
     if(department_data){
-        return department_data.department_name;
+         department_data.department_name;
     }
+}
+
+exports.getDepById = async(depId) => {
+    return await departmentModel.find({departmentdata:depId}).lean()
 }

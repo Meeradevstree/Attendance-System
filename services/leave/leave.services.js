@@ -1,7 +1,7 @@
 const { commonResponse } = require("../../helper");
 const leaveModel = require("./leave.model");
 // const leaveModel = require("../leave/leave.model");
-const usersModel = require("../member/member.model");
+const employeeModel = require("../employee/employee.model");
 
 
 // // gmail
@@ -83,12 +83,12 @@ exports.delete = async (id) => {
 
 
 // getroledata
-exports.memberdata = async (id) => {
+exports.employeedata = async (id) => {
     // let rolemanagement_data = await roleModel.findOne({_id:id}).lean();
-    let member_data = await  usersModel.findOne({_id:id}).lean();
-    console.log(member_data);
-    if(member_data){
-        return member_data._id;
+    let employee_data = await  employeeModel.findOne({_id:id}).lean();
+    console.log(employee_data);
+    if(employee_data){
+        return employee_data._id;
     }
     // console.log(rolemanagement_data);
 }

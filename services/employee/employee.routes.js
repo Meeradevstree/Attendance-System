@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const controller = require("./member.controller");
+const controller = require("./employee.controller");
 const { guard } = require('../../helper');
 const multerSetting = require("../../helper/multer").userImageUpload;
 
@@ -106,5 +106,11 @@ router.post(
     guard.isAuthorized("member","edit"),
     controller.logout
 );
+
+
+router.get(
+    "/getemployeeByDep/:id",
+    controller.getemployeeByDepartmentId
+)
 
 module.exports = router;

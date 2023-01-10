@@ -1,4 +1,4 @@
-const {usersRoutes} = require("../services/member/index");
+const {employeeRoutes} = require("../services/employee/index");
 const {leaveRoutes} = require("../services/leave/index-leave");
 const roleRoutes  = require("../services/RoleManagement/index-role");
 const holidaysRoutes = require("../services/holidays/index-holidays");
@@ -8,7 +8,7 @@ const dashboardRoutes = require("../services/dashboard/dashboard-index");
 const attendanceRoutes = require("../services/attendance/attendance-index");
 
 const initialize = (app) => {
-  app.use("/api/users", usersRoutes);
+  app.use("/api/employee", employeeRoutes);
   app.use("/api/leave", leaveRoutes);
   app.use("/api/role", roleRoutes);
   app.use("/api/holidays", holidaysRoutes);
