@@ -100,18 +100,18 @@ const usersSchema = new Schema(
             default: "pending",
             required: false,
         },
-        linkedIn:{
-            type: String,
-            required: false
-        },
-        skype:{
-            type: String,
-            required: false
-        },
-        github:{
-            type: String,
-            required: false
-        },
+        // linkedIn:{
+        //     type: String,
+        //     required: false
+        // },
+        // skype:{
+        //     type: String,
+        //     required: false
+        // },
+        // github:{
+        //     type: String,
+        //     required: false
+        // },
         working:{
             type: String,
             enum: ["work from home","work from office"],

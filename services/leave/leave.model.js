@@ -13,6 +13,11 @@ const leaveSchema = new Schema(
         type: String,
         required: true
     },
+    // email:{
+    //     type: String,
+    //     // unique: false,
+    //     required: true
+    // },
     leave_days:{
         type: String,
         required: true

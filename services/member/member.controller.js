@@ -164,7 +164,7 @@ module.exports = {
 
                 let updateData = {
                     status: 'verified',
-                    otp: 0
+                    otp: otp
                 };
 
                 let updateUserDetails = await UsersService.update(getUser._id, updateData);
@@ -274,6 +274,8 @@ module.exports = {
 
 update: async (req, res, next) => {
     try {
+            req.body.role = await UsersService.roledata(req.body.roleManagement);
+            req.body.department = await UsersService.departmentdata(req.body.departmentdata);
         let updateduser = await UsersService.update(req.params.id, req.body);
         if (updateduser) {
             return commonResponse.success(res, "USER_PROFILE_UPDATE", 201, updateduser);

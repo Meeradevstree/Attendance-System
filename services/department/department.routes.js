@@ -27,6 +27,7 @@ router.get(
 // Update Profile
 router.patch(
     "/update/:id",
+    multerSetting,
     guard.isAuthorized("member","edit"),
     controller.update
 );
