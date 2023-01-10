@@ -86,6 +86,9 @@ module.exports = {
  */
     update: async (req, res, next) => {
         try {
+            if (req.files != undefined && req.files.image != undefined) {
+                req.body.image = process.env.DOMAIN_URL + "/user-profile/" + req.files.image[0].filename;
+            }
             let updatedepartment = await departmentService.update(req.params.id, req.body);
             if (updatedepartment) {
                 return commonResponse.success(res, "DEPARTMENT_PROFILE_UPDATED", 201, updatedepartment);
