@@ -95,6 +95,7 @@ list: async (req, res, next) => {
 
     update: async (req, res, next) => {
         try {
+            req.body.employeeid = await leaveService.employeedata(req.body.employeeID);
             let updatedLeave = await leaveService.update(req.params.id, req.body);
             if (updatedLeave) {
                 return commonResponse.success(res, "LEAVE_PROFILE_UPDATE", 201, updatedLeave);

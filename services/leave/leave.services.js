@@ -1,6 +1,5 @@
 const { commonResponse } = require("../../helper");
 const leaveModel = require("./leave.model");
-// const leaveModel = require("../leave/leave.model");
 const employeeModel = require("../employee/employee.model");
 
 

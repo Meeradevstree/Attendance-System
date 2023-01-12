@@ -16,7 +16,11 @@ const attendanceSchema = new Schema(
         recordID: {
             type: Schema.Types.ObjectId,
             ref: "Record"
-        }
+        },
+        employeeid:{
+            type: String,
+            required: false,
+        },
     },
 );
 

@@ -1,5 +1,6 @@
 const { commonResponse } = require("../../helper");
 const attendanceModel = require("./attendance.model");
+const employeeModel = require("../employee/employee.model");
 
 /*
 *  Create Holidays
@@ -81,3 +82,14 @@ exports.update = async (id, reqBody) => {
 exports.delete = async (id) => {
     return await attendanceModel.removeOne({ _id: id },{new: true}).lean();
 };
+
+// getroledata
+exports.employeeid = async (id) => {
+    // let rolemanagement_data = await roleModel.findOne({_id:id}).lean();
+    let employee_data = await  employeeModel.findOne({_id:id}).lean();
+    console.log(employee_data);
+    if(employee_data){
+        return employee_data._id;
+    }
+    // console.log(rolemanagement_data);
+}
