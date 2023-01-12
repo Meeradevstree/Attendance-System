@@ -28,14 +28,14 @@ router.get(
 // Update Profile
 router.patch(
     "/update/:id",
-    guard.isAuthorized("user","edit"),
+    guard.isAuthorized("employee","edit"),
     controller.update
 );
 
 // Delete Profile
  router.delete(
     "/delete/:id",
-    guard.isAuthorized("user","delete"),
+    guard.isAuthorized("employee","delete"),
     controller.delete  
 );
 

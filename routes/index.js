@@ -1,4 +1,4 @@
-const {usersRoutes} = require("../services/member/index");
+const {employeeRoutes} = require("../services/employee/index");
 const {leaveRoutes} = require("../services/leave/index-leave");
 const roleRoutes  = require("../services/RoleManagement/index-role");
 const holidaysRoutes = require("../services/holidays/index-holidays");
@@ -6,9 +6,12 @@ const departmentRoutes = require("../services/department/index-department");
 const sub_depRoutes = require("../services/sub-department/sub-dep.index");
 const dashboardRoutes = require("../services/dashboard/dashboard-index");
 const attendanceRoutes = require("../services/attendance/attendance-index");
+const recordRoutes = require("../services/records/index-record");
+// const dateRoutes = require("../services/date/index-date");
+// const monthRoutes=require("../services/months/month-index")
 
 const initialize = (app) => {
-  app.use("/api/users", usersRoutes);
+  app.use("/api/employee", employeeRoutes);
   app.use("/api/leave", leaveRoutes);
   app.use("/api/role", roleRoutes);
   app.use("/api/holidays", holidaysRoutes);
@@ -16,6 +19,9 @@ const initialize = (app) => {
   app.use("/api/sub_dep", sub_depRoutes);
   app.use("/api/dashboard", dashboardRoutes);
   app.use("/api/attendance", attendanceRoutes);
+  app.use("/api/record", recordRoutes);
+  // app.use("/api/date", dateRoutes);
+  // app.use("/api/month",monthRoutes);
    
   app.use("/authError", (req, res, next) => {
     return next(new Error("DEFAULT_AUTH"));

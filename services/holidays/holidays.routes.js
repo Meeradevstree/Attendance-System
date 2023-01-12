@@ -27,14 +27,14 @@ router.get(
 // Update Profile
 router.patch(
     "/update/:id",
-    guard.isAuthorized("member","edit"),
+    guard.isAuthorized("employee","edit"),
     controller.update
 );
 
 // Delete holiday
 router.delete(
     "/delete/:id",
-    guard.isAuthorized("member","delete"),
+    guard.isAuthorized("employee","delete"),
     controller.delete
 );
 

@@ -1,5 +1,5 @@
 const { commonResponse } = require("../../helper");
-const UsersModel = require("./member.model");
+const employeeModel = require("./employee.model");
 const roleModel = require("../RoleManagement/role.model");
 const departmentModel = require("../department/department.model");
 
@@ -7,7 +7,7 @@ const departmentModel = require("../department/department.model");
 *  Check Email Exist
 */
 exports.is_exist = async (reqBody) => {
-    return  await UsersModel.findOne({email: reqBody.email}).lean();
+    return  await employeeModel.findOne({email: reqBody.email}).lean();
 };
 
 
@@ -47,11 +47,11 @@ exports.list = async (reqQuery) => {
     }
 
     query.deleted = false;
-    returnData.total_counts = await UsersModel.countDocuments(query).lean();
+    returnData.total_counts = await employeeModel.countDocuments(query).lean();
     returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
     returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
 
-    returnData.list = await UsersModel.find(query).skip(skip).limit(limit).populate('roleManagement').populate({path:'departmentdata',model:'department', populate: {path: 'sub_dep_ID',model: 'sub_dep'}}).lean();
+    returnData.list = await employeeModel.find(query).skip(skip).limit(limit).populate('roleManagement').populate({path:'departmentdata',model:'department', populate: {path: 'sub_dep_ID',model: 'sub_dep'}}).lean();
 
     return returnData;
 };
@@ -63,7 +63,7 @@ exports.list = async (reqQuery) => {
 *  Get By Id 
 */
 exports.getbyid = async (id) => {
-    return await UsersModel.findOne({ _id: id }).lean();
+    return await employeeModel.findOne({ _id: id }).lean();
 };
 
 
@@ -71,7 +71,7 @@ exports.getbyid = async (id) => {
 *  Get By Id
 */
 exports.get_id = async (id) => {
-    return await UsersModel.findOne({ _id: id }).populate('roleManagement',{"_id" : 0, "deleted" : 0,"login_type": 0,"title":0, "__v": 0}).populate({path:'departmentdata',model:'department', populate: {path: 'sub_dep_ID',model: 'sub_dep'}}).lean();
+    return await employeeModel.findOne({ _id: id }).populate('roleManagement',{"_id" : 0, "deleted" : 0,"login_type": 0,"title":0, "__v": 0}).populate({path:'departmentdata',model:'department', populate: {path: 'sub_dep_ID',model: 'sub_dep'}}).lean();
     
 };
 
@@ -80,7 +80,7 @@ exports.get_id = async (id) => {
 *  Add New User
 */
 exports.save = async (reqBody) => {
-    return await new UsersModel(reqBody).save();
+    return await new employeeModel(reqBody).save();
 };
 
 
@@ -88,7 +88,7 @@ exports.save = async (reqBody) => {
 *  Update leave
 */
 exports.update = async (id, reqBody) => {
-    return await UsersModel.findOneAndUpdate({ _id: id }, { $set: reqBody }, { new: true, }).lean();
+    return await employeeModel.findOneAndUpdate({ _id: id }, { $set: reqBody }, { new: true, }).lean();
 };
 
 
@@ -96,7 +96,7 @@ exports.update = async (id, reqBody) => {
 *  Delete User
 */
 exports.delete = async (id) => {
-    return await UsersModel.removeOne({ _id: id },{new: true}).lean();
+    return await employeeModel.removeOne({ _id: id },{new: true}).lean();
 };
 
 
@@ -114,10 +114,13 @@ exports.roledata = async (id) => {
 
 // getdepartmentdata
 exports.departmentdata = async (id) => {
-    // let rolemanagement_data = await roleModel.findOne({_id:id}).lean();
-    let department_data = await  departmentModel.findOne({_id:id}).lean();
+    let department_data = await departmentModel.findOne({_id:id}).lean();
     console.log(department_data);
     if(department_data){
-        return department_data.department_name;
+         department_data.department_name;
     }
+}
+
+exports.getDepById = async(depId) => {
+    return await departmentModel.find({departmentdata:depId}).lean()
 }

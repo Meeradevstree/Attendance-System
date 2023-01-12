@@ -1,4 +1,4 @@
-const UsersService = require("./member.services");
+const employeeService = require("./employee.services");
 const passport = require("passport");
 const guard = require("../../helper/guards");
 const { commonResponse, commonFunctions, nodemailer } = require("../../helper");
@@ -13,7 +13,7 @@ module.exports = {
             if(req.body.email){
                 req.body.email = req.body.email.toLowerCase();
             }
-            let is_exist = await UsersService.is_exist(req.body);
+            let is_exist = await employeeService.is_exist(req.body);
             if (is_exist) {
                 return next(new Error("EMAIL_EXIST"));
             }
@@ -31,10 +31,10 @@ module.exports = {
             // console.log(req.body);
             req.body.otp=otp;
             
-            req.body.role = await UsersService.roledata(req.body.roleManagement);
-            req.body.department = await UsersService.departmentdata(req.body.departmentdata);
+            req.body.role = await employeeService.roledata(req.body.roleManagement);
+            req.body.department = await employeeService.departmentdata(req.body.departmentdata);
 
-            let user = await UsersService.save(req.body);
+            let user = await employeeService.save(req.body);
 
             if (user) {
                 /* Send Account Verification Link */
@@ -47,7 +47,7 @@ module.exports = {
                 };
                 nodemailer.sendMail(emailData);
 
-                let getUser = await UsersService.list(user._id);
+                let getUser = await employeeService.list(user._id);
                 console.log("get user data => ",getUser)
                 commonResponse.success(res, "USER_CREATED", 201, user);
             } else {
@@ -86,13 +86,13 @@ module.exports = {
                 //     return commonResponse.customResponse(res, "USER_DEACTIVATED", 404, user, "Your account has been deactivated, Please contact admin to activate your account");
                 // }
 
-                // await UsersService.update(user._id, {
+                // await employeeService.update(user._id, {
                 //     fcm_token: req.body.fcm_token ? req.body.fcm_token : "",
                 //     device_type: req.body.device_type ? req.body.device_type : "android",
                 //     device_id: req.body.device_id ? req.body.device_id : "",
                 // });
 
-                let userResponse = await UsersService.get_id(user._id);
+                let userResponse = await employeeService.get_id(user._id);
                 const token = await guard.createToken(user, userResponse.role);
                 userResponse.token = token.token;
                 return commonResponse.success(res, "LOGIN_SUCCESS", 202, userResponse);
@@ -111,7 +111,7 @@ module.exports = {
             if(req.body.email){
                 req.body.email = req.body.email.toLowerCase();
             }
-            let user = await UsersService.is_exist(req.body);
+            let user = await employeeService.is_exist(req.body);
             if (user) {
                 //let otp = await commonFunctions.randomSixDigit();
                 var otp = Math.random();
@@ -122,7 +122,7 @@ module.exports = {
                 let updateData = {
                     otp: otp
                 };
-                let updateUser = await UsersService.update(user._id, updateData);
+                let updateUser = await employeeService.update(user._id, updateData);
                 if (updateUser) {
                     /* Send Account Verification OTP */
                     let emailData = {
@@ -152,7 +152,7 @@ module.exports = {
     
     verifyUser: async (req, res, next) => {
         try {
-            let getUser = await UsersService.is_exist(req.body);
+            let getUser = await employeeService.is_exist(req.body);
             if (getUser) {
 
                 if (getUser.status == 'deactivated') {
@@ -167,7 +167,7 @@ module.exports = {
                     otp: otp
                 };
 
-                let updateUserDetails = await UsersService.update(getUser._id, updateData);
+                let updateUserDetails = await employeeService.update(getUser._id, updateData);
                 if (updateUserDetails) {
                     const token = await guard.createToken(updateUserDetails, "user");
                     updateUserDetails.token = token.token;
@@ -193,7 +193,7 @@ module.exports = {
             if(req.body.email){
                 req.body.email = req.body.email.toLowerCase();
             }
-            let checkUserExist = await UsersService.is_exist(req.body);
+            let checkUserExist = await employeeService.is_exist(req.body);
             if (checkUserExist) {
 
                 if (checkUserExist.status == 'deactivated') {
@@ -208,7 +208,7 @@ module.exports = {
                 let updateData = {
                     otp: otp
                 };
-                let updateUser = await UsersService.update(checkUserExist._id, updateData);
+                let updateUser = await employeeService.update(checkUserExist._id, updateData);
                 /* Send Reset Password OTP */
                 let emailData = {
                     to: updateUser.email,
@@ -235,7 +235,7 @@ module.exports = {
     
     resetPassword: async (req, res, next) => {
         try {
-            let user = await UsersService.get(req.body._id);
+            let user = await employeeService.get(req.body._id);
             if (user) {
 
                 if (user.status == 'pending') {
@@ -250,7 +250,7 @@ module.exports = {
                     let updateData = {
                         password: req.body.new_password,
                     };
-                    let updateUserDetails = await UsersService.update(user._id, updateData);
+                    let updateUserDetails = await employeeService.update(user._id, updateData);
                     if (updateUserDetails) {
                         return commonResponse.success(res, "PASSWORD_RESET_SUCCESS", 201, updateUserDetails);
                     } else {
@@ -274,9 +274,9 @@ module.exports = {
 
 update: async (req, res, next) => {
     try {
-            req.body.role = await UsersService.roledata(req.body.roleManagement);
-            req.body.department = await UsersService.departmentdata(req.body.departmentdata);
-        let updateduser = await UsersService.update(req.params.id, req.body);
+            req.body.role = await employeeService.roledata(req.body.roleManagement);
+            req.body.department = await employeeService.departmentdata(req.body.departmentdata);
+        let updateduser = await employeeService.update(req.params.id, req.body);
         if (updateduser) {
             return commonResponse.success(res, "USER_PROFILE_UPDATE", 201, updateduser);
         } else {
@@ -293,7 +293,7 @@ update: async (req, res, next) => {
     
     delete: async (req, res, next) => {
         try {
-            let deleteUser = await UsersService.delete(req.params.id);
+            let deleteUser = await employeeService.delete(req.params.id);
             if (deleteUser) {
                 return commonResponse.success(res, "USER_PROFILE_DELETED", 202, deleteUser);
             } else {
@@ -310,7 +310,7 @@ update: async (req, res, next) => {
     
     changePassword: async (req, res, next) => {
         try {
-            let getUser = await UsersService.is_exist(req.body);
+            let getUser = await employeeService.is_exist(req.body);
             if (getUser) {
                 let isPasswordValid = await commonFunctions.matchPassword(
                     req.body.old_password,
@@ -324,7 +324,7 @@ update: async (req, res, next) => {
                         let updateData = {
                             password: req.body.new_password,
                         };
-                        let updatePassword = await UsersService.update(getUser._id, updateData);
+                        let updatePassword = await employeeService.update(getUser._id, updateData);
                         if (updatePassword) {
                             return commonResponse.success(res, "PASSWORD_CHANGED_SUCCESS", 202, updatePassword);
                         } else {
@@ -352,7 +352,7 @@ update: async (req, res, next) => {
    list: async (req, res, next) => {
         // let language_code = req.headers.language_code ? req.headers.language_code : 'en';
         try {
-            const list = await UsersService.list(req.query);
+            const list = await employeeService.list(req.query);
             let resp;
             if (list.list.length > 0) {
                 resp = {
@@ -397,7 +397,7 @@ update: async (req, res, next) => {
     
     getUserById: async (req, res, next) => {
         try {
-            let User = await UsersService.getbyid(req.params.id);
+            let User = await employeeService.getbyid(req.params.id);
             if (User) {
                 commonResponse.success(res, "GET_USER", 200, User);
             } else {
@@ -418,7 +418,7 @@ update: async (req, res, next) => {
                 device_id: ''
             };    
             console.log("req.body.id :" , req.body)
-            let update = await UsersService.update(req.params.id, updateData);
+            let update = await employeeService.update(req.params.id, updateData);
             if (update) {
                 return commonResponse.success(res, "USER_LOGOUT", 202, update);
             } else {
@@ -428,4 +428,46 @@ update: async (req, res, next) => {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
         }
     },
+
+    getemployeeByDepartmentId:async(req,res,next) => {
+        try {
+            let employeeListByDepId =await employeeService.getDepById(req.params.id);
+            
+            console.log("employeeListByDepId : " , employeeListByDepId)
+            let resp;
+            if (employeeListByDepId.length > 0) {
+                resp = {
+                    error: false,
+                    statusCode: 200,
+                    messageCode: 'employeeListByDepId_OF_PROOFILE',
+                    message: `employeeListByDepId of all user profile`,
+                    pagination: {
+                        total_counts: employeeListByDepId.total_counts,
+                        total_pages: employeeListByDepId.total_pages,
+                        current_page: employeeListByDepId.current_page,
+                        
+                    },
+                    data: employeeListByDepId
+                }
+            } else {
+                resp = {
+                    error: false,
+                    statusCode: 200,
+                    messageCode: 'NO_DATA',
+                    message: `User data not found`,
+                    pagination: {
+                        total_counts: employeeListByDepId.total_counts,
+                        total_pages: employeeListByDepId.total_pages,
+                        current_page: employeeListByDepId.current_page,
+                    },
+                    data: employeeListByDepId.employeeListByDepId
+                }
+            }
+            return commonResponse.customSuccess(res, resp);
+        } catch (error) {
+            
+        }
+
+
+    }
 };
