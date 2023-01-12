@@ -40,6 +40,11 @@ const leaveSchema = new Schema(
         required:true,
         trim:true
     },
+    combined_date:{
+        type:String,
+        required:false,
+        trim:true
+    },
     status: {
         type: String,
         enum: ["reject","approved","pending"],

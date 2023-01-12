@@ -13,13 +13,13 @@ router.post(
 
 // read
 router.get(
-    "/get/:id",
+    "/list/:id",
     controller.list
 );
 
 // read all
 router.get(
-    "/get",
+    "/list",
     controller.list
 );
 

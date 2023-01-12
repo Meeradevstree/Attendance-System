@@ -43,7 +43,7 @@ exports.list = async (reqQuery) => {
     }
 
     if (reqQuery.search && reqQuery.search != "") {
-        query["first_name","last_name","department"] = { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") };
+        query["first_name"]= { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") };
     }
 
     query.deleted = false;

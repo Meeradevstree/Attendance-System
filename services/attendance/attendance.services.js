@@ -51,8 +51,8 @@ exports.list = async (reqQuery) => {
     }
 
     if (reqQuery.search && reqQuery.search != "") {
-        query["employeeid","date"] = { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") };
-    }
+        query["employeeid"] = { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") };
+    }   
 
     query.deleted = false;
     returnData.total_counts = await attendanceModel.countDocuments(query).lean();
@@ -83,13 +83,11 @@ exports.delete = async (id) => {
     return await attendanceModel.removeOne({ _id: id },{new: true}).lean();
 };
 
-// getroledata
-exports.employeeid = async (id) => {
-    // let rolemanagement_data = await roleModel.findOne({_id:id}).lean();
-    let employee_data = await  employeeModel.findOne({_id:id}).lean();
+// getemployeeid
+exports.employeedata = async (id) => {
+    let employee_data = await employeeModel.findOne({_id:id}).lean();
     console.log(employee_data);
     if(employee_data){
         return employee_data._id;
     }
-    // console.log(rolemanagement_data);
 }

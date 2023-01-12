@@ -14,7 +14,7 @@ const roleSchema = new Schema(
             enum: ["ceo","director", "hr", "sub-hr", "pm", "tl", "sd", "developer","president","bd"],
             required: false
         },
-        member: [{
+        employee: [{
             type: String,
             enum: ['add', 'edit', 'view', 'delete'],
             default: []

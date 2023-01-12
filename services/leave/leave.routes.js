@@ -12,13 +12,13 @@ router.post (
 
 // read
 router.get(
-    "/read/:id",
+    "/list/:id",
     controller.getleaveById
 );
 
 // read
 router.get(
-    "/read",
+    "/list",
     controller.list
 );
 

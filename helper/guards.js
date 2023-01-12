@@ -1,12 +1,12 @@
 const jwt = require("jsonwebtoken");
 const commonResponse = require("./commonResponse");
-const employee = require("../services/employee/employee.model");
-const employeeServices = require("../services/employee");
+const employeeModel = require("../services/employee/employee.model");
+// const employeeServices = require("../services/employee");
 const roles = require("../services/RoleManagement/role.model")
 const createToken = (employee, type = "employee") => {
   let payload = {
     id: employee._id.toString(),
-    role: employeeServices.role
+    role: employee.role
   };
 
   const token = jwt.sign(payload, "jsonwebtoken", {
@@ -37,7 +37,7 @@ const isAuthorized =
       console.log(actionType);
       const isVerify = verifyJWT(req, res);
       if (isVerify) {
-        const employee = await employee.findById({ _id: req.employee.id });
+        const employee = await employeeModel.findById({ _id: req.employee.id });
         console.log("employee : " , employee)
         if (employee) {
           const getRoleAccessData = await roles.findById({ _id: employee.roleManagement });

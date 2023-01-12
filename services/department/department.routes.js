@@ -12,7 +12,7 @@ router.post(
 
 // Get user by id
 router.get(
-    "/get/:id",
+    "/list/:id",
     controller.getById
 );
 
