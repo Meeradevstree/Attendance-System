@@ -64,7 +64,7 @@ module.exports = {
     //   Login
     
     login: async (req, res, next) => {
-        passport.authenticate("user", async function (err, user, info) {
+        passport.authenticate("employee", async function (err, user, info) {
             if (err) {
                 var err = err;
                 err.status = 400;

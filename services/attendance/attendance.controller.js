@@ -8,9 +8,7 @@ module.exports = {
 
     attendance: async (req, res, next) => {
         try {
-            if (req.files != undefined && req.files.image != undefined) {
-                req.body.image = process.env.DOMAIN_URL + "/user-profile/" + req.files.image[0].filename;
-            }
+            req.body.employeeid = await attendanceService.employeedata(req.body.employeeID);
             const attendance = await attendanceService.save(req.body);
             if (attendance) {
                 commonResponse.success(res, "ATTENDANCE_CREATED", 200, attendance);
@@ -89,6 +87,7 @@ module.exports = {
  */
     update: async (req, res, next) => {
         try {
+            req.body.employeeid = await attendanceService.employeedata(req.body.employeeID);
             let updateattendance = await attendanceService.update(req.params.id, req.body);
             if (updateattendance) {
                 return commonResponse.success(res, "ATTENDANCE_PROFILE_UPDATE", 201, updateattendance);

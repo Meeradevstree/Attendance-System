@@ -12,7 +12,7 @@ router.post(
 
 // Get user by id
 router.get(
-    "/get/:id",
+    "/list/:id",
     controller.getById
 );
 
@@ -28,14 +28,14 @@ router.get(
 router.patch(
     "/update/:id",
     multerSetting,
-    guard.isAuthorized("member","edit"),
+    guard.isAuthorized("employee","edit"),
     controller.update
 );
 
 // Delete Profile
  router.delete(
     "/delete/:id",
-    guard.isAuthorized("member","delete"),
+    guard.isAuthorized("employee","delete"),
     controller.delete  
 );
 

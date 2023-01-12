@@ -10,17 +10,7 @@ exports.is_exist = async (reqBody) => {
     return  await employeeModel.findOne({email: reqBody.email}).lean();
 };
 
-
-// /*
-// *  Get 
-// */
-// exports.get = async () => {
-//     return await UsersModel.find({}).populate('roleManagement').populate({path:'departmentdata',model:'department', populate: {path: 'sub_dep_ID',model: 'sub_dep'}}).lean();
-// };
-
-//////////////////////////////
-
-
+// list
 exports.list = async (reqQuery) => {
     let page = 0;
     let limit = 10;
@@ -43,7 +33,7 @@ exports.list = async (reqQuery) => {
     }
 
     if (reqQuery.search && reqQuery.search != "") {
-        query["first_name","last_name","department"] = { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") };
+        query["department"]= { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") };
     }
 
     query.deleted = false;
@@ -57,7 +47,6 @@ exports.list = async (reqQuery) => {
 };
 
 
-///////////////////////////////////////////////////////
 
 /*
 *  Get By Id 
@@ -102,13 +91,11 @@ exports.delete = async (id) => {
 
 // getroledata
 exports.roledata = async (id) => {
-    // let rolemanagement_data = await roleModel.findOne({_id:id}).lean();
     let rolemanagement_data = await  roleModel.findOne({_id:id}).lean();
     console.log(rolemanagement_data);
     if(rolemanagement_data){
         return rolemanagement_data.login_type;
     }
-    // console.log(rolemanagement_data);
 }
 
 
@@ -117,7 +104,7 @@ exports.departmentdata = async (id) => {
     let department_data = await departmentModel.findOne({_id:id}).lean();
     console.log(department_data);
     if(department_data){
-         department_data.department_name;
+        return department_data.department_name;
     }
 }
 

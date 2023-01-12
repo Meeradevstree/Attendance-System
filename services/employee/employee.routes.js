@@ -58,7 +58,7 @@ router.post(
  */
 router.put(
     "/update/:id",
-    guard.isAuthorized("member","edit"),
+    guard.isAuthorized("employee","edit"),
     controller.update
 );
 
@@ -67,7 +67,7 @@ router.put(
  */
  router.delete(
     "/delete/:id",
-    guard.isAuthorized("member","delete"),
+    guard.isAuthorized("employee","delete"),
     controller.delete  
 );
 
@@ -76,7 +76,7 @@ router.put(
  */
 router.post(
     "/change-password/:id",
-    guard.isAuthorized("member","edit"),
+    guard.isAuthorized("employee","edit"),
     controller.changePassword
 );
 
@@ -84,7 +84,7 @@ router.post(
  *  Get Profile
  */
 router.get(
-    "/get",
+    "/list",
     // guard.isAuthorized(['admin', 'organizer', 'player']),
     controller.list
 );
@@ -93,7 +93,7 @@ router.get(
  *  Get user by id
  */
 router.get(
-    "/get/:id",
+    "/list/:id",
     // guard.isAuthorized(['admin', 'organizer', 'player']),
     controller.getUserById
 );
@@ -103,7 +103,7 @@ router.get(
  */
 router.post(
     "/logout/:id",
-    guard.isAuthorized("member","edit"),
+    guard.isAuthorized("employee","edit"),
     controller.logout
 );
 
