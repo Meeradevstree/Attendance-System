@@ -51,7 +51,7 @@ exports.list = async (reqQuery) => {
     }
 
     if (reqQuery.search && reqQuery.search != "") {
-        query["employeeid"] = { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") };
+        query["date"] = { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") };
     }   
 
     query.deleted = false;

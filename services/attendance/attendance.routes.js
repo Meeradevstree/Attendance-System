@@ -26,7 +26,7 @@ router.get(
 // Update Profile
 router.patch(
     "/update/:id",
-    // guard.isAuthorized("employee","edit"),
+    guard.isAuthorized("employee","edit"),
     controller.update
 );
 
