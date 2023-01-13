@@ -5,22 +5,17 @@ const Schema = mongoose.Schema;
 
 const attendanceSchema = new Schema(
     {
-        date: {
-            type: String,
-            required: true
-        },
         employeeID: {
             type: Schema.Types.ObjectId,
             ref: "Employee"
-        },
-        recordID: {
-            type: Schema.Types.ObjectId,
-            ref: "Record"
         },
         employeeid:{
             type: String,
             required: false,
         },
+        attendanceData:{
+            
+        }
     },
 );
 
