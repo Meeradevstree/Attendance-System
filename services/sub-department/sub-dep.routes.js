@@ -28,14 +28,14 @@ router.get(
 // Update sub_dep
 router.patch(
     "/update/:id",
-    guard.isAuthorized("employee","edit"),
+    guard.isAuthorized("sub_department","edit"),
     controller.update
 );
 
 // Delete sub_dep
  router.delete(
     "/delete/:id",
-    guard.isAuthorized("employee","delete"),
+    guard.isAuthorized("sub_department","delete"),
     controller.delete  
 );
 

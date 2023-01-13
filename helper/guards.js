@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const commonResponse = require("./commonResponse");
 const employeeModel = require("../services/employee/employee.model");
-// const employeeServices = require("../services/employee");
+const employeeServices = require("../services/employee");
 const roles = require("../services/RoleManagement/role.model")
 const createToken = (employee, type = "employee") => {
   let payload = {

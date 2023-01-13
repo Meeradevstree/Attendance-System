@@ -164,7 +164,7 @@ module.exports = {
 
                 let updateData = {
                     status: 'verified',
-                    otp: otp
+                    otp: 0
                 };
 
                 let updateUserDetails = await employeeService.update(getUser._id, updateData);
