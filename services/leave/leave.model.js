@@ -32,12 +32,12 @@ const leaveSchema = new Schema(
     },
     from_date:{
         type:String,
-        required:true,
+        required:false,
         trim:true
     },
     to_date:{
         type:String,
-        required:true,
+        required:false,
         trim:true
     },
     combined_date:{
