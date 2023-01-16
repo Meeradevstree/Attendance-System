@@ -13,7 +13,7 @@ exports.save = async (reqBody) => {
 *  Get Date By Id
 */
 exports.get_id = async (id) => {
-    return await dateModel.findOne({ _id: id }).populate("1",{"deleted" : 0,"_id":0,"__v": 0}).lean();
+    return await dateModel.findOne({ _id: id }).populate("1").lean();
     
 };
 

@@ -6,128 +6,190 @@ const Schema = mongoose.Schema;
 const dateSchema = new Schema(
     {
         1:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         2:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         3:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         4:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         5:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         6:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         7:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         8:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         9:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         10:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         11:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         12:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         13:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         14:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         15:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         16:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         17:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         18:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         19:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         20:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         21:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         22:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         23:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         24:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         25:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         26:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         27:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         28:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         29:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         30:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
         31:{
-            type: Schema.Types.ObjectId,
-            ref :"Record"
+            type: String,
+            enum: ["a","p","h-l"],
+            // default: "p",
+            required: false,
         },
     },
 );
