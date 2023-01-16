@@ -15,7 +15,7 @@ const holidaysSchema = new Schema(
         },
         holiday_day:{
             type: String,
-            required: true
+            required: false
         }
     },
 );
