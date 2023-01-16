@@ -13,9 +13,12 @@ const attendanceSchema = new Schema(
             type: String,
             required: false,
         },
-        attendanceData:{
-            
-        }
+        attendance:[{
+            date:{
+                type:String
+            },
+            entry:{type:String}
+        }],
     },
 );
 

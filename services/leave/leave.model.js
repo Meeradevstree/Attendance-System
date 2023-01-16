@@ -7,7 +7,7 @@ const leaveSchema = new Schema(
 {
     total_leave:{
         type: String,
-        required: true
+        required: false
     },
     leave_reason:{
         type: String,

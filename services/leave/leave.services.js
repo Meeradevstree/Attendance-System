@@ -19,7 +19,7 @@ exports.save = async (reqBody) => {
 *  Get By Id
 */
 exports.get = async (id) => {
-    return await leaveModel.find({ _id: id }, { new: true }).populate("employeeID").lean();
+    return await leaveModel.find({ _id: id }.sort({ _id: -1}), { new: true }).populate("employeeID").lean();
 };
 
 
@@ -56,7 +56,7 @@ exports.list = async (reqQuery) => {
     returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
     returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
 
-    returnData.list = await leaveModel.find(query).skip(skip).limit(limit).populate("employeeID").lean();
+    returnData.list = await leaveModel.find(query).sort({ _id: -1}).skip(skip).limit(limit).populate("employeeID").lean();
 
     return returnData;
 };

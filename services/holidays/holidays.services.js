@@ -49,7 +49,7 @@ exports.list = async (reqQuery) => {
     returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
     returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
 
-    returnData.list = await holidaysModel.find(query).skip(skip).limit(limit).lean();
+    returnData.list = await holidaysModel.find(query).sort({ _id: -1}).skip(skip).limit(limit).lean();
 
     return returnData;
 };

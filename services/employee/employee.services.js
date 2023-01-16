@@ -42,18 +42,17 @@ exports.list = async (reqQuery) => {
     returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
     returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
 
-    returnData.list = await employeeModel.find(query).skip(skip).limit(limit).populate('roleManagement').populate({path:'departmentdata',model:'department', populate: {path: 'sub_dep_ID',model: 'sub_dep'}}).lean();
+    returnData.list = await employeeModel.find(query).sort({ _id: -1}).skip(skip).limit(limit).populate('roleManagement').populate({path:'departmentdata',model:'department', populate: {path: 'sub_dep_ID',model: 'sub_dep'}}).lean();
 
     return returnData;
 };
-
 
 
 /*
 *  Get By Id 
 */
 exports.getbyid = async (id) => {
-    return await employeeModel.findOne({ _id: id }).lean();
+    return await employeeModel.findOne({ _id: id }).sort({ _id: -1}).lean();
 };
 
 
@@ -61,8 +60,7 @@ exports.getbyid = async (id) => {
 *  Get By Id
 */
 exports.get_id = async (id) => {
-    return await employeeModel.findOne({ _id: id }).populate('roleManagement',{"_id" : 0, "deleted" : 0,"login_type": 0,"title":0, "__v": 0}).populate({path:'departmentdata',model:'department', populate: {path: 'sub_dep_ID',model: 'sub_dep'}}).lean();
-    
+    return await employeeModel.findOne({ _id: id }).sort({ _id: -1}).populate('roleManagement',{"_id" : 0, "deleted" : 0,"login_type": 0,"title":0, "__v": 0}).populate({path:'departmentdata',model:'department', populate: {path: 'sub_dep_ID',model: 'sub_dep'}}).lean();
 };
 
 

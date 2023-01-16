@@ -24,12 +24,12 @@ module.exports = {
 
             req.body.password = await commonFunctions.encryptStringCrypt(req.body.password);
 
-            // req.body.otp = await commonFunctions.randomSixDigit();
-            var otp = Math.random();
-            otp = otp * 1000000;
-            otp = parseInt(otp);
-            // console.log(req.body);
-            req.body.otp=otp;
+            // // req.body.otp = await commonFunctions.randomSixDigit();
+            // var otp = Math.random();
+            // otp = otp * 1000000;
+            // otp = parseInt(otp);
+            // // console.log(req.body);
+            // req.body.otp=otp;
             
             req.body.role = await employeeService.roledata(req.body.roleManagement);
             req.body.department = await employeeService.departmentdata(req.body.departmentdata);
