@@ -13,7 +13,7 @@ exports.save = async (reqBody) => {
 *  Get Department By Id
 */
 exports.get_id = async (id) => {
-    return await departmentModel.findOne({ _id: id }).populate("sub_dep_ID").lean();
+    return await departmentModel.findOne({ _id: id }).sort({ _id: -1}).populate("sub_dep_ID").lean();
     
 };
 
@@ -58,7 +58,7 @@ exports.list = async (reqQuery) => {
     returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
     returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
 
-    returnData.list = await departmentModel.find(query).skip(skip).limit(limit).populate("sub_dep_ID").lean();
+    returnData.list = await departmentModel.find(query).sort({ _id: -1}).skip(skip).limit(limit).populate("sub_dep_ID").lean();
 
     return returnData;
 };

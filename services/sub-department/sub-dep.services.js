@@ -13,7 +13,7 @@ exports.save = async (reqBody) => {
 *  Get Role By Id
 */
 exports.get_id = async (id) => {
-    return await sub_depModel.findOne({ _id: id }).lean();
+    return await sub_depModel.findOne({ _id: id }).sort({ _id: -1}).lean();
     
 };
 
@@ -56,7 +56,7 @@ exports.list = async (reqQuery) => {
     returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
     returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
 
-    returnData.list = await sub_depModel.find(query).skip(skip).limit(limit).lean();
+    returnData.list = await sub_depModel.find(query).sort({ _id: -1}).skip(skip).limit(limit).lean();
 
     return returnData;
 };
