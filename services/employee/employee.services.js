@@ -1,7 +1,9 @@
 const { commonResponse } = require("../../helper");
 const employeeModel = require("./employee.model");
 const roleModel = require("../RoleManagement/role.model");
+const leaveModel = require("../leave/leave.model");
 const departmentModel = require("../department/department.model");
+const { Model } = require("mongoose");
 
 /*
 *  Check Email Exist

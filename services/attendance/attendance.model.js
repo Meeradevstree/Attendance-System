@@ -9,16 +9,24 @@ const attendanceSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: "Employee"
         },
-        employeeid:{
+        employeeid: {
             type: String,
             required: false,
         },
-        attendance:[{
-            date:{
-                type:String
-            },
-            entry:{type:String}
-        }],
+        Months: {
+            January: [{
+                date: {
+                    type: String,
+                    require: false
+                },
+                record: {
+                    type: String,
+                    enum: ["present","absent","half-day","holiday"],
+                    default: "present",
+                    required: false,
+                }
+            }]
+        },
     },
 );
 

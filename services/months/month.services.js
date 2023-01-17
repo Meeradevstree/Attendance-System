@@ -46,7 +46,7 @@ exports.list = async (reqQuery) => {
     returnData.total_counts = await monthModel.countDocuments(query).lean();
     returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
     returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
-    returnData.list = await monthModel.find(query).skip(skip).limit(limit).populate({path:'january',model:'Date', populate: {path: '1',model: 'Record'}}).lean();
+    returnData.list = await monthModel.find(query).skip(skip).limit(limit).populate("january",{"deleted" : 0,"__v": 0,"_id":0}).populate("february").populate("march").populate("april").populate("may").populate("june").populate("july").populate("august").populate("september").populate("october").populate("november").populate("december").lean();
 
     return returnData;
 };
