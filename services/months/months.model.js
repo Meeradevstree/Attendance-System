@@ -5,54 +5,54 @@ const Schema = mongoose.Schema;
 
 const monthSchema = new Schema(
     {
-        january: {
+        january: [{
             type: Schema.Types.ObjectId,
             ref :"Date"
-        },
-        february: {
+        }],
+        february: [{
             type: Schema.Types.ObjectId,
             ref :"Date"
-        },
-        march: {
+        }],
+        march: [{
             type: Schema.Types.ObjectId,
             ref :"Date"
-        },
-        april: {
+        }],
+        april: [{
             type: Schema.Types.ObjectId,
             ref :"Date"
-        },
-        may: {
+        }],
+        may: [{
             type: Schema.Types.ObjectId,
             ref :"Date"
-        },
-        june: {
+        }],
+        june: [{
             type: Schema.Types.ObjectId,
             ref :"Date"
-        },
-        july:{
+        }],
+        july:[{
             type: Schema.Types.ObjectId,
             ref :"Date"
-        },
-        august:{
+        }],
+        august:[{
             type: Schema.Types.ObjectId,
             ref :"Date"
-        },
-        september:{
+        }],
+        september:[{
             type: Schema.Types.ObjectId,
             ref :"Date"
-        },
-        october:{
+        }],
+        october:[{
             type: Schema.Types.ObjectId,
             ref :"Date"
-        },
-        november:{
+        }],
+        november:[{
             type: Schema.Types.ObjectId,
             ref :"Date"
-        },
-        december:{
+        }],
+        december:[{
             type: Schema.Types.ObjectId,
             ref :"Date"
-        }
+        }]
     },
 );
 

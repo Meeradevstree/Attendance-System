@@ -6,7 +6,7 @@ const { commonResponse, commonFunctions, nodemailer } = require("../../helper");
 module.exports = {
 
     
-    //   Register New User
+    //   Register New employee
     
     register: async (req, res, next) => {
         try {
@@ -293,9 +293,9 @@ update: async (req, res, next) => {
     
     delete: async (req, res, next) => {
         try {
-            let deleteUser = await employeeService.delete(req.params.id);
-            if (deleteUser) {
-                return commonResponse.success(res, "USER_PROFILE_DELETED", 202, deleteUser);
+            let deleteEmployee = await employeeService.delete(req.params.id);
+            if (deleteEmployee) {
+                return commonResponse.success(res, "USER_PROFILE_DELETED", 202, deleteEmployee);
             } else {
                 return commonResponse.customResponse(res, "USER_NOT_FOUND", 404);
             }
