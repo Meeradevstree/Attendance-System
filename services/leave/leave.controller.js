@@ -64,6 +64,8 @@ list: async (req, res, next) => {
                     total_counts: list.total_counts,
                     total_pages: list.total_pages,
                     current_page: list.current_page,
+                    pending_leave: list.pending_leave,
+                    approved_leave: list.approved_leave,
                 },
                 data: list.list
             }
@@ -77,6 +79,8 @@ list: async (req, res, next) => {
                     total_counts: list.total_counts,
                     total_pages: list.total_pages,
                     current_page: list.current_page,
+                    pending_leave: list.pending_leave,
+                    approved_leave: list.approved_leave,
                 },
                 data: list.list
             }
