@@ -59,7 +59,7 @@ exports.list = async (reqQuery) => {
     returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
     returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
 
-    returnData.list = await attendanceModel.find(query).skip(skip).limit(limit).populate("employeeID").populate("January").lean();
+    returnData.list = await attendanceModel.find(query).skip(skip).limit(limit).populate("employeeID").populate({path:"Months.January.record",model:"Date"}).lean();
 
     return returnData;
 };
