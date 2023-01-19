@@ -86,6 +86,8 @@ exports.update = async (id, reqBody) => {
 *  Delete User
 */
 exports.delete = async (id) => {
+    let leave_data = await  leaveModel.findOne({employeeid:id}).lean();
+    console.log(leave_data);
     return await employeeModel.removeOne({ _id: id },{new: true}).lean();
 };
 

@@ -14,18 +14,12 @@ const attendanceSchema = new Schema(
             required: false,
         },
         Months: {
-            January: [{
-                date: {
-                    type: String,
-                    require: false
-                },
-                record: {
-                    type: String,
-                    enum: ["present","absent","half-day","holiday"],
-                    default: "present",
-                    required: false,
-                }
-            }]
+            January: {
+                record: [{
+                    type: Schema.Types.ObjectId,
+                    ref: "Date"
+                }]
+            }
         },
     },
 );
