@@ -20,7 +20,7 @@ const leaveSchema = new Schema(
     // },
     leave_days:{
         type: String,
-        required: true
+        required: false
     },
     leave_approval_date:{
         type: String,

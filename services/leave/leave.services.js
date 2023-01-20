@@ -2,6 +2,7 @@ const { commonResponse } = require("../../helper");
 const leaveModel = require("./leave.model");
 const employeeModel = require("../employee/employee.model");
 const { find } = require("lodash");
+const  populate  = require("./leave.model")
 
 
 // // gmail
@@ -55,11 +56,15 @@ exports.list = async (reqQuery) => {
 
     query.deleted = false;
     returnData.total_counts = await leaveModel.countDocuments(query).lean();
+
     returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
+
     returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
+
     returnData.pending_leave = await leaveModel.countDocuments({status:"pending"}).countDocuments({deleted:"false"}).lean();
     returnData.approved_leave = await leaveModel.countDocuments({status:"Approved"}).countDocuments({deleted:"false"}).lean();
-    returnData.list = await leaveModel.find(query).sort({ _id: -1}).skip(skip).limit(limit).lean();
+
+    returnData.list = await leaveModel.find(query).sort({ _id: -1}).skip(skip).limit(limit).populate("employeeID").lean();
 
     return returnData;
 };

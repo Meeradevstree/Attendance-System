@@ -58,6 +58,7 @@ router.post(
  */
 router.put(
     "/update/:id",
+    multerSetting,
     guard.isAuthorized("employee","edit"),
     controller.update
 );

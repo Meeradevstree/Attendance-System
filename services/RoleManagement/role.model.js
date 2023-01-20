@@ -59,6 +59,11 @@ const roleSchema = new Schema(
             enum: ['add', 'edit', 'view', 'delete'],
             default: []
         }],
+        management:[{
+            type: String,
+            enum: ['add', 'edit', 'view', 'delete'],
+            default: []
+        }],
     }
 );
 
