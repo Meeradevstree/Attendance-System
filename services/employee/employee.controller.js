@@ -5,12 +5,12 @@ const { commonResponse, commonFunctions, nodemailer } = require("../../helper");
 
 module.exports = {
 
-    
+
     //   Register New employee
-    
+
     register: async (req, res, next) => {
         try {
-            if(req.body.email){
+            if (req.body.email) {
                 req.body.email = req.body.email.toLowerCase();
             }
             let is_exist = await employeeService.is_exist(req.body);
@@ -30,7 +30,7 @@ module.exports = {
             // otp = parseInt(otp);
             // // console.log(req.body);
             // req.body.otp=otp;
-            
+
             req.body.role = await employeeService.roledata(req.body.roleManagement);
             req.body.department = await employeeService.departmentdata(req.body.departmentdata);
 
@@ -48,7 +48,7 @@ module.exports = {
                 nodemailer.sendMail(emailData);
 
                 let getUser = await employeeService.list(user._id);
-                console.log("get user data => ",getUser)
+                console.log("get user data => ", getUser)
                 commonResponse.success(res, "USER_CREATED", 201, user);
             } else {
                 return commonResponse.customResponse(res, "SERVER_ERROR", 400, user);
@@ -60,9 +60,9 @@ module.exports = {
     },
 
 
-    
+
     //   Login
-    
+
     login: async (req, res, next) => {
         passport.authenticate("employee", async function (err, user, info) {
             if (err) {
@@ -103,12 +103,12 @@ module.exports = {
     },
 
 
-    
+
     //   Resend Verification Link
-    
+
     resendVerificationLink: async (req, res, next) => {
         try {
-            if(req.body.email){
+            if (req.body.email) {
                 req.body.email = req.body.email.toLowerCase();
             }
             let user = await employeeService.is_exist(req.body);
@@ -149,7 +149,7 @@ module.exports = {
 
 
     //   Verify User
-    
+
     verifyUser: async (req, res, next) => {
         try {
             let getUser = await employeeService.is_exist(req.body);
@@ -185,12 +185,12 @@ module.exports = {
     },
 
 
-    
+
     //   Forgot Password
-    
+
     forgotPassword: async (req, res, next) => {
         try {
-            if(req.body.email){
+            if (req.body.email) {
                 req.body.email = req.body.email.toLowerCase();
             }
             let checkUserExist = await employeeService.is_exist(req.body);
@@ -230,9 +230,9 @@ module.exports = {
     },
 
 
-    
+
     //   Reset Password
-    
+
     resetPassword: async (req, res, next) => {
         try {
             let user = await employeeService.get(req.body._id);
@@ -269,28 +269,31 @@ module.exports = {
     },
 
 
-    
-//  Update user
 
-update: async (req, res, next) => {
-    try {
+    //  Update user
+
+    update: async (req, res, next) => {
+        try {
             req.body.role = await employeeService.roledata(req.body.roleManagement);
             req.body.department = await employeeService.departmentdata(req.body.departmentdata);
-        let updateduser = await employeeService.update(req.params.id, req.body);
-        if (updateduser) {
-            return commonResponse.success(res, "USER_PROFILE_UPDATE", 201, updateduser);
-        } else {
-            return commonResponse.customResponse(res, "USER_NOT_FOUND", 404);
+            if (req.files != undefined && req.files.image != undefined) {
+                req.body.image = process.env.DOMAIN_URL + "/user-profile/" + req.files.image[0].filename;
+            }
+            let updateduser = await employeeService.update(req.params.id, req.body);
+            if (updateduser) {
+                return commonResponse.success(res, "USER_PROFILE_UPDATE", 201, updateduser);
+            } else {
+                return commonResponse.customResponse(res, "USER_NOT_FOUND", 404);
+            }
+        } catch (error) {
+            return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
         }
-    } catch (error) {
-        return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
-    }
-},
+    },
 
 
-    
+
     //  Delete Profile
-    
+
     delete: async (req, res, next) => {
         try {
             let deleteEmployee = await employeeService.delete(req.params.id);
@@ -305,9 +308,9 @@ update: async (req, res, next) => {
     },
 
 
-    
+
     //   Change Password
-    
+
     changePassword: async (req, res, next) => {
         try {
             let getUser = await employeeService.is_exist(req.body);
@@ -346,10 +349,10 @@ update: async (req, res, next) => {
     },
 
 
-// read
+    // read
 
 
-   list: async (req, res, next) => {
+    list: async (req, res, next) => {
         // let language_code = req.headers.language_code ? req.headers.language_code : 'en';
         try {
             const list = await employeeService.list(req.query);
@@ -364,7 +367,7 @@ update: async (req, res, next) => {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
                         current_page: list.current_page,
-                        
+
                     },
                     data: list.list
                 }
@@ -392,9 +395,9 @@ update: async (req, res, next) => {
 
     ////////////////////////////////////////////////////////////
 
-    
+
     //   Get User By Id 
-    
+
     getUserById: async (req, res, next) => {
         try {
             let User = await employeeService.getbyid(req.params.id);
@@ -416,8 +419,8 @@ update: async (req, res, next) => {
             let updateData = {
                 fcm_token: '',
                 device_id: ''
-            };    
-            console.log("req.body.id :" , req.body)
+            };
+            console.log("req.body.id :", req.body)
             let update = await employeeService.update(req.params.id, updateData);
             if (update) {
                 return commonResponse.success(res, "USER_LOGOUT", 202, update);
@@ -429,11 +432,11 @@ update: async (req, res, next) => {
         }
     },
 
-    getemployeeByDepartmentId:async(req,res,next) => {
+    getemployeeByDepartmentId: async (req, res, next) => {
         try {
-            let employeeListByDepId =await employeeService.getDepById(req.params.id);
-            
-            console.log("employeeListByDepId : " , employeeListByDepId)
+            let employeeListByDepId = await employeeService.getDepById(req.params.id);
+
+            console.log("employeeListByDepId : ", employeeListByDepId)
             let resp;
             if (employeeListByDepId.length > 0) {
                 resp = {
@@ -445,7 +448,7 @@ update: async (req, res, next) => {
                         total_counts: employeeListByDepId.total_counts,
                         total_pages: employeeListByDepId.total_pages,
                         current_page: employeeListByDepId.current_page,
-                        
+
                     },
                     data: employeeListByDepId
                 }
@@ -465,7 +468,7 @@ update: async (req, res, next) => {
             }
             return commonResponse.customSuccess(res, resp);
         } catch (error) {
-            
+
         }
 
 
