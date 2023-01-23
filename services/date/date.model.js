@@ -191,6 +191,10 @@ const dateSchema = new Schema(
             // default: "p",
             required: false,
         },
+        employeeID: {
+            type: Schema.Types.ObjectId,
+            ref: "Employee"
+        }
     },
 );
 

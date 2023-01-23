@@ -13,7 +13,7 @@ exports.save = async (reqBody) => {
 *  Get Date By Id
 */
 exports.get_id = async (id) => {
-    return await dateModel.findOne({ _id: id }).populate("1").lean();
+    return await dateModel.findOne({ _id: id }).populate("employeeID").lean();
     
 };
 
@@ -46,7 +46,7 @@ exports.list = async (reqQuery) => {
     returnData.total_counts = await dateModel.countDocuments(query).lean();
     returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
     returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
-    returnData.list = await dateModel.find(query).skip(skip).limit(limit).lean();
+    returnData.list = await dateModel.find(query).skip(skip).limit(limit).populate("employeeID").lean();
 
     return returnData;
 };

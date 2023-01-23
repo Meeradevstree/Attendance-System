@@ -40,7 +40,7 @@ const leaveSchema = new Schema(
         required:false,
         trim:true
     },
-    combined_date:{
+    date:{
         type:String,
         required:false,
         trim:true
