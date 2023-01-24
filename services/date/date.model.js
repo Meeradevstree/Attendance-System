@@ -194,6 +194,10 @@ const dateSchema = new Schema(
         employeeID: {
             type: Schema.Types.ObjectId,
             ref: "Employee"
+        },
+        month:{
+            type:String,
+            require:false
         }
     },
 );
