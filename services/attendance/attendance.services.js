@@ -59,7 +59,7 @@ exports.list = async (reqQuery) => {
     returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
     returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
 
-    returnData.list = await attendanceModel.find(query).skip(skip).limit(limit).populate("employeeID").populate({path:"Months.January.record",model:"Date"}).lean();
+    returnData.list = await attendanceModel.find(query).skip(skip).limit(limit).populate("employeeID").populate({path:"Months.January.record",model:"Date"}).populate({path:"Months.February.record",model:"Date"}).populate({path:"Months.March.record",model:"Date"}).populate({path:"Months.April.record",model:"Date"}).populate({path:"Months.May.record",model:"Date"}).populate({path:"Months.June.record",model:"Date"}).populate({path:"Months.July.record",model:"Date"}).populate({path:"Months.August.record",model:"Date"}).populate({path:"Months.September.record",model:"Date"}).populate({path:"Months.October.record",model:"Date"}).populate({path:"Months.November.record",model:"Date"}).populate({path:"Months.December.record",model:"Date"}).lean();
 
     return returnData;
 };

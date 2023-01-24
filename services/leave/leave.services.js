@@ -64,7 +64,7 @@ exports.list = async (reqQuery) => {
     returnData.pending_leave = await leaveModel.countDocuments({status:"pending"}).countDocuments({deleted:"false"}).lean();
     returnData.approved_leave = await leaveModel.countDocuments({status:"Approved"}).countDocuments({deleted:"false"}).lean();
 
-    returnData.list = await leaveModel.find(query).sort({ _id: -1}).skip(skip).limit(limit).populate("employeeID").lean();
+    returnData.list = await leaveModel.find(query).sort({ _id: -1}).skip(skip).limit(limit).populate("employeeID").populate({path:"email.ceo",model:"Employee"}).lean();
 
     return returnData;
 };
