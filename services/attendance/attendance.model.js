@@ -15,76 +15,76 @@ const attendanceSchema = new Schema(
         },
         Months: {
             January: {
-                record: [{
+                record: {
                     type: Schema.Types.ObjectId,
                     ref: "Date"
-                }]
+                }
             },
             February:{
-                record: [{
+                record: {
                     type: Schema.Types.ObjectId,
                     ref: "Date"
-                }]
+                }
             },
             March:{
-                record: [{
+                record: {
                     type: Schema.Types.ObjectId,
                     ref: "Date"
-                }]
+                }
             },
             April:{
-                record: [{
+                record: {
                     type: Schema.Types.ObjectId,
                     ref: "Date"
-                }]
+                }
             },
             May:{
-                record: [{
+                record:{
                     type: Schema.Types.ObjectId,
                     ref: "Date"
-                }]
+                }
             },
             June:{
-                record: [{
+                record: {
                     type: Schema.Types.ObjectId,
                     ref: "Date"
-                }]
+                }
             },
             July:{
-                record: [{
+                record: {
                     type: Schema.Types.ObjectId,
                     ref: "Date"
-                }]
+                }
             },
             August:{
-                record: [{
+                record: {
                     type: Schema.Types.ObjectId,
                     ref: "Date"
-                }]
+                }
             },
             September:{
-                record: [{
+                record: {
                     type: Schema.Types.ObjectId,
                     ref: "Date"
-                }]
+                }
             },
             October:{
-                record: [{
+                record: {
                     type: Schema.Types.ObjectId,
                     ref: "Date"
-                }]
+                }
             },
             November:{
-                record: [{
+                record: {
                     type: Schema.Types.ObjectId,
                     ref: "Date"
-                }]
+                }
             },
             December:{
-                record: [{
+                record: {
                     type: Schema.Types.ObjectId,
                     ref: "Date"
-                }]
+                }
             },
         },
     },
