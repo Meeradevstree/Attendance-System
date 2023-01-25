@@ -19,7 +19,7 @@ exports.get_id = async (id) => {
 
 exports.list = async (reqQuery) => {
     let page = 0;
-    let limit = 10;
+    let limit = 100;
     let skip = 0;
     let returnData = {
         total_counts: 0,

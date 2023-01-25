@@ -77,7 +77,7 @@ router.put(
  */
 router.post(
     "/change-password/:id",
-    guard.isAuthorized("employee","edit"),
+    // guard.isAuthorized("employee","edit"),
     controller.changePassword
 );
 

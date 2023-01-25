@@ -36,15 +36,15 @@ exports.list = async (reqQuery) => {
 
     if (reqQuery.search && reqQuery.search != "") {
         query["department"]= { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") };
-        // query["first_name"]= { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") };
-    }
+        }
+        
     console.log("query : " , query)
     query.deleted = false;
     returnData.total_counts = await employeeModel.countDocuments(query).lean();
     returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
     returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
 
-    returnData.list = await employeeModel.find(query).sort({ _id: -1}).skip(skip).limit(limit).populate('roleManagement').populate({path:'departmentdata',model:'department', populate: {path: 'sub_dep_ID',model: 'sub_dep'}}).lean();
+    returnData.list = await employeeModel.find(query).sort({_id : -1}).skip(skip).limit(limit).populate('roleManagement').populate({path:'departmentdata',model:'department', populate: {path: 'sub_dep_ID',model: 'sub_dep'}}).lean();
 
     return returnData;
 };

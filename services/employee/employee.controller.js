@@ -2,6 +2,7 @@ const employeeService = require("./employee.services");
 const passport = require("passport");
 const guard = require("../../helper/guards");
 const { commonResponse, commonFunctions, nodemailer } = require("../../helper");
+const employee = require("./employee.model");
 
 module.exports = {
 
@@ -235,14 +236,14 @@ module.exports = {
 
     resetPassword: async (req, res, next) => {
         try {
-            let user = await employeeService.get(req.body._id);
-            if (user) {
+            let employee = await employeeService.list(req.body._id);
+            if (employee) {
 
-                if (user.status == 'pending') {
-                    return commonResponse.customResponse(res, "USER_NOT_VERIFIED", 401, user);
+                if (employee.status == 'pending') {
+                    return commonResponse.customResponse(res, "USER_NOT_VERIFIED", 401, employee);
                 }
-                if (user.status == 'deactivated') {
-                    return commonResponse.customResponse(res, "USER_DEACTIVATED", 404, user);
+                if (employee.status == 'deactivated') {
+                    return commonResponse.customResponse(res, "USER_DEACTIVATED", 404, employee);
                 }
 
                 if (req.body.new_password == req.body.confirm_password) {
@@ -250,9 +251,9 @@ module.exports = {
                     let updateData = {
                         password: req.body.new_password,
                     };
-                    let updateUserDetails = await employeeService.update(user._id, updateData);
-                    if (updateUserDetails) {
-                        return commonResponse.success(res, "PASSWORD_RESET_SUCCESS", 201, updateUserDetails);
+                    let updateemployeeDetails = await employeeService.update(employee._id, updateData);
+                    if (updateemployeeDetails) {
+                        return commonResponse.success(res, "PASSWORD_RESET_SUCCESS", 201, updateemployeeDetails);
                     } else {
                         return commonResponse.customResponse(res, "SERVER_ERROR", 401);
                     }
@@ -313,11 +314,11 @@ module.exports = {
 
     changePassword: async (req, res, next) => {
         try {
-            let getUser = await employeeService.is_exist(req.body);
-            if (getUser) {
+            let getemployee = await employeeService.is_exist(req.body);
+            if (getemployee) {
                 let isPasswordValid = await commonFunctions.matchPassword(
                     req.body.old_password,
-                    getUser.password
+                    getemployee.password
                 );
                 if (isPasswordValid) {
                     if (req.body.new_password == req.body.confirm_password) {
@@ -327,7 +328,7 @@ module.exports = {
                         let updateData = {
                             password: req.body.new_password,
                         };
-                        let updatePassword = await employeeService.update(getUser._id, updateData);
+                        let updatePassword = await employeeService.update(getemployee._id, updateData);
                         if (updatePassword) {
                             return commonResponse.success(res, "PASSWORD_CHANGED_SUCCESS", 202, updatePassword);
                         } else {
@@ -343,7 +344,7 @@ module.exports = {
                 return commonResponse.customResponse(res, "USER_NOT_FOUND", 404);
             }
         } catch (error) {
-            console.log("User Change Password -> ", error);
+            console.log("Employee Change Password -> ", error);
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
         }
     },

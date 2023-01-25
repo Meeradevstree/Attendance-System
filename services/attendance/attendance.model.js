@@ -39,7 +39,7 @@ const attendanceSchema = new Schema(
                 }
             },
             May:{
-                record: {
+                record:{
                     type: Schema.Types.ObjectId,
                     ref: "Date"
                 }
