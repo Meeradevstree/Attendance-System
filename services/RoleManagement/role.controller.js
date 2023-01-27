@@ -9,7 +9,7 @@ module.exports = {
         try {
             const role = await roleService.save(req.body);
             if (role) {
-                commonResponse.success(res, "GET_ROLE", 200, role );
+                commonResponse.success(res, "GET_ROLE", 201, role );
             } else {
                 return commonResponse.customResponse(res, "ROLE_NOT_FOUND",404);
             }

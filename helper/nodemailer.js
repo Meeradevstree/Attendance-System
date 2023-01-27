@@ -65,8 +65,8 @@ var emailConfig = {
     secureConnection: true,
     port: 587,
     auth: {
-        user: "meerakardani0410@gmail.com",
-        pass: "zzxcvxlglemmrgjx"
+        user: "boilarplate@gmail.com",
+        pass: "zjvikcaxdqgpumlj"
     }
 };
 
@@ -75,10 +75,10 @@ var emailConfig = {
 const transporter = nodemailer.createTransport(emailConfig);
 
 module.exports.sendMail = async (data) => {
-    let fromEmail = "mailto:meerakardani0410@gmail.com";
+    let fromEmail = "mailto:boilarplate@gmail.com";
 
     let mailOptions = {
-        from: "mailto:meerakardani0410@gmail.com", // Default From recipient [String]
+        from: "mailto:boilarplate@gmail.com", // Default From recipient [String]
         //to: data.to, // Email To recipient [Array or String]
         to: data.to,
         subject: data.subject, // Email subject [String]

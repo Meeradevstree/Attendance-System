@@ -10,7 +10,7 @@ module.exports = {
         try {
             const dashboard = await dashboardService.save(req.body);
             if (dashboard) {
-                commonResponse.success(res, "DASHBOARD_CRREATED", 200, dashboard);
+                commonResponse.success(res, "DASHBOARD_CRREATED", 201, dashboard);
             } else {
                 return commonResponse.customResponse(res, "DASHBOARD_NOT_FOUND", 404);
             }

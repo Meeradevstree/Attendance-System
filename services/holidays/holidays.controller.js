@@ -11,7 +11,7 @@ module.exports = {
         try {
             const holidays = await holidaysService.save(req.body);
             if (holidays) {
-                commonResponse.success(res, "HOLIDAYS_CREATED", 200, holidays);
+                commonResponse.success(res, "HOLIDAYS_CREATED", 201, holidays);
             } else {
                 return commonResponse.customResponse(res, "HOLIDAY_NOT_CREATED", 404);
             }

@@ -11,7 +11,7 @@ module.exports = {
             req.body.employeeid = await attendanceService.employeedata(req.body.employeeID);
             const attendance = await attendanceService.save(req.body);
             if (attendance) {
-                commonResponse.success(res, "ATTENDANCE_CREATED", 200, attendance);
+                commonResponse.success(res, "ATTENDANCE_CREATED", 201, attendance);
             } else {
                 return commonResponse.customResponse(res, "ATTENDANCE_DATA_NOT_FOUND", 404);
             }

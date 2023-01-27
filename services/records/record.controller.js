@@ -11,7 +11,7 @@ module.exports = {
         try {
             const record = await recordService.save(req.body);
             if (record) {
-                commonResponse.success(res, "DATE_CREATED", 200, record);
+                commonResponse.success(res, "DATE_CREATED", 201, record);
             } else {
                 return commonResponse.customResponse(res, "DATE_NOT_CREATED", 404);
             }

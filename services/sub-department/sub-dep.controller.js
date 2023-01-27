@@ -10,7 +10,7 @@ module.exports = {
         try {
             const sub_dep = await sub_depService.save(req.body);
             if (sub_dep) {
-                commonResponse.success(res, "SUB_DEPARTMENT_CREATED", 200, sub_dep);
+                commonResponse.success(res, "SUB_DEPARTMENT_CREATED", 201, sub_dep);
             } else {
                 return commonResponse.customResponse(res, "SUB_DEPARTMENT_NOT_FOUND", 404);
             }

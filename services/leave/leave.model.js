@@ -13,11 +13,6 @@ const leaveSchema = new Schema(
             type: String,
             required: true
         },
-        // email:{
-        //     type: String,
-        //     // unique: false,
-        //     required: true
-        // },
         leave_days: {
             type: String,
             required: false
@@ -65,48 +60,20 @@ const leaveSchema = new Schema(
             type: String,
             required: false,
         },
-        email: [{
-            ceo: {
-                type: Schema.Types.ObjectId,
-                ref: "Employee"
-            },
-            director: {
-                type: Schema.Types.ObjectId,
-                ref: "Employee"
-            },
-            hr: {
-                type: Schema.Types.ObjectId,
-                ref: "Employee"
-            },
-            sub_hr: {
-                type: Schema.Types.ObjectId,
-                ref: "Employee"
-            },
-            pm: {
-                type: Schema.Types.ObjectId,
-                ref: "Employee"
-            },
-            tl: {
-                type: Schema.Types.ObjectId,
-                ref: "Employee"
-            },
-            sd: {
-                type: Schema.Types.ObjectId,
-                ref: "Employee"
-            },
-            developer: {
-                type: Schema.Types.ObjectId,
-                ref: "Employee"
-            },
-            president: {
-                type: Schema.Types.ObjectId,
-                ref: "Employee"
-            },
-            bd: {
-                type: Schema.Types.ObjectId,
-                ref: "Employee"
-            },
-        }]
+        email: {
+            hr: [{
+                type: String,
+                required: false,
+            }],
+            cc: [{
+                type: String,
+                required: false,
+            }]
+        },
+        response:{
+            type: String,
+            required: false,
+        }
     }
 );
 
