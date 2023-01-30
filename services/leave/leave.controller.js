@@ -28,8 +28,11 @@ module.exports = {
                     subject: "Boiler-plat || LEAVE INFORMATION",
                     text: ``,
                     html: `<h1> Leave Details </h1>
-                            <p>leave information : ${leave.leave_type}</b></p> 
-                            <h2>employee having mail ${leave.email.hr} requested your a leave from date ${leave.from_date} to ${leave.to_date} for reason ${leave.leave_reason}</h2>`,
+                            <h2>leave information : ${leave.leave_type}</b></h2> 
+                            <h3>leave_reason: ${leave.leave_reason}</h3>
+                            <h3>from_date: ${leave.from_date}</h3>
+                            <h3>to_date: ${leave.to_date}</h3>
+                            <h3>leave_days: ${leave.leave_days}</h3>`,
                 };
                 nodemailer.sendMail(emailData);
 
