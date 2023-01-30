@@ -49,7 +49,7 @@ router.post(
  *  Reset Password
  */
 router.post(
-    "/reset-password",
+    "/reset-password/:id",
     controller.resetPassword
 );
 

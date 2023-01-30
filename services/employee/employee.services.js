@@ -34,10 +34,23 @@ exports.list = async (reqQuery) => {
         skip = page * limit;
     }
 
-    if (reqQuery.search && reqQuery.search != "") {
-        query["department"]= { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") };
-        }
+    // if ((reqQuery.search && reqQuery.search != "") || (reqQuery.name && reqQuery.name != "")) {
         
+        // query = {
+        //     // $or: [{ "department": { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") },  "first_name": { $regex: new RegExp(".*" + reqQuery.name.toLowerCase(), "i") } }]
+        //     // $or: [
+        //     //     {
+        //     //       department: { $regex: search, $options: "i" },
+        //     //       first_name: { $regex: search, $options: "i" },
+        //     //     },
+        //     //   ],
+        // // }
+        // query["department"] = { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), 
+        // }
+        if (reqQuery.search && reqQuery.search != "") {
+            query["department"] = { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") };
+        }
+    
     console.log("query : " , query)
     query.deleted = false;
     returnData.total_counts = await employeeModel.countDocuments(query).lean();
@@ -113,4 +126,8 @@ exports.departmentdata = async (id) => {
 
 exports.getDepById = async(depId) => {
     return await departmentModel.find({departmentdata:depId}).lean()
+}
+
+exports.get=async(id)=>{
+    return await employeeModel.findOne({_id:id})
 }

@@ -13,7 +13,7 @@ module.exports = {
             }
             const department = await departmentService.save(req.body);
             if (department) {
-                commonResponse.success(res, "DEPARTMENT_CRREATED", 200, department);
+                commonResponse.success(res, "DEPARTMENT_CREATED", 201, department);
             } else {
                 return commonResponse.customResponse(res, "DEPARTMENT_NOT_CREATED", 404);
             }

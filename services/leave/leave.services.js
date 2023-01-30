@@ -5,10 +5,10 @@ const { find } = require("lodash");
 const  populate  = require("./leave.model")
 
 
-// // gmail
-// exports.is_exist = async (reqBody) => {
-//     return  await leaveModel.findOne({email: reqBody.email}).lean();
-// };
+// gmail
+exports.is_exist = async (reqBody) => {
+    return  await leaveModel.findOne({email: reqBody.email}).lean();
+};
 
 
 // create leave
@@ -64,7 +64,7 @@ exports.list = async (reqQuery) => {
     returnData.pending_leave = await leaveModel.countDocuments({status:"pending"}).countDocuments({deleted:"false"}).lean();
     returnData.approved_leave = await leaveModel.countDocuments({status:"Approved"}).countDocuments({deleted:"false"}).lean();
 
-    returnData.list = await leaveModel.find(query).sort({ _id: -1}).skip(skip).limit(limit).populate("employeeID").populate({path:"email.ceo",model:"Employee"}).lean();
+    returnData.list = await leaveModel.find(query).sort({ _id: -1}).skip(skip).limit(limit).populate("employeeID").lean();
 
     return returnData;
 };

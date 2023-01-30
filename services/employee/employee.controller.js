@@ -25,7 +25,7 @@ module.exports = {
 
             req.body.password = await commonFunctions.encryptStringCrypt(req.body.password);
 
-            // // req.body.otp = await commonFunctions.randomSixDigit();
+            // req.body.otp = await commonFunctions.randomSixDigit();
             // var otp = Math.random();
             // otp = otp * 1000000;
             // otp = parseInt(otp);
@@ -98,7 +98,7 @@ module.exports = {
                 userResponse.token = token.token;
                 return commonResponse.success(res, "LOGIN_SUCCESS", 202, userResponse);
             } else {
-                return commonResponse.customResponse(res, "USER_NOT_FOUND", 404);
+                return commonResponse.customResponse(res, "LOGIN_UNSUCCESSFULL", 404);
             }
         })(req, res, next);
     },
@@ -236,7 +236,7 @@ module.exports = {
 
     resetPassword: async (req, res, next) => {
         try {
-            let employee = await employeeService.list(req.body._id);
+            let employee = await employeeService.get(req.params.id);
             if (employee) {
 
                 if (employee.status == 'pending') {

@@ -11,7 +11,7 @@ module.exports = {
         try {
             const date = await monthService.save(req.body);
             if (date) {
-                commonResponse.success(res, "MONTH_CREATED", 200, date);
+                commonResponse.success(res, "MONTH_CREATED", 201, date);
             } else {
                 return commonResponse.customResponse(res, "MONTH_NOT_CREATED", 404);
             }
