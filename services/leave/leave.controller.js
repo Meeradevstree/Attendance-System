@@ -14,6 +14,12 @@ module.exports = {
                 // req.body.email.hr = req.body.email.hr.toLowerCase();
                 console.log("email for hr==>",req.body.email.hr)
             }
+
+            if(req.body.email.cc){
+                // req.body.email.hr = req.body.email.hr.toLowerCase();
+                console.log("email for cc==>",req.body.email.cc)
+            }
+
             let is_exist = await leaveService.is_exist(req.body);
             if (is_exist) {
                 return next(new Error("EMAIL_EXIST"));
@@ -23,7 +29,7 @@ module.exports = {
             console.log("leave==>",leave)
             if (leave) {
                 /* Send leave mail */
-                let emailData = {
+                let emailDataForHr = {
                     to: leave.email.hr,
                     subject: "Boiler-plat || LEAVE INFORMATION",
                     text: ``,
@@ -34,7 +40,20 @@ module.exports = {
                             <h3>to_date: ${leave.to_date}</h3>
                             <h3>leave_days: ${leave.leave_days}</h3>`,
                 };
-                nodemailer.sendMail(emailData);
+                nodemailer.sendMail(emailDataForHr);
+
+                let emailDataForCc = {
+                    to: leave.email.cc,
+                    subject: "Boiler-plat || LEAVE INFORMATION",
+                    text: ``,
+                    html: `<h1> Leave Details </h1>
+                            <h2>leave information : ${leave.leave_type}</b></h2> 
+                            <h3>leave_reason: ${leave.leave_reason}</h3>
+                            <h3>from_date: ${leave.from_date}</h3>
+                            <h3>to_date: ${leave.to_date}</h3>
+                            <h3>leave_days: ${leave.leave_days}</h3>`,
+                };
+                nodemailer.sendMail(emailDataForCc);
 
                 let getLeave = await leaveService.list(leave._id);
                 console.log("get leave data => ", getLeave)
