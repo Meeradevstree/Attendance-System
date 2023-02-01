@@ -15,13 +15,11 @@ router.get(
     controller.getById
 );
 
-
 // read all
 router.get(
     "/list",
     controller.list
 );
-
 
 // Update Profile
 router.patch(

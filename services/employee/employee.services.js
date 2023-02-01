@@ -2,6 +2,7 @@ const { commonResponse } = require("../../helper");
 const employeeModel = require("./employee.model");
 const roleModel = require("../RoleManagement/role.model");
 const leaveModel = require("../leave/leave.model");
+const attendanceModel = require("../attendance/attendance.model");
 const departmentModel = require("../department/department.model");
 const { Model } = require("mongoose");
 
@@ -35,24 +36,13 @@ exports.list = async (reqQuery) => {
     }
 
     if ((reqQuery.search && reqQuery.search != "") || (reqQuery.name && reqQuery.name != "")) {
-        
-        // query = {
-        //     $or: [{ "department": { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") }}, { "first_name": { $regex: new RegExp(".*" + reqQuery.name.toLowerCase(), "i") } }]
-        // }
-
-        // $or: [
-        //     {
-        //       department: { $regex: search, $options: "i" },
-        //     },
-        //     {
-        //     first_name: { $regex: name, $options: "i" },
-        //     }
-        //   ],
-
-        query["department"]= { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") };
+        query = {
+            $and: [{ "department": { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") }}, 
+            { "first_name": { $regex: new RegExp(".*" + reqQuery.name.toLowerCase(), "i") } }]
         }
+    }
 
-    console.log("query : " , query)
+    console.log("query ======>: " , query)
     query.deleted = false;
     returnData.total_counts = await employeeModel.countDocuments(query).lean();
     returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
@@ -100,8 +90,10 @@ exports.update = async (id, reqBody) => {
 *  Delete User
 */
 exports.delete = async (id) => {
-    let leave_data = await  leaveModel.findOne({employeeid:id}).lean();
-    console.log(leave_data);
+    let leave_data = await  leaveModel.removeOne({employeeID:id}).lean();
+    console.log("Delete Leave function : " , leave_data);
+    let attendance_data = await attendanceModel.removeOne({employeeID:id}).lean();
+    console.log("Delete Attendance function: ", attendance_data);
     return await employeeModel.removeOne({ _id: id },{new: true}).lean();
 };
 
