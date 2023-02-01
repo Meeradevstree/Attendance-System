@@ -303,6 +303,7 @@ module.exports = {
             } else {
                 return commonResponse.customResponse(res, "USER_NOT_FOUND", 404);
             }
+            // consol.log("delete======",deleteEmployee);
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
         }
