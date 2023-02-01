@@ -25,11 +25,12 @@ module.exports = {
             //     console.log("email for forward  ==>",req.body.cc)
             // }
 
-            let is_exist = await leaveService.is_exist(req.body);
-            if (is_exist) {
-                return next(new Error("EMAIL_EXIST"));
-            }
+            // let is_exist = await leaveService.is_exist(req.body);
+            // if (is_exist) {
+            //     return next(new Error("EMAIL_EXIST"));
+            // }
 
+            req.body.employeeid = await leaveService.employeedata(req.body.employeeID);
             const leave = await leaveService.save(req.body);
             console.log("leave==>",leave)
             if (leave) {
@@ -154,7 +155,7 @@ list: async (req, res, next) => {
 
     update: async (req, res, next) => {
         try {
-            // req.body.employeeid = await leaveService.employeedata(req.body.employeeID);
+            req.body.employeeid = await leaveService.employeedata(req.body.employeeID);
             let updatedLeave = await leaveService.update(req.params.id, req.body);
             if (updatedLeave) {
                 return commonResponse.success(res, "LEAVE_PROFILE_UPDATE", 201, updatedLeave);
