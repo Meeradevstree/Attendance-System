@@ -1,36 +1,37 @@
-const sub_depService = require("./sub-dep.services");
+const dateService = require("./date.services");
 const passport = require("passport");
 const guard = require("../../helper/guards");
 const { commonResponse, commonFunctions, nodemailer } = require("../../helper");
 
+
 module.exports = {
 
-// create
-    sub_dep: async (req, res, next) => {
+    // create
+    date: async (req, res, next) => {
         try {
-            const sub_dep = await sub_depService.save(req.body);
-            if (sub_dep) {
-                commonResponse.success(res, "SUB_DEPARTMENT_CREATED", 201, sub_dep);
+            const date = await dateService.save(req.body);
+            if (date) {
+                commonResponse.success(res, "DATE_CREATED", 201, date);
             } else {
-                return commonResponse.customResponse(res, "SUB_DEPARTMENT_NOT_FOUND", 404);
+                return commonResponse.customResponse(res, "DATE_NOT_CREATED", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
         }
     },
 
-    // READ
+    // read 
     list: async (req, res, next) => {
         // let language_code = req.headers.language_code ? req.headers.language_code : 'en';
         try {
-            const list = await sub_depService.list(req.query);
+            const list = await dateService.list(req.query);
             let resp;
             if (list.list.length > 0) {
                 resp = {
                     error: false,
                     statusCode: 200,
-                    messageCode: 'LIST_SUB_DEPARTMENT',
-                    message: `List of sub_department`,
+                    messageCode: 'LIST_OF_DATE',
+                    message: `List of Date`,
                     pagination: {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
@@ -43,7 +44,7 @@ module.exports = {
                     error: false,
                     statusCode: 200,
                     messageCode: 'NO_DATA',
-                    message: `No Sub_department data.`,
+                    message: `date data not found.`,
                     pagination: {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
@@ -59,34 +60,31 @@ module.exports = {
         }
     },
 
-
+//   Get date By Id 
     
-   //   Get Sub_dep By Id 
-    
-   getById: async(req,res,next)=>{
+getById: async(req,res,next)=>{
     try{
-        let sub_dep_by_id=await sub_depService.get_id(req.params.id);
-        if (sub_dep_by_id) {
-            commonResponse.success(res, "GET_SUB_DEPARTMENT", 200, sub_dep_by_id);
+        let date_by_id=await dateService.get_id(req.params.id);
+        if (date_by_id) {
+            commonResponse.success(res, "GET_DATE", 200,date_by_id);
         } else {
-            return commonResponse.customResponse(res, "SUB_DEPARTMENT_NOT_FOUND",404);
+            return commonResponse.customResponse(res, "DATE_NOT_FOUND", 404);
         }
     }
     catch (error) {
         return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
     }
 },
-
-
-//   Update
+ 
+//    Update
  
     update: async (req, res, next) => {
         try {
-            let updatesub_dep = await sub_depService.update(req.params.id, req.body);
-            if (updatesub_dep) {
-                return commonResponse.success(res, "SUB_DEPARTMENT_PROFILE_UPDATE", 201, updatesub_dep);
+            let updatedate = await dateService.update(req.params.id, req.body);
+            if (updatedate) {
+                return commonResponse.success(res, "DATE_PROFILE_UPDATE", 201, updatedate);
             } else {
-                return commonResponse.customResponse(res, "SUB_DEPARTMENT_NOT_UPDATED",404);
+                return commonResponse.customResponse(res, "DATE_NOT_UPDATED", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -94,18 +92,19 @@ module.exports = {
     },
 
 
-//  Delete
 
-    delete: async (req, res, next) => {
-        try {
-            let deletesub_dep = await sub_depService.delete(req.params.id);
-            if (deletesub_dep) {
-                return commonResponse.success(res, "SUB_DEPARTMENT_PROFILE_DELETED", 202, deletesub_dep);
-            } else {
-                return commonResponse.customResponse(res, "SUB_DEPARTMENT_NOT_DELETED",404);
-            }
-        } catch (error) {
-            return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+//  Delete date
+
+delete: async (req, res, next) => {
+    try {
+        let deletedate = await dateService.delete(req.params.id);
+        if (deletedate) {
+            return commonResponse.success(res, "DATE_PROFILE_DELETED", 202, deletedate);
+        } else {
+            return commonResponse.customResponse(res, "DATE_NOT_DELETED", 404);
         }
-    },
-}
+    } catch (error) {
+        return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+    }
+},
+};

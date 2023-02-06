@@ -1,14 +1,13 @@
 const router = require("express").Router();
-const controller = require("./sub-dep.controller");
+const controller = require("./record.controller");
 const { guard } = require('../../helper');
+const multerSetting = require("../../helper/multer").userImageUpload;
 
-
-/*
- *  create 
- */
+// create
 router.post(
     "/create",
-    controller.sub_dep
+    multerSetting,
+    controller.record
 );
 
 // Get user by id
@@ -25,17 +24,17 @@ router.get(
 );
 
 
-// Update sub_dep
+// Update Profile
 router.patch(
     "/update/:id",
-    guard.isAuthorized("sub_department","edit"),
+    guard.isAuthorized("records","edit"),
     controller.update
 );
 
-// Delete sub_dep
+// Delete Profile
  router.delete(
     "/delete/:id",
-    guard.isAuthorized("sub_department","delete"),
+    guard.isAuthorized("records","delete"),
     controller.delete  
 );
 

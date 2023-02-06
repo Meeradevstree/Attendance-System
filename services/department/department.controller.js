@@ -8,39 +8,21 @@ module.exports = {
 
     department: async (req, res, next) => {
         try {
+            if (req.files != undefined && req.files.image != undefined) {
+                req.body.image = process.env.DOMAIN_URL + "/user-profile/" + req.files.image[0].filename;
+            }
             const department = await departmentService.save(req.body);
             if (department) {
-                commonResponse.success(res, "DEPARTMENT_CRREATED", 200, department);
+                commonResponse.success(res, "DEPARTMENT_CREATED", 201, department);
             } else {
-                return commonResponse.customResponse(res, "DATA_NOT_FOUND", 404);
+                return commonResponse.customResponse(res, "DEPARTMENT_NOT_CREATED", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
         }
     },
 
-
-
-/*
-*  Get Profile
-*/
-    // get: async (req, res, next) => {
-    //     try {
-    //         let department = await departmentService.getall(req.body._id);
-    //         if (department) {
-    //             commonResponse.success(res, "GET_PROFILE", 200, department, "Success");
-    //         } else {
-    //             return commonResponse.customResponse(res, "DEPARTMENT_NOT_FOUND", 404, {}, "Department not found, please try again");
-    //         }
-    //     } catch (error) {
-    //         return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
-    //     }
-    // },
-
-
-    
-//////////////////////////////////////////////////////
-     
+    //  READ
     list: async (req, res, next) => {
         // let language_code = req.headers.language_code ? req.headers.language_code : 'en';
         try {
@@ -50,13 +32,12 @@ module.exports = {
                 resp = {
                     error: false,
                     statusCode: 200,
-                    messageCode: 'LIST_ROLE_MANAGEMENT',
-                    message: `List of Role Management`,
+                    messageCode: 'LIST_OF_DEPARTMENT',
+                    message: `List of Department data`,
                     pagination: {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
                         current_page: list.current_page,
-                        
                     },
                     data: list.list
                 }
@@ -64,8 +45,8 @@ module.exports = {
                 resp = {
                     error: false,
                     statusCode: 200,
-                    messageCode: 'NO_LOYALTY_POINTS',
-                    message: `No loyalty points found.`,
+                    messageCode: 'NO_DEPARTMENT_DATA',
+                    message: `Department data not found.`,
                     pagination: {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
@@ -75,7 +56,6 @@ module.exports = {
                 }
             }
             return commonResponse.customSuccess(res, resp);
-
         } catch (error) {
             console.log("TCL: error", error)
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500)
@@ -84,19 +64,21 @@ module.exports = {
 
 ////////////////////////////////////////////////////////
 
-    // get by id
-    getdepartmentById: async (req, res, next) => {
-        try {
-            let department = await departmentService.get(req.role.id);
-            if (department) {
-                commonResponse.success(res, "GET_DEPARTMENT_DATA", 200, department);
-            } else {
-                return commonResponse.customResponse(res, "DATA_NOT_FOUND", 404);
-            }
-        } catch (error) {
-            return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+   //   Get Department By Id 
+    
+   getById: async(req,res,next)=>{
+    try{
+        let department_by_id=await departmentService.get_id(req.params.id);
+        if (department_by_id) {
+            commonResponse.success(res, "GET_DEPARTMENT", 200, department_by_id);
+        } else {
+            return commonResponse.customResponse(res, "DEPARTMENT_NOT_FOUND", 404);
         }
-    },
+    }
+    catch (error) {
+        return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+    }
+},
 
 
  /* 
@@ -104,11 +86,14 @@ module.exports = {
  */
     update: async (req, res, next) => {
         try {
+            if (req.files != undefined && req.files.image != undefined) {
+                req.body.image = process.env.DOMAIN_URL + "/user-profile/" + req.files.image[0].filename;
+            }
             let updatedepartment = await departmentService.update(req.params.id, req.body);
             if (updatedepartment) {
-                return commonResponse.success(res, "DEPARTMENT_PROFILE_UPDATE", 201, updatedepartment);
+                return commonResponse.success(res, "DEPARTMENT_PROFILE_UPDATED", 201, updatedepartment);
             } else {
-                return commonResponse.customResponse(res, "DEPARTMENT_NOT_FOUND", 404, {}, "Department not found, please try again");
+                return commonResponse.customResponse(res, "DEPARTMENT_NOT_UPDATED", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -125,7 +110,7 @@ module.exports = {
             if (deletedepartment) {
                 return commonResponse.success(res, "DEPARTMENT_PROFILE_DELETED", 202, deletedepartment);
             } else {
-                return commonResponse.customResponse(res, "DEPARTMENT_NOT_FOUND", 404, {}, "Department not found, please try again");
+                return commonResponse.customResponse(res, "DEPARTMENT_NOT_DELETED", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);

@@ -9,33 +9,16 @@ module.exports = {
         try {
             const role = await roleService.save(req.body);
             if (role) {
-                commonResponse.success(res, "GET_ROLE", 200, role, "Success");
+                commonResponse.success(res, "GET_ROLE", 201, role );
             } else {
-                return commonResponse.customResponse(res, "ROLE_NOT_FOUND", 404, {}, "Role not found, please try again");
+                return commonResponse.customResponse(res, "ROLE_NOT_FOUND",404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
         }
     },
 
-
-    
-    // Get role 
-    
-    // getrole: async (req, res, next) => {
-    //     try {
-    //         let role = await roleService.get();
-    //         if (role) {
-    //             commonResponse.success(res, "GET_ROLE", 200, role, "Success");
-    //         } else {
-    //             return commonResponse.customResponse(res, "ROLE_NOT_FOUND", 404, {}, "Role not found, please try again");
-    //         }
-    //     } catch (error) {
-    //         return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
-    //     }
-    // },
-    //////////////////////////////////////
-
+// READ
     list: async (req, res, next) => {
         // let language_code = req.headers.language_code ? req.headers.language_code : 'en';
         try {
@@ -51,7 +34,6 @@ module.exports = {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
                         current_page: list.current_page,
-                        
                     },
                     data: list.list
                 }
@@ -59,8 +41,8 @@ module.exports = {
                 resp = {
                     error: false,
                     statusCode: 200,
-                    messageCode: 'NO_LOYALTY_POINTS',
-                    message: `No loyalty points found.`,
+                    messageCode: 'NO_ROLE',
+                    message: `No Role data.`,
                     pagination: {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
@@ -87,9 +69,9 @@ module.exports = {
         try{
             let role_by_id=await roleService.get_id(req.params.id);
             if (role_by_id) {
-                commonResponse.success(res, "GET_ROLE", 200, role_by_id, "Success");
+                commonResponse.success(res, "GET_ROLE_BY_ID", 200, role_by_id);
             } else {
-                return commonResponse.customResponse(res, "ROLE_NOT_FOUND", 404, {}, "Role not found, please try again");
+                return commonResponse.customResponse(res, "ROLE_NOT_FOUND",404);
             }
         }
         catch (error) {
@@ -107,7 +89,7 @@ module.exports = {
             if (updatedrole) {
                 return commonResponse.success(res, "ROLE_PROFILE_UPDATE", 201, updatedrole);
             } else {
-                return commonResponse.customResponse(res, "ROLE_NOT_FOUND", 404, {}, "Role not found, please try again");
+                return commonResponse.customResponse(res, "ROLE_NOT_UPDATED",404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -124,7 +106,7 @@ module.exports = {
             if (deleterole) {
                 return commonResponse.success(res, "ROLE_PROFILE_DELETED", 202, deleterole);
             } else {
-                return commonResponse.customResponse(res, "ROLE_NOT_FOUND", 404, {}, "Role not found, please try again");
+                return commonResponse.customResponse(res, "ROLE_NOT_DELETED",404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);

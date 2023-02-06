@@ -3,25 +3,25 @@ let softDelete = require('mongoosejs-soft-delete');
 
 const Schema = mongoose.Schema;
 
-const holidaysSchema = new Schema(
+const recordSchema = new Schema(
     {
-        holiday_name:{
+        present: {
             type: String,
             required: true
         },
-        holiday_date:{
+        absent: {
             type: String,
             required: true
         },
-        holiday_day:{
+        half_day: {
             type: String,
-            required: false
+            required: true
         }
     },
 );
 
-holidaysSchema.plugin(softDelete);
+recordSchema.plugin(softDelete);
 
-const Holidays = mongoose.model("Holidays", holidaysSchema);
+const Record = mongoose.model("Record", recordSchema);
 
-module.exports = Holidays;
+module.exports = Record;

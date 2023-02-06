@@ -1,32 +1,21 @@
 const { commonResponse } = require("../../helper");
-const departmentModel = require("./department.model");
+const recordModel = require("./record.model");
 
 /*
-*  Create 
+*  Create
 */
 exports.save = async (reqBody) => {
-    return await new departmentModel(reqBody).save();
+    return await new recordModel(reqBody).save();
 };
 
 
 /*
-*  Get Department By Id
+*  Get Date By Id
 */
 exports.get_id = async (id) => {
-    return await departmentModel.findOne({ _id: id }).populate("sub_dep_ID").lean();
+    return await recordModel.findOne({ _id: id },{"deleted" : 0,"_id":0,"__v": 0}).lean();
     
 };
-
-/*
-*  Get
-*/
-// exports.getall = async () => {
-//     return await departmentModel.find({}).populate("sub_dep_ID").lean();
-// };
-
-
-////////////////////////////////////////////////////////
-
 
 exports.list = async (reqQuery) => {
     let page = 0;
@@ -50,15 +39,14 @@ exports.list = async (reqQuery) => {
     }
 
     if (reqQuery.search && reqQuery.search != "") {
-        query["department_name"] = { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") };
+        query["present","absent","half_day"] = { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") };
     }
 
     query.deleted = false;
-    returnData.total_counts = await departmentModel.countDocuments(query).lean();
+    returnData.total_counts = await recordModel.countDocuments(query).lean();
     returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
     returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
-
-    returnData.list = await departmentModel.find(query).skip(skip).limit(limit).populate("sub_dep_ID").lean();
+    returnData.list = await recordModel.find(query).skip(skip).limit(limit).lean();
 
     return returnData;
 };
@@ -71,7 +59,7 @@ exports.list = async (reqQuery) => {
 *  Update
 */
 exports.update = async (id, reqBody) => {
-    return await departmentModel.findOneAndUpdate({_id: id }, {$set:reqBody}, {new: true,}).lean();
+    return await recordModel.findOneAndUpdate({_id: id }, {$set:reqBody}, {new: true,}).lean();
 };
 
 
@@ -79,5 +67,5 @@ exports.update = async (id, reqBody) => {
 *  Delete
 */
 exports.delete = async (id) => {
-    return await departmentModel.removeOne({ _id: id },{new: true}).lean();
+    return await recordModel.removeOne({ _id: id },{new: true}).lean();
 };

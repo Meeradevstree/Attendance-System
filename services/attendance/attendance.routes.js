@@ -1,14 +1,12 @@
 const router = require("express").Router();
-const controller = require("./sub-dep.controller");
+const controller = require("./attendance.controller");
 const { guard } = require('../../helper');
 
 
-/*
- *  create 
- */
+// create
 router.post(
     "/create",
-    controller.sub_dep
+    controller.attendance
 );
 
 // Get user by id
@@ -17,25 +15,23 @@ router.get(
     controller.getById
 );
 
-
 // read all
 router.get(
     "/list",
     controller.list
 );
 
-
-// Update sub_dep
+// Update Profile
 router.patch(
     "/update/:id",
-    guard.isAuthorized("sub_department","edit"),
+    guard.isAuthorized("attendance","edit"),
     controller.update
 );
 
-// Delete sub_dep
+// Delete Profile
  router.delete(
     "/delete/:id",
-    guard.isAuthorized("sub_department","delete"),
+    guard.isAuthorized("attendance","delete"),
     controller.delete  
 );
 

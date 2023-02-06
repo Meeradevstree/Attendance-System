@@ -12,14 +12,14 @@ router.post(
 
 // read
 router.get(
-    "/get",
+    "/list",
     controller.list
 );
 
 
 // Get user by id
 router.get(
-    "/get/:id",
+    "/list/:id",
     controller.getById
 );
 

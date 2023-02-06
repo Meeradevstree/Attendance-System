@@ -6,32 +6,33 @@ const multerSetting = require("../../helper/multer").userImageUpload;
 // Create Leave
 router.post (
     "/create",
+    multerSetting,
     controller.leave
 );
 
 // read
 router.get(
-    "/read",
+    "/list/:id",
     controller.getleaveById
 );
 
 // read
 router.get(
-    "/read",
+    "/list",
     controller.list
 );
 
 // update
 router.patch(
     "/update/:id",
-    guard.isAuthorized("member","edit"),
+    guard.isAuthorized("leave","edit"),
     controller.update
 );
 
 // Delete Profile
  router.delete(
     "/delete/:id",
-    guard.isAuthorized("member","delete"),
+    guard.isAuthorized("leave","delete"),
     controller.delete
 );
 
