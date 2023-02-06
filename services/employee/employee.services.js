@@ -3,6 +3,7 @@ const employeeModel = require("./employee.model");
 const roleModel = require("../RoleManagement/role.model");
 const leaveModel = require("../leave/leave.model");
 const attendanceModel = require("../attendance/attendance.model");
+const dateModel = require("../date/date.model");
 const departmentModel = require("../department/department.model");
 const { Model } = require("mongoose");
 
@@ -94,6 +95,8 @@ exports.delete = async (id) => {
     console.log("Delete Leave function : " , leave_data);
     let attendance_data = await attendanceModel.removeOne({employeeID:id}).lean();
     console.log("Delete Attendance function: ", attendance_data);
+    let date_data = await dateModel.removeOne({employeeID:id}).lean();
+    console.log("Delete Date function: ", date_data);
     return await employeeModel.removeOne({ _id: id },{new: true}).lean();
 };
 
