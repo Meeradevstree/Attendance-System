@@ -9,12 +9,14 @@ const attendanceRoutes = require("../services/attendance/attendance-index");
 const recordRoutes = require("../services/records/index-record");
 const dateRoutes = require("../services/date/index-date");
 const monthRoutes=require("../services/months/month-index")
+const holidayDemo = require('../services/holidaydemo/holidayDemo.index')
 
 const initialize = (app) => {
   app.use("/api/employee", employeeRoutes);
   app.use("/api/leave", leaveRoutes);
   app.use("/api/role", roleRoutes);
   app.use("/api/holidays", holidaysRoutes);
+  app.use("/api/holidayDemo",holidayDemo);
   app.use("/api/department", departmentRoutes);
   app.use("/api/sub_dep", sub_depRoutes);
   app.use("/api/dashboard", dashboardRoutes);
