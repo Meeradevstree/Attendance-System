@@ -5,10 +5,10 @@ const { find } = require("lodash");
 const  populate  = require("./leave.model")
 
 
-// gmail
-exports.is_exist = async (reqBody) => {
-    return  await leaveModel.findOne({email: reqBody.email}).lean();
-};
+// // gmail
+// exports.is_exist = async (reqBody) => {
+//     return  await leaveModel.findOne({email: reqBody.email}).lean();
+// };
 
 
 // create leave

@@ -75,6 +75,15 @@ exports.get_id = async (id) => {
 *  Add New User
 */
 exports.save = async (reqBody) => {
+    console.log('request : ', reqBody)
+    let find = await employeeModel.findOne().sort({ employeeNo: -1 }).lean()
+    let unique;
+    if (find) {
+        unique = parseInt(find.employeeNo) + 1
+    } else {
+        unique = 1
+    }
+    reqBody.employeeNo = unique
     return await new employeeModel(reqBody).save();
 };
 

@@ -91,8 +91,9 @@ const employeeSchema = new Schema(
             default: 0
         },
         employeeNo:{
-            type: String,
-            required: false
+            type: Number,
+            required:false,
+            default: 1
         },
         status: {
             type: String,
