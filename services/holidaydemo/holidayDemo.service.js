@@ -1,16 +1,27 @@
-const {commonResponse} = require('../../helper');
+
+const { commonResponse } = require('../../helper');
 const HolidaysDemo = require('./holidayDemo.model')
 
 //create
 
 exports.create = async (req) => {
+    console.log('request : ', req)
+    let find = await HolidaysDemo.findOne().sort({ Unique: -1 }).lean()
+    let uniq;
+    if (find) {
+        uniq = find.Unique + 1
+    } else {
+        uniq = 1
+    }
+    req.Unique = uniq
+    console.log('unique : ',req)
     return await new HolidaysDemo(req).save()
 }
 
 //get
 
 exports.get = async (reqQuery) => {
-    // console.log('reqQuery :',reqQuery)
+    // console.log('reqQuery 13 :',reqQuery)
     let page = 0;
     let limit = 10;
     let skip = 0;
@@ -31,28 +42,29 @@ exports.get = async (reqQuery) => {
         skip = page * limit;
     }
 
-    // if ((reqQuery.search && reqQuery.search != "") || (reqQuery.name && reqQuery.name != "")) {
-    //     query = {
-    //         $and: [{ "Anime": { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") }}, 
-    //         { "mainCharacter": { $regex: new RegExp(".*" + reqQuery.name.toLowerCase(), "i") } }]
-    //     }
-    // }
-    console.log("query ======>: " , query)
+    if ((reqQuery.search && reqQuery.search != "") || (reqQuery.name && reqQuery.name != "")) {
+        query = {
+            $and: [{ "Anime": { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") } },
+            { "mainCharacter": { $regex: new RegExp(".*" + reqQuery.name.toLowerCase(), "i") } }]
+        }
+    }
+    console.log("returnData ======>: 40 : ", query)
     query.deleted = false;
 
     returnData.total_counts = await HolidaysDemo.countDocuments(query).lean();
+
     returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
     returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
 
-    returnData.list = await HolidaysDemo.find(query).sort({_id : -1}).skip(skip).limit(limit).lean();
+    returnData.list = await HolidaysDemo.find(query).sort({ _id: -1 }).skip(skip).limit(limit).populate("employee").lean();
     return returnData
 },
 
-//update
+    //update
 
-exports.update = async (id, reqBody) => {
-    return await HolidaysDemo.findOneAndUpdate({_id: id }, {$set:reqBody}, {new: true,}).lean();
-};
+    exports.update = async (id, reqBody) => {
+        return await HolidaysDemo.findOneAndUpdate({ _id: id }, { $set: reqBody }, { new: true, }).lean();
+    };
 
 //delete
 

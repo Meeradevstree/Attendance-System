@@ -22,8 +22,7 @@ module.exports = {
 
     //read
 
-    list: async (req, resp, next) => {
-        // console.log('request',req,resp)
+    list: async (req, res, next) => {
         try {
             let list = await HolidaysDemoServices.get(req.query)
             let resp;
@@ -54,7 +53,7 @@ module.exports = {
                     data: list.list
                 }
             }
-            return commonResponse.customSuccess(resp, resp);
+            return commonResponse.customSuccess(res, resp);
         } catch (err) {
             return commonResponse.customResponse(resp, "HOLIDAY_DEMO_LIST_NOT_FOUND", 404)
         }

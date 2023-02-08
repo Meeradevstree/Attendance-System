@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose')
 let softDelete = require('mongoosejs-soft-delete')
 
@@ -8,6 +9,11 @@ const HolidayDemoSchema = new Schema(
         Anime: {
             type: String,
             required: true,
+        },
+        Unique: {
+            type: Number,
+            required: false,
+            default: 1
         },
         mainCharacter: {
             type: String,
@@ -26,9 +32,14 @@ const HolidayDemoSchema = new Schema(
         rating: {
             type: Number,
             required: true,
+        },
+        employee: {
+            type:Schema.Types.ObjectId,
+            ref : "Employee"
         }
     }
 )
+
 HolidayDemoSchema.plugin(softDelete)
 const HolidaysDemo = mongoose.model('HolidaysDemo', HolidayDemoSchema)
 module.exports = HolidaysDemo

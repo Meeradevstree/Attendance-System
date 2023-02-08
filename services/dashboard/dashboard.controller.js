@@ -25,35 +25,28 @@ module.exports = {
     //////////////////////////////////////////////////////
      
     list: async (req, res, next) => {
-        // let language_code = req.headers.language_code ? req.headers.language_code : 'en';
+        // console.log('req =====================>: ',req)
+        // console.log('res =====================>: ',res)
         try {
-            const list = await dashboardService.list(req.query);
+            const list = await dashboardService.list();
+            console.log('res =====================>: ',list)
             let resp;
-            if (list.list.length > 0) {
+            if (Object.entries(list).length > 0) {
+                console.log('iffffffffffffffffffffffffffff')
                 resp = {
                     error: false,
                     statusCode: 200,
                     messageCode: 'LIST_OF_DASHBOARD',
                     message: `List of Dashboard`,
-                    pagination: {
-                        total_counts: list.total_counts,
-                        total_pages: list.total_pages,
-                        current_page: list.current_page,
-                    },
-                    data: list.list
+                    data: list
                 }
             } else {
+                console.log('elseeeeeeeeeeeeeeeeeeeeeeeee')
                 resp = {
                     error: false,
                     statusCode: 200,
                     messageCode: 'NO_DASHBOARD_DATA',
-                    message: `Dashboard data not found.`,
-                    pagination: {
-                        total_counts: list.total_counts,
-                        total_pages: list.total_pages,
-                        current_page: list.current_page,
-                    },
-                    data: list.list
+                    data: list
                 }
             }
             return commonResponse.customSuccess(res, resp);

@@ -20,7 +20,7 @@ router.get(
 
 // read all
 router.get(
-    "/get",
+    "/list",
     controller.list
 );
 
