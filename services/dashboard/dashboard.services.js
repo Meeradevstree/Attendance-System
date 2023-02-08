@@ -1,20 +1,31 @@
 const { commonResponse } = require("../../helper");
 const dashboardModel = require("./dashboard.model");
+const departmentModel = require("./../department/department.model")
+let employeeModel = require("../employee/employee.model")
+let leaveModel = require("../leave/leave.model")
 
 /*
 *  Create Holidays
 */
 exports.save = async (reqBody) => {
-    return await new dashboardModel(reqBody).save();
+    // let department = await departmentModel.find({}).lean()
+    // let employee = await employeeModel.find({}).lean()
+    // let leave = await leaveModel.find({}).lean()
+    // reqBody.totalDepartment=department.length
+    // reqBody.totalEmployee=employee.length
+    // reqBody.LeaveApply=leave.length
+    console.log('department : ',reqBody)
+    // return await new dashboardModel(reqBody).save();
 };
 
 
 /*
 *  Get By Id
 */
-exports.get = async () => {
-    return await dashboardModel.find({}).lean();
-};
+// exports.get = async (req) => {
+//     console.log('request : ',req)
+//     return await dashboardModel.find({}).lean();
+// };
 
 /*
 *  Get all
@@ -27,39 +38,22 @@ exports.get = async () => {
 /////////////////////////////////////////////
 
 
-exports.list = async (reqQuery) => {
-    let page = 0;
-    let limit = 10;
-    let skip = 0;
-    let returnData = {
-        total_counts: 0,
-        total_pages: 0,
-        current_page: 0,
-        list: []
-    };
-    let query = {};
+exports.list = async () => {
+    let returnData = {}
+    let department = await departmentModel.find({}).countDocuments().lean()
+    let employee = await employeeModel.find({}).countDocuments().lean()
+    let leave = await leaveModel.find({}).countDocuments().lean()
+    let pending = await leaveModel.find({}).countDocuments({status:"pending"}).countDocuments({deleted:"false"}).lean()
 
-    if (reqQuery.limit && reqQuery.limit != "") {
-        limit = parseInt(reqQuery.limit);
-    }
 
-    if (reqQuery.page && reqQuery.page != '') {
-        page = parseInt(reqQuery.page) - 1;
-        skip = page * limit;
-    }
-
-    if (reqQuery.search && reqQuery.search != "") {
-        query["department_name"] = { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") };
-    }
-
-    query.deleted = false;
-    returnData.total_counts = await dashboardModel.countDocuments(query).lean();
-    returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
-    returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
-
-    returnData.list = await dashboardModel.find(query).skip(skip).limit(limit).lean();
-
+    returnData.department = department;
+    returnData.employee = employee;
+    returnData.leave = leave;
+    returnData.pending = pending;
+    // console.log('returnData : ',returnData)
     return returnData;
+
+
 };
 
 
@@ -71,7 +65,7 @@ exports.list = async (reqQuery) => {
 *  Update User
 */
 exports.update = async (id, reqBody) => {
-    return await dashboardModel.findOneAndUpdate({_id: id }, {$set:reqBody}, {new: true,}).lean();
+    return await dashboardModel.findOneAndUpdate({ _id: id }, { $set: reqBody }, { new: true, }).lean();
 };
 
 
@@ -79,5 +73,5 @@ exports.update = async (id, reqBody) => {
 *  Delete User
 */
 exports.delete = async (id) => {
-    return await dashboardModel.removeOne({ _id: id },{new: true}).lean();
+    return await dashboardModel.removeOne({ _id: id }, { new: true }).lean();
 };
