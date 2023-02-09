@@ -60,16 +60,16 @@ const leaveSchema = new Schema(
             type: String,
             required: false,
         },
-        // email: {
-        //     hr: [{
-        //         type: String,
-        //         required: false,
-        //     }],
-        //     cc: [{
-        //         type: String,
-        //         required: false,
-        //     }]
-        // },
+        email: {
+            hr: [{
+                type: String,
+                required: false,
+            }],
+            cc: [{
+                type: String,
+                required: false,
+            }]
+        },
         // forward: {
         //     type: String,
         //     required: false,
