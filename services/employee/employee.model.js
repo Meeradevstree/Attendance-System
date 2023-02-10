@@ -3,7 +3,7 @@ let softDelete = require('mongoosejs-soft-delete');
 
 const Schema = mongoose.Schema;
 
-const usersSchema = new Schema(
+const employeeSchema = new Schema(
     {
         email: {
             type: String,
@@ -19,6 +19,16 @@ const usersSchema = new Schema(
             required:false
         },
         phoneNo: {
+            type: String,
+            required: false,
+            default: ""
+        },
+        alternateNo: {
+            type: String,
+            required: false,
+            default: ""
+        },
+        salary: {
             type: String,
             required: false,
             default: ""
@@ -45,7 +55,7 @@ const usersSchema = new Schema(
             type: String,
             required: false,
         },
-        parmenant_address:{
+        permanent_address:{
             type: String,
             required: false
         },
@@ -91,8 +101,9 @@ const usersSchema = new Schema(
             default: 0
         },
         employeeNo:{
-            type: String,
-            required: false
+            type: Number,
+            required:false,
+            default: 1
         },
         status: {
             type: String,
@@ -100,19 +111,24 @@ const usersSchema = new Schema(
             default: "pending",
             required: false,
         },
-        linkedIn:{
+        // linkedIn:{
+        //     type: String,
+        //     required: false
+        // },
+        // skype:{
+        //     type: String,
+        //     required: false
+        // },
+        // github:{
+        //     type: String,
+        //     required: false
+        // },
+        working:{
             type: String,
-            required: false
-        },
-        skype:{
-            type: String,
-            required: false
-        },
-        github:{
-            type: String,
-            required: false
+            enum: ["work from home","work from office"],
+            default: "work from office",
+            required: false,
         }
-        
     },
     { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
 );
@@ -120,8 +136,8 @@ const usersSchema = new Schema(
 
 
 
-usersSchema.plugin(softDelete);
+employeeSchema.plugin(softDelete);
 
-const Users = mongoose.model("Employee", usersSchema);
+const employee = mongoose.model("Employee", employeeSchema);
 
-module.exports = Users;
+module.exports = employee;

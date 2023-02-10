@@ -11,16 +11,16 @@ router.post(
     controller.sub_dep
 );
 
-// read
+// Get user by id
 router.get(
-    "/get/:id",
-    controller.getsub_depById
+    "/list/:id",
+    controller.getById
 );
 
 
 // read all
 router.get(
-    "/get",
+    "/list",
     controller.list
 );
 
@@ -28,14 +28,14 @@ router.get(
 // Update sub_dep
 router.patch(
     "/update/:id",
-    guard.isAuthorized("member","edit"),
+    guard.isAuthorized("sub_department","edit"),
     controller.update
 );
 
 // Delete sub_dep
  router.delete(
     "/delete/:id",
-    guard.isAuthorized("member","delete"),
+    guard.isAuthorized("sub_department","delete"),
     controller.delete  
 );
 

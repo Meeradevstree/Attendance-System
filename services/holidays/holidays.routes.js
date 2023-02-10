@@ -13,13 +13,13 @@ router.post(
 
 // read
 router.get(
-    "/get/:id",
+    "/list/:id",
     controller.list
 );
 
 // read all
 router.get(
-    "/get",
+    "/list",
     controller.list
 );
 
@@ -27,15 +27,15 @@ router.get(
 // Update Profile
 router.patch(
     "/update/:id",
-    guard.isAuthorized("member","edit"),
+    guard.isAuthorized("holidays","edit"),
     controller.update
 );
 
-// Delete Profile
- router.delete(
+// Delete holiday
+router.delete(
     "/delete/:id",
-    guard.isAuthorized("member","delete"),
-    controller.delete  
+    guard.isAuthorized("holidays","delete"),
+    controller.delete
 );
 
-module.exports = router;
+module.exports = router;  

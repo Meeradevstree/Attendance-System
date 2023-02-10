@@ -2,7 +2,6 @@ const Cryptr = require('cryptr');
 const cryptr = new Cryptr('myTotalySecretKey');
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
 const PNF = require('google-libphonenumber').PhoneNumberFormat;
-const bcrypt = require('bcrypt');
 
 exports.randomSixDigit = () => {
     return Math.floor(100000 + Math.random() * 900000)

@@ -2,7 +2,7 @@ const { commonResponse } = require("../../helper");
 const departmentModel = require("./department.model");
 
 /*
-*  Create Holidays
+*  Create 
 */
 exports.save = async (reqBody) => {
     return await new departmentModel(reqBody).save();
@@ -10,10 +10,11 @@ exports.save = async (reqBody) => {
 
 
 /*
-*  Get By Id
+*  Get Department By Id
 */
-exports.get = async () => {
-    return await departmentModel.find({}).lean();
+exports.get_id = async (id) => {
+    return await departmentModel.findOne({ _id: id }).populate("sub_dep_ID").lean();
+    
 };
 
 /*
@@ -67,7 +68,7 @@ exports.list = async (reqQuery) => {
 
 
 /*
-*  Update User
+*  Update
 */
 exports.update = async (id, reqBody) => {
     return await departmentModel.findOneAndUpdate({_id: id }, {$set:reqBody}, {new: true,}).lean();
@@ -75,7 +76,7 @@ exports.update = async (id, reqBody) => {
 
 
 /*
-*  Delete User
+*  Delete
 */
 exports.delete = async (id) => {
     return await departmentModel.removeOne({ _id: id },{new: true}).lean();

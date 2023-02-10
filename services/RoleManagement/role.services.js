@@ -46,7 +46,7 @@ exports.list = async (reqQuery) => {
     returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
     returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
 
-    returnData.list = await roleModel.find(query).skip(skip).limit(limit).lean();
+    returnData.list = await roleModel.find(query).sort({ _id: -1}).skip(skip).limit(limit).lean();
 
     return returnData;
 };
@@ -58,7 +58,6 @@ exports.list = async (reqQuery) => {
 */
 exports.get_id = async (id) => {
     return await roleModel.findOne({ _id: id },{"deleted" : 0,"title":0,"__v": 0,"login_type":0,"title":0 ,"_id":0}).lean();
-    
 };
 
 

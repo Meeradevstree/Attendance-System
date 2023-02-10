@@ -11,10 +11,10 @@ const roleSchema = new Schema(
         },
         login_type: {
             type: String,
-            enum: ["ceo","director", "hr", "sub-hr", "pm", "tl", "sd", "developer","president","bd"],
+            enum: ["ceo","director", "hr", "sub-hr", "pm", "tl", "sd", "developer","president","bd","intern"],
             required: false
         },
-        member: [{
+        employee: [{
             type: String,
             enum: ['add', 'edit', 'view', 'delete'],
             default: []
@@ -44,12 +44,28 @@ const roleSchema = new Schema(
             enum: ['add', 'edit', 'view', 'delete'],
             default: []
         }],
-        sub_department:[{
+        birthdate:[{
             type: String,
             enum: ['add', 'edit', 'view', 'delete'],
             default: []
         }],
-        sheet:[{
+    
+        // sub_department:[{
+        //     type: String,
+        //     enum: ['add', 'edit', 'view', 'delete'],
+        //     default: []
+        // }],
+        // sheet:[{
+        //     type: String,
+        //     enum: ['add', 'edit', 'view', 'delete'],
+        //     default: []
+        // }],
+        attendance:[{
+            type: String,
+            enum: ['add', 'edit', 'view', 'delete'],
+            default: []
+        }],
+        management:[{
             type: String,
             enum: ['add', 'edit', 'view', 'delete'],
             default: []
