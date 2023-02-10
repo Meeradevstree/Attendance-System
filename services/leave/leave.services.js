@@ -13,7 +13,9 @@ const  populate  = require("./leave.model")
 
 // create leave
 exports.save = async (reqBody) => {
-    return await new leaveModel(reqBody).save();
+    // let checkLeave = await leaveModel.find({_id: id}).lean();
+    console.log('checkLeave ===========> ',reqBody)
+    // return await new leaveModel(reqBody).save();
 };
 
 

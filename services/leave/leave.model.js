@@ -17,6 +17,10 @@ const leaveSchema = new Schema(
             type: String,
             required: false
         },
+        total_days: {
+            type: String,
+            required: false
+        },
         leave_approval_date: {
             type: String,
             required: false
@@ -60,16 +64,16 @@ const leaveSchema = new Schema(
             type: String,
             required: false,
         },
-        // email: {
-        //     hr: [{
-        //         type: String,
-        //         required: false,
-        //     }],
-        //     cc: [{
-        //         type: String,
-        //         required: false,
-        //     }]
-        // },
+        email: {
+            hr: [{
+                type: String,
+                required: false,
+            }],
+            cc: [{
+                type: String,
+                required: false,
+            }]
+        },
         // forward: {
         //     type: String,
         //     required: false,

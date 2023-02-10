@@ -34,45 +34,20 @@ module.exports = {
             const leave = await leaveService.save(req.body);
             console.log("leave==>",leave)
             if (leave) {
-                /* Send leave mail */
-                // Email for HR
-                //** */ let emailDataForHr = {
-                //     to: leave.email.hr,
-                //     subject: "Boiler-plat || LEAVE INFORMATION",
-                //     text: ``,
-                //     html: `<h1> Leave Details </h1>
-                //             <h2>leave information : ${leave.leave_type}</b></h2> 
-                //             <h3>leave_reason: ${leave.leave_reason}</h3>
-                //             <h3>from_date: ${leave.from_date}</h3>
-                //             <h3>to_date: ${leave.to_date}</h3>
-                //             <h3>leave_days: ${leave.leave_days}</h3>`,
-                // };
-                // nodemailer.sendMail(emailDataForHr);
+                // let arr = []
+                // const holiday = await holidayDates.find({}).lean()
+                // holiday.map((h) => {
+                //     arr.push(h.holiday_date)
+                // })
+                // if (arr.includes(leave.from_date) || arr.includes(leave.to_date)) {
+                //     return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR_LEAVE", 500, {}, error.message);
+                // } else {
+                //     commonResponse.success(res, "HOLIDAYS_CREATED", 201, leave)
+                // }
+                // // let getLeave = await leaveService.list(leave._id);
+                // console.log("get leave data => ", arr)
 
-                // // Email for CC
-                // let emailDataForCc = {
-                //     to: leave.email.cc,
-                //     subject: "Boiler-plat || LEAVE INFORMATION",
-                //     text: ``,
-                //     html: `<h1> Leave Details </h1>
-                //             <h2>leave information : ${leave.leave_type}</b></h2> 
-                //             <h3>leave_reason: ${leave.leave_reason}</h3>
-                //             <h3>from_date: ${leave.from_date}</h3>
-                //             <h3>to_date: ${leave.to_date}</h3>
-                //             <h3>leave_days: ${leave.leave_days}</h3>`,
-                // };
-                // nodemailer.sendMail(emailDataForCc);**
-
-                // // Email for Forwaard
-                // let emailDataForward = {
-                //     from:leave.email.hr,
-                //     to: leave.email.cc,
-                //     subject: "Boiler-plat || LEAVE INFORMATION",
-                //     text: ``,
-                //     html: `<h1> Leave Details </h1>
-                //             <h3>Leave application is ${leave.status}</h3>`,
-                // };
-                // nodemailer.sendMail(emailDataForward);
+               
 
                 let getLeave = await leaveService.list(leave._id);
                 console.log("get leave data => ", getLeave)

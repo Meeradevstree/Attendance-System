@@ -13,7 +13,7 @@ module.exports = {
           JWT_SECRET: "jsonwebtoken"
         },
         env: {
-          PORT: 4200,
+          PORT: 4300,
           NODE_ENV: "development",
           DOMAIN_URL: "http://172.105.35.50:4200",
           DB_MONGO_URL: "mongodb+srv://reportingSystem:reportingSystem@reportsystem.c6olr7z.mongodb.net/reportingSystem",
