@@ -6,6 +6,7 @@ const attendanceModel = require("../attendance/attendance.model");
 const dateModel = require("../date/date.model");
 const departmentModel = require("../department/department.model");
 const { Model } = require("mongoose");
+const moment = require('moment')
 
 /*
 *  Check Email Exist
@@ -55,19 +56,22 @@ exports.list = async (reqQuery) => {
         returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
         returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
 
-        const check = await employeeModel.find(query).skip(skip).limit(limit).populate('roleManagement').populate({ path: 'departmentdata', model: 'department', populate: { path: 'sub_dep_ID', model: 'sub_dep' } }).lean();
-        check.sort(function (a, b) {
-            let aBirthday = new Date(a.birthday);
-            let bBirthday = new Date(b.birthday);
 
-            if (aBirthday < bBirthday) {
-                return -1;
+        const check = await employeeModel.find(query).skip(skip).limit(limit).populate('roleManagement').populate({ path: 'departmentdata', model: 'department', populate: { path: 'sub_dep_ID', model: 'sub_dep' } }).lean();
+        check.sort((a) => {
+            var date = new Date()
+            console.log('==================================>',a.birthdate,moment(date).format("YYYY-MM-DD"))
+            if(a.birthdate < moment(date).format("YYYY-MM-DD")){
+                return -1
             }
-            if (aBirthday > bBirthday) {
-                return 1;
+            if(a.birthdate > date){
+                return 1
             }
-            return 0;
-        });
+            return 0
+
+        })
+    
+
 
         returnData.list = check
         return returnData
