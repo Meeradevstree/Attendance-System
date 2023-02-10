@@ -82,7 +82,8 @@ const leaveSchema = new Schema(
             type: String,
             required: false,
         }
-    }
+    },
+    { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
 );
 
 leaveSchema.plugin(softDelete);

@@ -6,12 +6,13 @@ const attendanceModel = require("../attendance/attendance.model");
 const dateModel = require("../date/date.model");
 const departmentModel = require("../department/department.model");
 const { Model } = require("mongoose");
+const moment = require('moment')
 
 /*
 *  Check Email Exist
 */
 exports.is_exist = async (reqBody) => {
-    return  await employeeModel.findOne({email: reqBody.email}).lean();
+    return await employeeModel.findOne({ email: reqBody.email }).lean();
 };
 
 // list
@@ -38,20 +39,53 @@ exports.list = async (reqQuery) => {
 
     if ((reqQuery.search && reqQuery.search != "") || (reqQuery.name && reqQuery.name != "")) {
         query = {
-            $and: [{ "department": { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") }}, 
-            { "first_name": { $regex: new RegExp(".*" + reqQuery.name.toLowerCase(), "i") } }]
+            $and: [{ "department": { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") } },
+            { "first_name": { $regex: new RegExp(".*" + reqQuery.name.toLowerCase(), "i") } },]
         }
+        query.deleted = false;
+        returnData.total_counts = await employeeModel.countDocuments(query).lean();
+        returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
+        returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
+
+        returnData.list = await employeeModel.find(query).sort({ _id: -1 }).skip(skip).limit(limit).populate('roleManagement').populate({ path: 'departmentdata', model: 'department', populate: { path: 'sub_dep_ID', model: 'sub_dep' } }).lean();
+
+        return returnData;
+    } else if (reqQuery.birth && reqQuery.birth == 'sort') {
+        query.deleted = false;
+        returnData.total_counts = await employeeModel.countDocuments(query).lean();
+        returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
+        returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
+
+
+        const check = await employeeModel.find(query).skip(skip).limit(limit).populate('roleManagement').populate({ path: 'departmentdata', model: 'department', populate: { path: 'sub_dep_ID', model: 'sub_dep' } }).lean();
+        check.sort((a) => {
+            var date = new Date()
+            console.log('==================================>',a.birthdate,moment(date).format("YYYY-MM-DD"))
+            if(a.birthdate < moment(date).format("YYYY-MM-DD")){
+                return -1
+            }
+            if(a.birthdate > date){
+                return 1
+            }
+            return 0
+
+        })
+    
+
+
+        returnData.list = check
+        return returnData
+    } else {
+        query.deleted = false;
+        returnData.total_counts = await employeeModel.countDocuments(query).lean();
+        returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
+        returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
+
+        returnData.list = await employeeModel.find(query).sort({ _id: -1 }).skip(skip).limit(limit).populate('roleManagement').populate({ path: 'departmentdata', model: 'department', populate: { path: 'sub_dep_ID', model: 'sub_dep' } }).lean();
+        return returnData
     }
 
-    console.log("query ======>: " , query)
-    query.deleted = false;
-    returnData.total_counts = await employeeModel.countDocuments(query).lean();
-    returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
-    returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
 
-    returnData.list = await employeeModel.find(query).sort({_id : -1}).skip(skip).limit(limit).populate('roleManagement').populate({path:'departmentdata',model:'department', populate: {path: 'sub_dep_ID',model: 'sub_dep'}}).lean();
-
-    return returnData;
 };
 
 
@@ -59,7 +93,7 @@ exports.list = async (reqQuery) => {
 *  Get By Id 
 */
 exports.getbyid = async (id) => {
-    return await employeeModel.findOne({ _id: id }).sort({ _id: -1}).lean();
+    return await employeeModel.findOne({ _id: id }).sort({ _id: -1 }).lean();
 };
 
 
@@ -67,7 +101,7 @@ exports.getbyid = async (id) => {
 *  Get By Id
 */
 exports.get_id = async (id) => {
-    return await employeeModel.findOne({ _id: id }).sort({ _id: -1}).populate('roleManagement',{"_id" : 0, "deleted" : 0,"login_type": 0,"title":0, "__v": 0}).populate({path:'departmentdata',model:'department', populate: {path: 'sub_dep_ID',model: 'sub_dep'}}).lean();
+    return await employeeModel.findOne({ _id: id }).sort({ _id: -1 }).populate('roleManagement', { "_id": 0, "deleted": 0, "login_type": 0, "title": 0, "__v": 0 }).populate({ path: 'departmentdata', model: 'department', populate: { path: 'sub_dep_ID', model: 'sub_dep' } }).lean();
 };
 
 
@@ -100,21 +134,21 @@ exports.update = async (id, reqBody) => {
 *  Delete User
 */
 exports.delete = async (id) => {
-    let leave_data = await  leaveModel.removeOne({employeeID:id}).lean();
-    console.log("Delete Leave function : " , leave_data);
-    let attendance_data = await attendanceModel.removeOne({employeeID:id}).lean();
+    let leave_data = await leaveModel.removeOne({ employeeID: id }).lean();
+    console.log("Delete Leave function : ", leave_data);
+    let attendance_data = await attendanceModel.removeOne({ employeeID: id }).lean();
     console.log("Delete Attendance function: ", attendance_data);
-    let date_data = await dateModel.removeOne({employeeID:id}).lean();
+    let date_data = await dateModel.removeOne({ employeeID: id }).lean();
     console.log("Delete Date function: ", date_data);
-    return await employeeModel.removeOne({ _id: id },{new: true}).lean();
+    return await employeeModel.removeOne({ _id: id }, { new: true }).lean();
 };
 
 
 // getroledata
 exports.roledata = async (id) => {
-    let rolemanagement_data = await  roleModel.findOne({_id:id}).lean();
+    let rolemanagement_data = await roleModel.findOne({ _id: id }).lean();
     console.log(rolemanagement_data);
-    if(rolemanagement_data){
+    if (rolemanagement_data) {
         return rolemanagement_data.login_type;
     }
 }
@@ -122,17 +156,17 @@ exports.roledata = async (id) => {
 
 // getdepartmentdata
 exports.departmentdata = async (id) => {
-    let department_data = await departmentModel.findOne({_id:id}).lean();
+    let department_data = await departmentModel.findOne({ _id: id }).lean();
     console.log(department_data);
-    if(department_data){
+    if (department_data) {
         return department_data.department_name;
     }
 }
 
-exports.getDepById = async(depId) => {
-    return await departmentModel.find({departmentdata:depId}).lean()
+exports.getDepById = async (depId) => {
+    return await departmentModel.find({ departmentdata: depId }).lean()
 }
 
-exports.get=async(id)=>{
-    return await employeeModel.findOne({_id:id})
+exports.get = async (id) => {
+    return await employeeModel.findOne({ _id: id })
 }

@@ -57,8 +57,7 @@ exports.list = async (reqQuery) => {
 *  Get Role By Id
 */
 exports.get_id = async (id) => {
-    return await roleModel.findOne({ _id: id }.sort({ _id: -1}),{"deleted" : 0,"title":0,"__v": 0,"login_type":0,"title":0 ,"_id":0}).lean();
-    
+    return await roleModel.findOne({ _id: id },{"deleted" : 0,"title":0,"__v": 0,"login_type":0,"title":0 ,"_id":0}).lean();
 };
 
 

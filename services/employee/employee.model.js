@@ -23,6 +23,16 @@ const employeeSchema = new Schema(
             required: false,
             default: ""
         },
+        alternateNo: {
+            type: String,
+            required: false,
+            default: ""
+        },
+        salary: {
+            type: String,
+            required: false,
+            default: ""
+        },
         // otherNo: {
         //     type: String,
         //     required: false,
