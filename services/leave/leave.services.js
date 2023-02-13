@@ -17,8 +17,8 @@ exports.save = async (reqBody) => {
     if(reqBody.to_date == undefined){
         reqBody.to_date = reqBody.from_date
     }
-    console.log('reqBody ================================>:',reqBody.to_date);
-    // return await new leaveModel(reqBody).save();
+    // console.log('reqBody ================================>:',reqBody.to_date);
+    return await new leaveModel(reqBody).save();
 };
 
 
