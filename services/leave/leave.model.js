@@ -11,20 +11,20 @@ const leaveSchema = new Schema(
         },
         leave_reason: {
             type: String,
-            required: true
+            required: false
         },
         leave_days: {
             type: String,
             required: false
         },
-        leave_approval_date: {
-            type: String,
-            required: false
-        },
-        leave_requesting_date: {
-            type: String,
-            required: false
-        },
+        // leave_approval_date: {
+        //     type: String,
+        //     required: false
+        // },
+        // leave_requesting_date: {
+        //     type: String,
+        //     required: false
+        // },
         from_date: {
             type: String,
             required: false,
@@ -48,8 +48,8 @@ const leaveSchema = new Schema(
         },
         leave_type: {
             type: String,
-            enum: ["medical leave", "casual leave"],
-            default: "casual leave",
+            enum: ["half day", "full day"],
+            default: "full day",
             required: false,
         },
         employeeID: {
@@ -63,11 +63,11 @@ const leaveSchema = new Schema(
         email: {
             hr: [{
                 type: String,
-                required: false,
+                required: true,
             }],
             cc: [{
                 type: String,
-                required: false,
+                required: true,
             }]
         },
         // forward: {
@@ -78,7 +78,8 @@ const leaveSchema = new Schema(
             type: String,
             required: false,
         }
-    }
+    },
+    { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
 );
 
 leaveSchema.plugin(softDelete);
