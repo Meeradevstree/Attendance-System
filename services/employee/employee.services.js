@@ -51,6 +51,7 @@ exports.list = async (reqQuery) => {
 
         return returnData;
     } else if (reqQuery.birth && reqQuery.birth == 'sort') {
+
         query.deleted = false;
         returnData.total_counts = await employeeModel.countDocuments(query).lean();
         returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
@@ -58,20 +59,36 @@ exports.list = async (reqQuery) => {
 
 
         const check = await employeeModel.find(query).skip(skip).limit(limit).populate('roleManagement').populate({ path: 'departmentdata', model: 'department', populate: { path: 'sub_dep_ID', model: 'sub_dep' } }).lean();
-        check.sort((a) => {
-            var date = new Date()
-            console.log('==================================>',a.birthdate,moment(date).format("YYYY-MM-DD"))
-            if(a.birthdate < moment(date).format("YYYY-MM-DD")){
-                return -1
-            }
-            if(a.birthdate > date){
+        let todayDate = new Date()
+        let dat = moment(todayDate).format('MM-DD')
+        check.sort((a, b) => {
+            let now = moment(new Date(dat)).format('MM-DD')
+            let aDate = moment(new Date(a.birthdate)).format('MM-DD')
+            let bDate = moment(new Date(b.birthdate)).format('MM-DD')
+            console.log('sdfghjkdfghjksdfghjklszfghjkl',aDate,bDate,now)
+            if (aDate > now && bDate > now) {
+                if (aDate > bDate) {
+                    return 0
+                } else {
+                    return -2
+                }
+            } else if (aDate > now && bDate < now) {
+                if (aDate > bDate) {
+                    return -1
+                } else {
+                    return 1
+                }
+            } else if (aDate < now) {
                 return 1
+            } else {
+                console.log('elseeeeeeeeeeeeeeeee', aDate, bDate);
             }
-            return 0
+        }
+        )
 
+        check.map((a) => {
+            console.log('check ================================== >', a.birthdate)
         })
-    
-
 
         returnData.list = check
         return returnData
