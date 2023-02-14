@@ -15,6 +15,7 @@ module.exports = {
             const leave = await leaveService.save(req.body);
             if (leave) {
                 let getLeave = await leaveService.list(leave._id);
+                console.log("get leave data ==============> ", getLeave)
                 commonResponse.success(res, "GET_LEAVE", 201, leave);
             } else {
                 return commonResponse.customResponse(res, "LEAVE_NOT_FOUND",404);
