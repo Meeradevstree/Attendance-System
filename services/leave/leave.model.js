@@ -70,11 +70,11 @@ const leaveSchema = new Schema(
                 required: true,
             }]
         },
-        // forward: {
-        //     type: String,
-        //     required: false,
-        // },
-        response: {
+        leaveBalance: {
+            type: String,
+            required: false,
+        },
+        description: {
             type: String,
             required: false,
         }
