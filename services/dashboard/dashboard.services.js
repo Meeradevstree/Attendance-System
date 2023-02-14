@@ -14,28 +14,11 @@ exports.save = async (reqBody) => {
     // reqBody.totalDepartment=department.length
     // reqBody.totalEmployee=employee.length
     // reqBody.LeaveApply=leave.length
-    console.log('department : ',reqBody)
+
     // return await new dashboardModel(reqBody).save();
 };
 
 
-/*
-*  Get By Id
-*/
-// exports.get = async (req) => {
-//     console.log('request : ',req)
-//     return await dashboardModel.find({}).lean();
-// };
-
-/*
-*  Get all
-*/
-// exports.getall = async () => {
-//     return await dashboardModel.find({}).lean();
-// };
-
-
-/////////////////////////////////////////////
 
 
 exports.list = async () => {
@@ -50,7 +33,6 @@ exports.list = async () => {
     returnData.employee = employee;
     returnData.leave = leave;
     returnData.pending = pending;
-    // console.log('returnData : ',returnData)
     return returnData;
 
 

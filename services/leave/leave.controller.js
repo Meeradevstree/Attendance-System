@@ -13,17 +13,14 @@ module.exports = {
         
             req.body.employeeid = await leaveService.employeedata(req.body.employeeID);
             const leave = await leaveService.save(req.body);
-            console.log("leave============================>",leave)
             if (leave) {
-              
                 let getLeave = await leaveService.list(leave._id);
-                console.log("get leave data ==============> ", getLeave)
                 commonResponse.success(res, "GET_LEAVE", 201, leave);
             } else {
                 return commonResponse.customResponse(res, "LEAVE_NOT_FOUND",404);
             }
         } catch (error) {
-            console.log("error==>",error)
+            console.log("error=========================>",error)
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
         }
     },

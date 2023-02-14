@@ -61,11 +61,12 @@ exports.list = async (reqQuery) => {
         const check = await employeeModel.find(query).skip(skip).limit(limit).populate('roleManagement').populate({ path: 'departmentdata', model: 'department', populate: { path: 'sub_dep_ID', model: 'sub_dep' } }).lean();
         let todayDate = new Date()
         let dat = moment(todayDate).format('MM-DD')
+
         check.sort((a, b) => {
             let now = moment(new Date(dat)).format('MM-DD')
             let aDate = moment(new Date(a.birthdate)).format('MM-DD')
             let bDate = moment(new Date(b.birthdate)).format('MM-DD')
-            console.log('sdfghjkdfghjksdfghjklszfghjkl',aDate,bDate,now)
+
             if (aDate > now && bDate > now) {
                 if (aDate > bDate) {
                     return 0
@@ -80,15 +81,9 @@ exports.list = async (reqQuery) => {
                 }
             } else if (aDate < now) {
                 return 1
-            } else {
-                console.log('elseeeeeeeeeeeeeeeee', aDate, bDate);
             }
         }
         )
-
-        check.map((a) => {
-            console.log('check ================================== >', a.birthdate)
-        })
 
         returnData.list = check
         return returnData
