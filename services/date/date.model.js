@@ -5,189 +5,191 @@ const Schema = mongoose.Schema;
 
 const dateSchema = new Schema(
     {
-        1:{
+        1: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        2:{
+        2: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        3:{
+        3: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        4:{
+        4: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        5:{
+        5: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        6:{
+        6: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        7:{
+        7: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        8:{
+        8: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        9:{
+        9: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        10:{
+        10: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        11:{
+        11: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        12:{
+        12: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        13:{
+        13: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        14:{
+        14: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        15:{
+        15: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        16:{
+        16: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        17:{
+        17: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        18:{
+        18: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        19:{
+        19: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        20:{
+        20: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        21:{
+        21: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        22:{
+        22: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        23:{
+        23: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        24:{
+        24: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        25:{
+        25: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        26:{
+        26: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        27:{
+        27: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        28:{
+        28: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        29:{
+        29: {
+
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
-        30:{
+        30: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
+            
         },
-        31:{
+        31: {
             type: String,
-            enum: ["a","p","h-l"],
+            enum: ["a", "p", "h-l"],
             // default: "p",
             required: false,
         },
@@ -195,9 +197,9 @@ const dateSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: "Employee"
         },
-        month:{
-            type:String,
-            require:false
+        month: {
+            type: String,
+            require: false
         }
     },
 );
