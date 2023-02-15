@@ -6,9 +6,8 @@ const departmentRoutes = require("../services/department/index-department");
 const sub_depRoutes = require("../services/sub-department/sub-dep.index");
 const dashboardRoutes = require("../services/dashboard/dashboard-index");
 const attendanceRoutes = require("../services/attendance/attendance-index");
-const recordRoutes = require("../services/records/index-record");
 const dateRoutes = require("../services/date/index-date");
-const monthRoutes=require("../services/months/month-index")
+const projectRoutes = require("../services/project/project.index");
 
 const initialize = (app) => {
   app.use("/api/employee", employeeRoutes);
@@ -19,9 +18,8 @@ const initialize = (app) => {
   app.use("/api/sub_dep", sub_depRoutes);
   app.use("/api/dashboard", dashboardRoutes);
   app.use("/api/attendance", attendanceRoutes);
-  app.use("/api/record", recordRoutes);
   app.use("/api/date", dateRoutes);
-  app.use("/api/month",monthRoutes);
+  app.use("/api/project", projectRoutes);
    
   app.use("/authError", (req, res, next) => {
     return next(new Error("DEFAULT_AUTH"));

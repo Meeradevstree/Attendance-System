@@ -49,7 +49,16 @@ const roleSchema = new Schema(
             enum: ['add', 'edit', 'view', 'delete'],
             default: []
         }],
-    
+        project:[{
+            type: String,
+            enum: ['add', 'edit', 'view', 'delete'],
+            default: []
+        }],
+        report:[{
+            type: String,
+            enum: ['add', 'edit', 'view', 'delete'],
+            default: []
+        }],
         // sub_department:[{
         //     type: String,
         //     enum: ['add', 'edit', 'view', 'delete'],

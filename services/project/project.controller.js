@@ -1,4 +1,4 @@
-const monthService = require("./month.services");
+const projectService = require("./project.services");
 const passport = require("passport");
 const guard = require("../../helper/guards");
 const { commonResponse, commonFunctions, nodemailer } = require("../../helper");
@@ -7,13 +7,13 @@ const { commonResponse, commonFunctions, nodemailer } = require("../../helper");
 module.exports = {
 
     // create
-    create: async (req, res, next) => {
+    project: async (req, res, next) => {
         try {
-            const date = await monthService.save(req.body);
-            if (date) {
-                commonResponse.success(res, "MONTH_CREATED", 201, date);
+            const project = await projectService.save(req.body);
+            if (project) {
+                commonResponse.success(res, "PROJECT_CREATED", 201, project);
             } else {
-                return commonResponse.customResponse(res, "MONTH_NOT_CREATED", 404);
+                return commonResponse.customResponse(res, "PROJECT_NOT_CREATED", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -24,14 +24,14 @@ module.exports = {
     list: async (req, res, next) => {
         // let language_code = req.headers.language_code ? req.headers.language_code : 'en';
         try {
-            const list = await monthService.list(req.query);
+            const list = await projectService.list(req.query);
             let resp;
             if (list.list.length > 0) {
                 resp = {
                     error: false,
                     statusCode: 200,
-                    messageCode: 'LIST_OF_DATE',
-                    message: `List of Date`,
+                    messageCode: 'LIST_OF_PROJECT',
+                    message: `List of Project`,
                     pagination: {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
@@ -44,7 +44,7 @@ module.exports = {
                     error: false,
                     statusCode: 200,
                     messageCode: 'NO_DATA',
-                    message: `date data not found.`,
+                    message: `Project data not found.`,
                     pagination: {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
@@ -60,31 +60,17 @@ module.exports = {
         }
     },
 
-//   Get date By Id 
-    
-getById: async(req,res,next)=>{
-    try{
-        let date_by_id=await monthService.get_id(req.params.id);
-        if (date_by_id) {
-            commonResponse.success(res, "GET_DATE", 200,date_by_id);
-        } else {
-            return commonResponse.customResponse(res, "DATE_NOT_FOUND", 404);
-        }
-    }
-    catch (error) {
-        return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
-    }
-},
+////////////////////////////////////////////////////////
  
 //    Update
  
     update: async (req, res, next) => {
         try {
-            let updatedate = await monthService.update(req.params.id, req.body);
-            if (updatedate) {
-                return commonResponse.success(res, "DATE_PROFILE_UPDATE", 201, updatedate);
+            let updateproject = await projectService.update(req.params.id, req.body);
+            if (updateproject) {
+                return commonResponse.success(res, "PROJECT_PROFILE_UPDATE", 201, updateproject);
             } else {
-                return commonResponse.customResponse(res, "DATE_NOT_UPDATED", 404);
+                return commonResponse.customResponse(res, "PROJECT_NOT_UPDATED", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -93,15 +79,15 @@ getById: async(req,res,next)=>{
 
 
 
-//  Delete date
+//  Delete holiday
 
 delete: async (req, res, next) => {
     try {
-        let deletedate = await monthService.delete(req.params.id);
-        if (deletedate) {
-            return commonResponse.success(res, "DATE_PROFILE_DELETED", 202, deletedate);
+        let deleteproject = await projectService.delete(req.params.id);
+        if (deleteproject) {
+            return commonResponse.success(res, "PROJECT_PROFILE_DELETED", 202, deleteproject);
         } else {
-            return commonResponse.customResponse(res, "DATE_NOT_DELETED", 404);
+            return commonResponse.customResponse(res, "PROJECT_NOT_DELETED", 404);
         }
     } catch (error) {
         return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
