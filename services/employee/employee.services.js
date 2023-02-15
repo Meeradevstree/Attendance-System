@@ -67,19 +67,19 @@ exports.list = async (reqQuery) => {
             let aDate = moment(new Date(a.birthdate)).format('MM-DD')
             let bDate = moment(new Date(b.birthdate)).format('MM-DD')
 
-            if (aDate > now && bDate > now) {
-                if (aDate > bDate) {
+            if (aDate >= now && bDate >= now) {
+                if (aDate >= bDate) {
                     return 0
                 } else {
                     return -2
                 }
-            } else if (aDate > now && bDate < now) {
-                if (aDate > bDate) {
+            } else if (aDate >= now && bDate <= now) {
+                if (aDate >= bDate) {
                     return -1
                 } else {
                     return 1
                 }
-            } else if (aDate < now) {
+            } else if (aDate <= now) {
                 return 1
             }
         }
