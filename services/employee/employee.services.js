@@ -66,7 +66,6 @@ exports.list = async (reqQuery) => {
             let now = moment(new Date(dat)).format('MM-DD')
             let aDate = moment(new Date(a.birthdate)).format('MM-DD')
             let bDate = moment(new Date(b.birthdate)).format('MM-DD')
-            console.log('sdfghjkdfghjksdfghjklszfghjkl',aDate,bDate,now)
             if (aDate >= now && bDate >= now) {
                 if (aDate >= bDate) {
                     return 0

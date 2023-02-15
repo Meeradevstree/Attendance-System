@@ -7,8 +7,72 @@ const leaveData = require("../leave/leave.model")
 *  Create
 */
 exports.save = async (reqBody) => {
+    const data = await leaveData.find({ employeeid: reqBody.employeeID }).sort({ _id: -1 }).lean()
+    if (data.length > 0 && data[0].status === 'Approved') {
+        const startDate = moment(data[0].from_date, 'YYYY-MM-DD').format('DD');
+        const endDate = moment(data[0].to_date, 'YYYY-MM-DD').format('DD');
 
-    return await new dateModel(reqBody).save();
+        const startMonth = moment(data[0].from_date, 'YYYY-MM-DD').format('MM');
+        const endMonth = moment(data[0].to_date, 'YYYY-MM-DD').format('MM');
+        const currentMonth = moment(new Date()).format("MM")
+
+
+
+        const datesArray = [];
+
+        const start = moment([2023, startMonth - 1]).startOf('month');
+        const end = moment(start).endOf('month').format('D');
+
+        const getWeekends = (year, month) => {
+            const start = moment([year, endMonth - 1]).startOf('month');
+            const end = moment(start).endOf('month');
+            const weekends = [];
+
+            for (const i = moment(start); i.isBefore(end); i.add(1, 'days')) {
+                if (i.day() === 0 || i.day() === 6) {
+                    weekends.push(i.format('D'));
+                }
+            }
+            // || i.day() === 6
+            return weekends;
+        }
+        const weekEnd = getWeekends(2023)
+        if (data[0].leave_type == 'full day') {
+            if (endMonth != currentMonth) {
+                for (let date = 1; date <= endDate; date++) {
+                    datesArray.push({
+                        [`${moment(date, 'DD').format('D')}`]: 'a'
+                    });
+                }
+            }
+
+        } else if (data[0].leave_type == 'half day') {
+            if (endMonth != currentMonth) {
+                datesArray.push({
+                    [`${moment(endDate, 'DD').format('D')}`]: 'h-l'
+                })
+            }
+
+        } else { }
+
+        datesArray.map((d) => {
+            Object.entries(d).map(([key, value]) => {
+                if (weekEnd.includes(key)) {
+
+                } else {
+                    reqBody[key] = value
+                }
+            })
+        })
+        // console.log('reqBody =============================> ',reqBody)
+
+        return await new dateModel(reqBody).save();
+
+    } else {
+        return await new dateModel(reqBody).save();
+    }
+
+
 };
 
 
@@ -70,6 +134,7 @@ exports.update = async (id, reqBody) => {
 
         const startMonth = moment(data[0].from_date, 'YYYY-MM-DD').format('MM');
         const endMonth = moment(data[0].to_date, 'YYYY-MM-DD').format('MM');
+        const currentMonth = moment(new Date()).format("MM")
 
         const datesArray = [];
         const newMonthDatesArray = []
@@ -93,28 +158,26 @@ exports.update = async (id, reqBody) => {
         }
         const weekEnd = getWeekends(2023)
         if (data[0].leave_type == 'full day') {
-            if (startMonth == endMonth) {
+            if (startMonth == currentMonth && endMonth == currentMonth) {
                 for (let date = startDate; date <= endDate; date++) {
                     datesArray.push({
                         [`${moment(date, 'DD').format('D')}`]: 'a'
                     });
                 }
-            } else {
+            } else if (startMonth == currentMonth) {
                 for (let date = startDate; date <= end; date++) {
                     datesArray.push({
                         [`${moment(date, 'DD').format('D')}`]: 'a'
                     });
                 }
-                // for (let date = 1; date <= endDate; date++) {
-                //     newMonthDatesArray.push({
-                //         [`${moment(date, 'DD').format('D')}`]: 'a'
-                //     });
-                // }
-            }
+
+            } else { }
         } else if (data[0].leave_type == 'half day') {
-            datesArray.push({
-                [`${moment(startDate, 'DD').format('D')}`]: 'h-l'
-            })
+            if (startMonth == currentMonth) {
+                datesArray.push({
+                    [`${moment(startDate, 'DD').format('D')}`]: 'h-l'
+                })
+            }
         } else { }
 
         datesArray.map((d) => {
@@ -133,7 +196,7 @@ exports.update = async (id, reqBody) => {
             // newMonthDatesArray.map((d) => {
             //     Object.entries(d).map(([key, value]) => {
             //         if (weekEnd.includes(key)) {
-                        
+
             //         } else {
             //             reqBody2[key] = value
             //         }
@@ -141,7 +204,7 @@ exports.update = async (id, reqBody) => {
             // })
             // reqBody2.employeeID = reqBody.employeeID
             // reqBody2.month = moment(endMonth, "MM").format('MMMM')
-            
+
             // let example = await new dateModel(reqBody2).save();
             // let getId = await dateModel.findOne({ employeeid: reqBody2.employeeId }).sort({_id:-1}).lean()
             // let finalData =  await dateModel.findOneAndUpdate({ _id: getId._id }, { $set: reqBody2 }, { new: true, }).lean();
@@ -154,7 +217,6 @@ exports.update = async (id, reqBody) => {
 
 
     } else {
-        console.log('elseeeeeeeeeeeeeeee')
         return await dateModel.findOneAndUpdate({ _id: id }, { $set: reqBody }, { new: true, }).lean();
     }
 };
