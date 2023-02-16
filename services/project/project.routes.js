@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const controller = require("./project.controller")
 const { guard } = require('../../helper');
+const multerSetting = require("../../helper/multer").userImageUpload;
 
 
 /*
@@ -8,6 +9,7 @@ const { guard } = require('../../helper');
  */
 router.post(
     "/create",
+    multerSetting,
     controller.project
 );
 
@@ -27,6 +29,7 @@ router.get(
 // Update Profile
 router.patch(
     "/update/:id",
+    multerSetting,
     guard.isAuthorized("project","edit"),
     controller.update
 );

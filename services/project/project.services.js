@@ -2,7 +2,7 @@ const { commonResponse } = require("../../helper");
 const projectModel = require("./project.model");
 
 /*
-*  Create Holidays
+*  Create 
 */
 exports.save = async (reqBody) => {
     return await new projectModel(reqBody).save();
@@ -10,7 +10,7 @@ exports.save = async (reqBody) => {
 
 
 /*
-*  Get holiday
+*  Get 
 */
 // exports.get = async () => {
 //     return await holidaysModel.find({}).lean();
@@ -41,7 +41,7 @@ exports.list = async (reqQuery) => {
     }
 
     if (reqQuery.search && reqQuery.search != "") {
-        query["procjectName"] = { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") };
+        query["projectName"] = { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") };
     }
 
     query.deleted = false;
@@ -49,7 +49,7 @@ exports.list = async (reqQuery) => {
     returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
     returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
 
-    returnData.list = await projectModel.find(query).sort({holiday_date: 1}).populate({path:'projectMember' , select:['first_name','last_name','email']}).populate({path:'projectLeader' , select:['first_name','last_name','email']}).skip(skip).limit(limit).lean();
+    returnData.list = await projectModel.find(query).sort({}).populate({path:'projectMember' , select:['first_name','last_name','email']}).populate({path:'projectLeader' , select:['first_name','last_name','email']}).populate({path:'projectManager' , select:['first_name','last_name','email']}).skip(skip).limit(limit).lean();
 
     return returnData;
 };
@@ -59,15 +59,15 @@ exports.list = async (reqQuery) => {
 
 
 /*
-*  Update User
+*  Update
 */
 exports.update = async (id, reqBody) => {
-    return await projectModel.findOneAndUpdate({_id: id }, {$set:reqBody}, {new: true,}).lean();
+    return await projectModel.findOneAndUpdate({_id: id }, {$set:reqBody}, {new: true}).lean();
 };
 
 
 /*
-*  Delete holiday
+*  Delete
 */
 exports.delete = async (id) => {
     return await projectModel.removeOne({ _id: id }, { new: true }).lean();

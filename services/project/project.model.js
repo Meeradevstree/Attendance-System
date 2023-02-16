@@ -1,3 +1,4 @@
+const { findLastIndex } = require("lodash");
 const mongoose = require("mongoose");
 let softDelete = require('mongoosejs-soft-delete');
 
@@ -5,9 +6,9 @@ const Schema = mongoose.Schema;
 
 const projectSchema = new Schema(
     {
-        procjectName:{
+        projectName:{
             type: String,
-            required: true
+            required: false
         },
         projectStatus:{
             type: String,
@@ -22,7 +23,28 @@ const projectSchema = new Schema(
         projectLeader:[{
             type: Schema.Types.ObjectId,
             ref: "Employee"
-        }]
+        }],
+        client:{
+            type: String,
+            required: false
+        },
+        projectDeadline:{
+            type: String,
+            required: false
+        },
+        projectDescription:{
+            type: String,
+            required: false
+        },
+        projectManager:[{
+            type: Schema.Types.ObjectId,
+            ref: "Employee"
+        }],
+        image: {
+            type: String,
+            required: false,
+            default: ""
+        }
     },
 );
 
