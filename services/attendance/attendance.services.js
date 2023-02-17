@@ -3,7 +3,7 @@ const attendanceModel = require("./attendance.model");
 const employeeModel = require("../employee/employee.model");
 
 /*
-*  Create Holidays
+*  Create
 */
 exports.save = async (reqBody) => {
     return await new attendanceModel(reqBody).save();
@@ -11,24 +11,14 @@ exports.save = async (reqBody) => {
 
 
 /*
-*  Get Role By Id
+*  Get By Id
 */
 exports.get_id = async (id) => {
     return await attendanceModel.findOne({ _id: id }).lean();
     
 };
 
-/*
-*  Get
-*/
-// exports.getall = async () => {
-//     return await attendanceModel.find({}).populate("sub_dep_ID").lean();
-// };
-
-
-////////////////////////////////////////////////////////
-
-
+// list
 exports.list = async (reqQuery) => {
     let page = 0;
     let limit = 10;
@@ -65,11 +55,9 @@ exports.list = async (reqQuery) => {
 };
 
 
-//////////////////////////////////////////////////////////
-
 
 /*
-*  Update User
+*  Update
 */
 exports.update = async (id, reqBody) => {
     return await attendanceModel.findOneAndUpdate({_id: id }, {$set:reqBody}, {new: true,}).lean();
@@ -77,7 +65,7 @@ exports.update = async (id, reqBody) => {
 
 
 /*
-*  Delete User
+*  Delete
 */
 exports.delete = async (id) => {
     return await attendanceModel.removeOne({ _id: id },{new: true}).lean();

@@ -35,14 +35,14 @@ const reportSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: "Employee"
         },
-        projectManager:[{
-            type: Schema.Types.ObjectId,
-            ref: "Project"
-        }],
-        teamLeader:[{
-            type: Schema.Types.ObjectId,
-            ref: "Project"
-        }],
+        // projectManager:{
+        //     type: Schema.Types.ObjectId,
+        //     ref: "Project"
+        // },
+        // teamLeader:{
+        //     type: Schema.Types.ObjectId,
+        //     ref: "Project"
+        // },
     },
 );
 

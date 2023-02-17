@@ -17,17 +17,8 @@ exports.get_id = async (id) => {
     
 };
 
-/*
-*  Get
-*/
-// exports.getall = async () => {
-//     return await departmentModel.find({}).populate("sub_dep_ID").lean();
-// };
 
-
-////////////////////////////////////////////////////////
-
-
+// list
 exports.list = async (reqQuery) => {
     let page = 0;
     let limit = 10;
@@ -58,13 +49,10 @@ exports.list = async (reqQuery) => {
     returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
     returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
 
-    returnData.list = await departmentModel.find(query).skip(skip).limit(limit).populate("sub_dep_ID").lean();
+    returnData.list = await departmentModel.find(query).skip(skip).limit(limit).populate("sub_dep_ID").populate({path:'teamLeader' , select:['first_name','last_name','department']}).lean();
 
     return returnData;
 };
-
-
-//////////////////////////////////////////////////////////
 
 
 /*

@@ -9,16 +9,7 @@ exports.save = async (reqBody) => {
 };
 
 
-/*
-*  Get holiday
-*/
-// exports.get = async () => {
-//     return await holidaysModel.find({}).lean();
-// };
-
-/////////////////////////////////////////////
-
-
+// list
 exports.list = async (reqQuery) => {
     let page = 0;
     let limit = 10;
@@ -55,11 +46,9 @@ exports.list = async (reqQuery) => {
 };
 
 
-///////////////////////////////////////////////////////
-
 
 /*
-*  Update User
+*  Update
 */
 exports.update = async (id, reqBody) => {
     return await holidaysModel.findOneAndUpdate({_id: id }, {$set:reqBody}, {new: true,}).lean();

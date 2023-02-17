@@ -20,10 +20,10 @@ const projectSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: "Employee"
         }],
-        projectLeader:[{
-            type: Schema.Types.ObjectId,
-            ref: "Employee"
-        }],
+        // projectLeader:[{
+        //     type: Schema.Types.ObjectId,
+        //     ref: "Employee"
+        // }],
         client:{
             type: String,
             required: false
@@ -36,10 +36,10 @@ const projectSchema = new Schema(
             type: String,
             required: false
         },
-        projectManager:[{
-            type: Schema.Types.ObjectId,
-            ref: "Employee"
-        }],
+        // projectManager:[{
+        //     type: Schema.Types.ObjectId,
+        //     ref: "Employee"
+        // }],
         image: {
             type: String,
             required: false,

@@ -10,12 +10,7 @@ exports.save = async (reqBody) => {
 };
 
 
-/*
-*  Get role
-*/
-// exports.get = async () => {
-//     return await roleModel.find({},{"deleted" : 0,"title":0,"__v": 0 }).lean();
-// };
+// list
 exports.list = async (reqQuery) => {
     let page = 0;
     let limit = 10;

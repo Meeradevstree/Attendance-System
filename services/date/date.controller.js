@@ -60,7 +60,7 @@ module.exports = {
         }
     },
 
-//   Get date By Id 
+//   Get By Id 
     
 getById: async(req,res,next)=>{
     try{
@@ -93,7 +93,7 @@ getById: async(req,res,next)=>{
 
 
 
-//  Delete date
+//  Delete
 
 delete: async (req, res, next) => {
     try {

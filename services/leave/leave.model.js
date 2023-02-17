@@ -17,14 +17,6 @@ const leaveSchema = new Schema(
             type: String,
             required: false
         },
-        // leave_approval_date: {
-        //     type: String,
-        //     required: false
-        // },
-        // leave_requesting_date: {
-        //     type: String,
-        //     required: false
-        // },
         from_date: {
             type: String,
             required: false,

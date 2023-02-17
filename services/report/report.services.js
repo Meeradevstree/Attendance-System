@@ -39,7 +39,12 @@ exports.list = async (reqQuery) => {
     returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
     returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
 
-    returnData.list = await reportModel.find(query).sort({}).populate({path:'employeeName' , select:['first_name','last_name']}).populate({path:'projectName' , select:['projectName']}).populate({ path: 'projectManager', model: 'Project' }).populate({ path: 'teamLeader', model: 'Project'}).skip(skip).limit(limit).lean();
+    returnData.list = await reportModel.find(query).sort({})
+    .populate({path:'employeeName' , select:['first_name','last_name']})
+    .populate({ path:'projectName' , select:'projectName'})
+    .populate({ path: 'projectManager', model: 'Project' , select:'projectManager', populate: { path: 'projectManager', model: 'Employee' , select:['first_name', 'last_name'] } })
+    .populate({ path: 'teamLeader', model: 'Project' , select:'projectLeader', populate: { path: 'projectLeader', model: 'Employee' , select:['first_name', 'last_name'] } })
+    .skip(skip).limit(limit).lean();
 
     return returnData;
 };

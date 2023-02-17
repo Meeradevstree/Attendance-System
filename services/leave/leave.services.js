@@ -28,10 +28,7 @@ exports.get = async (id) => {
     return await leaveModel.find({ _id: id }.sort({ _id: -1}), { new: true }).populate("employeeID").lean();
 };
 
-
-///////////////////////////////////////////////////////
-
-
+// /list
 exports.list = async (reqQuery) => {
     let page = 0;
     let limit = 10;
@@ -72,9 +69,6 @@ exports.list = async (reqQuery) => {
 
     return returnData;
 };
-
-
-///////////////////////////////////////////////////////
 
 
 /*

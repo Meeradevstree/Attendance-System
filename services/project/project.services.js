@@ -9,16 +9,7 @@ exports.save = async (reqBody) => {
 };
 
 
-/*
-*  Get 
-*/
-// exports.get = async () => {
-//     return await holidaysModel.find({}).lean();
-// };
-
-/////////////////////////////////////////////
-
-
+// list
 exports.list = async (reqQuery) => {
     let page = 0;
     let limit = 10;
@@ -53,9 +44,6 @@ exports.list = async (reqQuery) => {
 
     return returnData;
 };
-
-
-///////////////////////////////////////////////////////
 
 
 /*

@@ -21,12 +21,9 @@ module.exports = {
 
 
 
-    
-    //////////////////////////////////////////////////////
-     
+
+    //  list
     list: async (req, res, next) => {
-        // console.log('req =====================>: ',req)
-        // console.log('res =====================>: ',res)
         try {
             const list = await dashboardService.list();
             console.log('res =====================>: ',list)
@@ -55,8 +52,6 @@ module.exports = {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500)
         }
     },
-
-////////////////////////////////////////////////////////
 
 
     // get by id

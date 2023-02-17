@@ -42,9 +42,8 @@ module.exports = {
         }
     },
 
-    
-//////////////////////////////////////////////////////
-     
+
+    //  list
 list: async (req, res, next) => {
     // let language_code = req.headers.language_code ? req.headers.language_code : 'en';
     try {
@@ -87,8 +86,6 @@ list: async (req, res, next) => {
         return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500)
     }
 },
-
-////////////////////////////////////////////////////////
 
 
 //  Update leave
