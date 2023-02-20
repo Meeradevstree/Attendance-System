@@ -42,8 +42,8 @@ exports.list = async (reqQuery) => {
     returnData.list = await reportModel.find(query).sort({})
     .populate({path:'employeeName' , select:['first_name','last_name']})
     .populate({ path:'projectName' , select:'projectName'})
-    .populate({ path: 'projectManager', model: 'Project' , select:'projectManager', populate: { path: 'projectManager', model: 'Employee' , select:['first_name', 'last_name'] } })
-    .populate({ path: 'teamLeader', model: 'Project' , select:'projectLeader', populate: { path: 'projectLeader', model: 'Employee' , select:['first_name', 'last_name'] } })
+    // .populate({ path: 'projectManager', model: 'Project' , select:'projectManager', populate: { path: 'projectManager', model: 'Employee' , select:['first_name', 'last_name'] } })
+    // .populate({ path: 'teamLeader', model: 'Project' , select:'projectLeader', populate: { path: 'projectLeader', model: 'Employee' , select:['first_name', 'last_name'] } })
     .skip(skip).limit(limit).lean();
 
     return returnData;
