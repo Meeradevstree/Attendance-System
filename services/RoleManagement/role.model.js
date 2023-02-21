@@ -69,6 +69,11 @@ const roleSchema = new Schema(
             enum: ['add', 'edit', 'view', 'delete'],
             default: []
         }],
+        client:[{
+            type: String,
+            enum: ['add', 'edit', 'view', 'delete'],
+            default: []
+        }],
     }
 );
 
