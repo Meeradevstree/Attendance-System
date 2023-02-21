@@ -44,7 +44,22 @@ const projectSchema = new Schema(
             type: String,
             required: false,
             default: ""
-        }
+        },
+        priority:{
+            type: String,
+            enum: ["1","2","3"],
+            default:"1",
+            required: false,
+        },
+        company:{
+            type: String,
+            require:true,
+            default: "devstree"
+        },
+        department:[{
+            type: Schema.Types.ObjectId,
+            ref: "department"
+        }]
     },
 );
 

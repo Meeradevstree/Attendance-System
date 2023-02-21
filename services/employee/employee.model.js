@@ -111,6 +111,22 @@ const employeeSchema = new Schema(
             enum: ["work from home","work from office"],
             default: "work from office",
             required: false,
+        },
+        pancardNo:{
+            type: String,
+            required: false
+        },
+        aadharcardNo:{
+            type: String,
+            required: false
+        },
+        personalemailId:{
+            type: String,
+            required: false
+        },
+        releavingDate:{
+            type: String,
+            required: false
         }
     },
     { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
