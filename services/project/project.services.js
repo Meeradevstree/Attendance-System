@@ -43,6 +43,7 @@ exports.list = async (reqQuery) => {
     returnData.list = await projectModel.find(query).sort({})
     .populate({path:'projectMember' , select:['first_name','last_name','email','image']})
     .populate({path: 'department' , select:['department_name']})
+    .populate({path: 'client' , select:['clientName']})
     // .populate({path:'projectLeader' , select:['first_name','last_name','email','image']})
     // .populate({path:'projectManager' , select:['first_name','last_name','email','image']})
     .skip(skip).limit(limit).lean();
