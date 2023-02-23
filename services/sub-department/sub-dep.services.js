@@ -17,15 +17,8 @@ exports.get_id = async (id) => {
     
 };
 
-// /*
-// *  Get By Id
-// */
-// exports.getall = async () => {
-//     return await sub_depModel.find({}).lean();
-// };
 
-///////////////////////////////////////////////////////////////////////////////
-
+// list
 exports.list = async (reqQuery) => {
     let page = 0;
     let limit = 10;
@@ -62,7 +55,6 @@ exports.list = async (reqQuery) => {
 };
 
 
-///////////////////////////////////////////////////////////////////
 
 /*
 *  Update User

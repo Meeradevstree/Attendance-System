@@ -4,22 +4,6 @@ const departmentModel = require("./../department/department.model")
 let employeeModel = require("../employee/employee.model")
 let leaveModel = require("../leave/leave.model")
 
-/*
-*  Create Holidays
-*/
-exports.save = async (reqBody) => {
-    // let department = await departmentModel.find({}).lean()
-    // let employee = await employeeModel.find({}).lean()
-    // let leave = await leaveModel.find({}).lean()
-    // reqBody.totalDepartment=department.length
-    // reqBody.totalEmployee=employee.length
-    // reqBody.LeaveApply=leave.length
-
-    // return await new dashboardModel(reqBody).save();
-};
-
-
-
 
 exports.list = async () => {
     let returnData = {}
@@ -39,12 +23,8 @@ exports.list = async () => {
 };
 
 
-///////////////////////////////////////////////////////
-
-
-
 /*
-*  Update User
+*  Update
 */
 exports.update = async (id, reqBody) => {
     return await dashboardModel.findOneAndUpdate({ _id: id }, { $set: reqBody }, { new: true, }).lean();
@@ -52,7 +32,7 @@ exports.update = async (id, reqBody) => {
 
 
 /*
-*  Delete User
+*  Delete
 */
 exports.delete = async (id) => {
     return await dashboardModel.removeOne({ _id: id }, { new: true }).lean();

@@ -1,21 +1,23 @@
 const router = require("express").Router();
-const controller = require("./record.controller");
+const controller = require("./project.controller")
 const { guard } = require('../../helper');
 const multerSetting = require("../../helper/multer").userImageUpload;
 
-// create
+
+/*
+ *  create 
+ */
 router.post(
     "/create",
     multerSetting,
-    controller.record
+    controller.project
 );
 
-// Get user by id
+// read
 router.get(
     "/list/:id",
-    controller.getById
+    controller.list
 );
-
 
 // read all
 router.get(
@@ -27,15 +29,16 @@ router.get(
 // Update Profile
 router.patch(
     "/update/:id",
-    guard.isAuthorized("records","edit"),
+    multerSetting,
+    guard.isAuthorized("project","edit"),
     controller.update
 );
 
-// Delete Profile
- router.delete(
+// Delete holiday
+router.delete(
     "/delete/:id",
-    guard.isAuthorized("records","delete"),
-    controller.delete  
+    guard.isAuthorized("project","delete"),
+    controller.delete
 );
 
-module.exports = router;
+module.exports = router;  

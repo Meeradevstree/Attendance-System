@@ -33,11 +33,6 @@ const employeeSchema = new Schema(
             required: false,
             default: ""
         },
-        // otherNo: {
-        //     type: String,
-        //     required: false,
-        //     default: ""
-        // },
         birthdate:{
             type:String,
             required:false,
@@ -111,23 +106,27 @@ const employeeSchema = new Schema(
             default: "pending",
             required: false,
         },
-        // linkedIn:{
-        //     type: String,
-        //     required: false
-        // },
-        // skype:{
-        //     type: String,
-        //     required: false
-        // },
-        // github:{
-        //     type: String,
-        //     required: false
-        // },
         working:{
             type: String,
             enum: ["work from home","work from office"],
             default: "work from office",
             required: false,
+        },
+        pancardNo:{
+            type: String,
+            required: false
+        },
+        aadharcardNo:{
+            type: String,
+            required: false
+        },
+        personalemailId:{
+            type: String,
+            required: false
+        },
+        releavingDate:{
+            type: String,
+            required: false
         }
     },
     { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }

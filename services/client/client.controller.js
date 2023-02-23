@@ -1,37 +1,36 @@
-const monthService = require("./month.services");
+const clientService = require("./client.services");
 const passport = require("passport");
 const guard = require("../../helper/guards");
 const { commonResponse, commonFunctions, nodemailer } = require("../../helper");
 
-
 module.exports = {
 
-    // create
-    create: async (req, res, next) => {
+
+    client: async (req, res, next) => {
         try {
-            const date = await monthService.save(req.body);
-            if (date) {
-                commonResponse.success(res, "MONTH_CREATED", 201, date);
+            const client = await clientService.save(req.body);
+            if (client) {
+                commonResponse.success(res, "CLIENT_CREATED", 201, client);
             } else {
-                return commonResponse.customResponse(res, "MONTH_NOT_CREATED", 404);
+                return commonResponse.customResponse(res, "CLIENT_NOT_CREATED", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
         }
     },
 
-    // read 
+    //  READ
     list: async (req, res, next) => {
         // let language_code = req.headers.language_code ? req.headers.language_code : 'en';
         try {
-            const list = await monthService.list(req.query);
+            const list = await clientService.list(req.query);
             let resp;
             if (list.list.length > 0) {
                 resp = {
                     error: false,
                     statusCode: 200,
-                    messageCode: 'LIST_OF_DATE',
-                    message: `List of Date`,
+                    messageCode: 'LIST_OF_CLIENT',
+                    message: `List of Client data`,
                     pagination: {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
@@ -43,8 +42,8 @@ module.exports = {
                 resp = {
                     error: false,
                     statusCode: 200,
-                    messageCode: 'NO_DATA',
-                    message: `date data not found.`,
+                    messageCode: 'NO_CLIENT_DATA',
+                    message: `Client data not found.`,
                     pagination: {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
@@ -60,31 +59,34 @@ module.exports = {
         }
     },
 
-//   Get date By Id 
+
+   //   Get By Id 
     
-getById: async(req,res,next)=>{
+   getById: async(req,res,next)=>{
     try{
-        let date_by_id=await monthService.get_id(req.params.id);
-        if (date_by_id) {
-            commonResponse.success(res, "GET_DATE", 200,date_by_id);
+        let client_by_id=await clientService.get_id(req.params.id);
+        if (client_by_id) {
+            commonResponse.success(res, "GET_CLIENT", 200, client_by_id);
         } else {
-            return commonResponse.customResponse(res, "DATE_NOT_FOUND", 404);
+            return commonResponse.customResponse(res, "CLIENT_NOT_FOUND", 404);
         }
     }
     catch (error) {
         return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
     }
 },
- 
-//    Update
- 
+
+
+ /* 
+ *  Update
+ */
     update: async (req, res, next) => {
         try {
-            let updatedate = await monthService.update(req.params.id, req.body);
-            if (updatedate) {
-                return commonResponse.success(res, "DATE_PROFILE_UPDATE", 201, updatedate);
+            let updateclient = await clientService.update(req.params.id, req.body);
+            if (updateclient) {
+                return commonResponse.success(res, "CLIENT_PROFILE_UPDATED", 201, updateclient);
             } else {
-                return commonResponse.customResponse(res, "DATE_NOT_UPDATED", 404);
+                return commonResponse.customResponse(res, "CLIENT_NOT_UPDATED", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -92,19 +94,19 @@ getById: async(req,res,next)=>{
     },
 
 
-
-//  Delete date
-
-delete: async (req, res, next) => {
-    try {
-        let deletedate = await monthService.delete(req.params.id);
-        if (deletedate) {
-            return commonResponse.success(res, "DATE_PROFILE_DELETED", 202, deletedate);
-        } else {
-            return commonResponse.customResponse(res, "DATE_NOT_DELETED", 404);
+/*
+* Delete
+*/
+    delete: async (req, res, next) => {
+        try {
+            let deleteclient = await clientService.delete(req.params.id);
+            if (deleteclient) {
+                return commonResponse.success(res, "CLIENT_PROFILE_DELETED", 202, deleteclient);
+            } else {
+                return commonResponse.customResponse(res, "CLIENT_NOT_DELETED", 404);
+            }
+        } catch (error) {
+            return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
         }
-    } catch (error) {
-        return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
-    }
-},
-};
+    },
+}

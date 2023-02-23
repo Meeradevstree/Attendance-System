@@ -15,6 +15,7 @@ module.exports = {
             const leave = await leaveService.save(req.body);
             if (leave) {
                 let getLeave = await leaveService.list(leave._id);
+                console.log("get leave data ==============> ", getLeave)
                 commonResponse.success(res, "GET_LEAVE", 201, leave);
             } else {
                 return commonResponse.customResponse(res, "LEAVE_NOT_FOUND",404);
@@ -41,9 +42,8 @@ module.exports = {
         }
     },
 
-    
-//////////////////////////////////////////////////////
-     
+
+    //  list
 list: async (req, res, next) => {
     // let language_code = req.headers.language_code ? req.headers.language_code : 'en';
     try {
@@ -86,8 +86,6 @@ list: async (req, res, next) => {
         return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500)
     }
 },
-
-////////////////////////////////////////////////////////
 
 
 //  Update leave

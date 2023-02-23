@@ -1,31 +1,38 @@
 const router = require("express").Router();
-const controller = require("./months.controller");
+const controller = require("./client.controller");
 const { guard } = require('../../helper');
-// const multerSetting = require("../../helper/multer").userImageUpload;
 
 // create
 router.post(
     "/create",
-    controller.create
+    controller.client
 );
 
+// Get by id
+router.get(
+    "/list/:id",
+    controller.getById
+);
+
+
+// read all
 router.get(
     "/list",
     controller.list
 );
 
 
-// Update Profile
-router.put(
+// Update
+router.patch(
     "/update/:id",
-    // guard.isAuthorized("member","edit"),
+    guard.isAuthorized("client","edit"),
     controller.update
 );
 
-// Delete Profile
+// Delete
  router.delete(
     "/delete/:id",
-    guard.isAuthorized("member","delete"),
+    guard.isAuthorized("client","delete"),
     controller.delete  
 );
 

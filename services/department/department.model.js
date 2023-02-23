@@ -18,6 +18,10 @@ const departmentSchema = new Schema(
             required: false,
             default: ""
         },
+        teamLeader: {
+            type: Schema.Types.ObjectId,
+            ref :"Employee"
+        },
         sub_dep_ID: {
             type: Schema.Types.ObjectId,
             ref :"sub_dep"

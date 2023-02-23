@@ -1,4 +1,4 @@
-const recordService = require("./record.services");
+const projectService = require("./project.services");
 const passport = require("passport");
 const guard = require("../../helper/guards");
 const { commonResponse, commonFunctions, nodemailer } = require("../../helper");
@@ -7,13 +7,17 @@ const { commonResponse, commonFunctions, nodemailer } = require("../../helper");
 module.exports = {
 
     // create
-    record: async (req, res, next) => {
+    project: async (req, res, next) => {
         try {
-            const record = await recordService.save(req.body);
-            if (record) {
-                commonResponse.success(res, "DATE_CREATED", 201, record);
+            if (req.files != undefined && req.files.image != undefined) {
+                req.body.image = process.env.DOMAIN_URL + "/user-profile/" + req.files.image[0].filename;
+            }
+            
+            const project = await projectService.save(req.body);
+            if (project) {
+                commonResponse.success(res, "PROJECT_CREATED", 201, project);
             } else {
-                return commonResponse.customResponse(res, "DATE_NOT_CREATED", 404);
+                return commonResponse.customResponse(res, "PROJECT_NOT_CREATED", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -24,14 +28,14 @@ module.exports = {
     list: async (req, res, next) => {
         // let language_code = req.headers.language_code ? req.headers.language_code : 'en';
         try {
-            const list = await recordService.list(req.query);
+            const list = await projectService.list(req.query);
             let resp;
             if (list.list.length > 0) {
                 resp = {
                     error: false,
                     statusCode: 200,
-                    messageCode: 'LIST_OF_RECORD',
-                    message: `List of Record`,
+                    messageCode: 'LIST_OF_PROJECT',
+                    message: `List of Project`,
                     pagination: {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
@@ -44,7 +48,7 @@ module.exports = {
                     error: false,
                     statusCode: 200,
                     messageCode: 'NO_DATA',
-                    message: `record data not found.`,
+                    message: `Project data not found.`,
                     pagination: {
                         total_counts: list.total_counts,
                         total_pages: list.total_pages,
@@ -60,31 +64,16 @@ module.exports = {
         }
     },
 
-//   Get RECORD By Id 
-    
-getById: async(req,res,next)=>{
-    try{
-        let record_by_id=await recordService.get_id(req.params.id);
-        if (record_by_id) {
-            commonResponse.success(res, "GET_RECORD", 200,record_by_id);
-        } else {
-            return commonResponse.customResponse(res, "RECORD_NOT_FOUND", 404);
-        }
-    }
-    catch (error) {
-        return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
-    }
-},
  
 //    Update
  
     update: async (req, res, next) => {
         try {
-            let update = await recordService.update(req.params.id, req.body);
-            if (update) {
-                return commonResponse.success(res, "RECORD_PROFILE_UPDATE", 201, update);
+            let updateproject = await projectService.update(req.params.id, req.body);
+            if (updateproject) {
+                return commonResponse.success(res, "PROJECT_PROFILE_UPDATE", 201, updateproject);
             } else {
-                return commonResponse.customResponse(res, "RECORD_NOT_UPDATED", 404);
+                return commonResponse.customResponse(res, "PROJECT_NOT_UPDATED", 404);
             }
         } catch (error) {
             return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
@@ -93,15 +82,15 @@ getById: async(req,res,next)=>{
 
 
 
-//  Delete date
+//  Delete
 
 delete: async (req, res, next) => {
     try {
-        let deleterecord = await recordService.delete(req.params.id);
-        if (deleterecord) {
-            return commonResponse.success(res, "RECORD_PROFILE_DELETED", 202, deleterecord);
+        let deleteproject = await projectService.delete(req.params.id);
+        if (deleteproject) {
+            return commonResponse.success(res, "PROJECT_PROFILE_DELETED", 202, deleteproject);
         } else {
-            return commonResponse.customResponse(res, "RECORD_NOT_DELETED", 404);
+            return commonResponse.customResponse(res, "PROJECT_NOT_DELETED", 404);
         }
     } catch (error) {
         return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);

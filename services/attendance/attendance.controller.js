@@ -5,7 +5,7 @@ const { commonResponse, commonFunctions, nodemailer } = require("../../helper");
 
 module.exports = {
 
-
+//create 
     attendance: async (req, res, next) => {
         try {
             req.body.employeeid = await attendanceService.employeedata(req.body.employeeID);
@@ -21,8 +21,7 @@ module.exports = {
     },
      
     
-//////////////////////////////////////////////////////
-     
+    //  list
     list: async (req, res, next) => {
         // let language_code = req.headers.language_code ? req.headers.language_code : 'en';
         try {
@@ -62,7 +61,6 @@ module.exports = {
         }
     },
 
-////////////////////////////////////////////////////////
 
 
    //   Get attendance By Id 
