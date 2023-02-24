@@ -24,10 +24,10 @@ const projectSchema = new Schema(
         //     type: Schema.Types.ObjectId,
         //     ref: "Employee"
         // }],
-        client:{
-            type: String,
-            required: false
-        },
+        client:[{
+            type: Schema.Types.ObjectId,
+            ref: "client"
+        }],
         projectDeadline:{
             type: String,
             required: false
