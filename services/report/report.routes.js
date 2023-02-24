@@ -22,14 +22,14 @@ router.get(
 // update
 
 router.patch(
-    "/update",
+    "/update/:id",
     guard.isAuthorized("report","edit"),
     controller.update
 )
 
 // delete
 router.delete(
-    "/delete",
+    "/delete/:id",
     guard.isAuthorized("report","delete"),
     controller.delete
 )
