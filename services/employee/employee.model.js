@@ -16,7 +16,7 @@ const employeeSchema = new Schema(
         },
         last_name: {
             type: String,
-            required:false
+            required: false
         },
         phoneNo: {
             type: String,
@@ -33,38 +33,38 @@ const employeeSchema = new Schema(
             required: false,
             default: ""
         },
-        birthdate:{
-            type:String,
-            required:false,
-            trim:true
+        birthdate: {
+            type: String,
+            required: false,
+            trim: true
         },
-        age:{
+        age: {
             type: String,
             required: false,
         },
         departmentdata: {
             type: Schema.Types.ObjectId,
-            ref :"department"
+            ref: "department"
         },
-        department:{
+        department: {
             type: String,
             required: false,
         },
-        permanent_address:{
+        permanent_address: {
             type: String,
             required: false
         },
-        temparory_address:{
+        temparory_address: {
             type: String,
             required: false
         },
-        city:{
+        city: {
             type: String,
             required: false
         },
-        gender:{
+        gender: {
             type: String,
-            enum: ["male","female","other"],
+            enum: ["male", "female", "other"],
             default: "other",
             required: false,
         },
@@ -72,10 +72,10 @@ const employeeSchema = new Schema(
             type: String,
             required: true
         },
-        joiningdate:{
-            type:String,
-            required:false,
-            trim:true
+        joiningdate: {
+            type: String,
+            required: false,
+            trim: true
         },
         image: {
             type: String,
@@ -84,9 +84,9 @@ const employeeSchema = new Schema(
         },
         roleManagement: {
             type: Schema.Types.ObjectId,
-            ref :"Role"
+            ref: "Role"
         },
-        role:{
+        role: {
             type: String,
             required: false,
         },
@@ -95,9 +95,9 @@ const employeeSchema = new Schema(
             required: false,
             default: 0
         },
-        employeeNo:{
+        employeeNo: {
             type: Number,
-            required:false,
+            required: false,
             default: 1
         },
         status: {
@@ -106,25 +106,29 @@ const employeeSchema = new Schema(
             default: "pending",
             required: false,
         },
-        working:{
+        working: {
             type: String,
-            enum: ["work from home","work from office"],
+            enum: ["work from home", "work from office"],
             default: "work from office",
             required: false,
         },
-        pancardNo:{
+        // teamLeader: {
+        //     type: String,
+        //     required: false,
+        // },
+        pancardNo: {
             type: String,
             required: false
         },
-        aadharcardNo:{
+        aadharcardNo: {
             type: String,
             required: false
         },
-        personalemailId:{
+        personalemailId: {
             type: String,
             required: false
         },
-        releavingDate:{
+        releavingDate: {
             type: String,
             required: false
         }

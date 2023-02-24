@@ -35,6 +35,10 @@ const reportSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: "Employee"
         },
+        employeeId: {
+            type: String,
+            required: false,
+        }
         // projectManager:{
         //     type: Schema.Types.ObjectId,
         //     ref: "Project"
