@@ -1,11 +1,11 @@
 const { commonResponse } = require("../../helper");
 const reportModel = require("./report.model");
-const departmentAPI = require("../department/department.model")
+const employeeModel = require("../employee/employee.model")
+const departmentModel = require("../department/department.model")
 
 
 // create
 exports.save = async (reqBody) => {
-    reqBody.employeeId = reqBody.employeeName
     return await new reportModel(reqBody).save();
 };
 
@@ -33,56 +33,30 @@ exports.list = async (reqQuery) => {
     }
 
     if (reqQuery.search && reqQuery.search != "") {
-        console.log('sdfghjkhghjklh')
-        query["employeeId"] = { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") };
-        // query.deleted = false;
-        returnData.total_counts = await reportModel.countDocuments(query).lean();
-        returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
-        returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
-
-        returnData.list = await reportModel.find(query)
-            .populate({ path: 'employeeName', select: ['first_name', 'last_name'] })
-            .populate({ path: 'projectName', select: 'projectName' })
-            // .populate({ path: 'projectManager', model: 'Project' , select:'projectManager', populate: { path: 'projectManager', model: 'Employee' , select:['first_name', 'last_name'] } })
-            // .populate({ path: 'teamLeader', model: 'Project' , select:'projectLeader', populate: { path: 'projectLeader', model: 'Employee' , select:['first_name', 'last_name'] } })
-            .skip(skip).limit(limit).lean();
-            console.log('sdfghjkhghjklh',returnData)
-        return returnData;
-    } else if (reqQuery.role && reqQuery.role != "") {
-        if (reqQuery.role == 'hr' || reqQuery.role == "ceo") {
-            returnData.total_counts = await reportModel.countDocuments(query).lean();
-            returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
-            returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
-
-            returnData.list = await reportModel.find(query).sort({})
-                .populate({ path: 'employeeName', select: ['first_name', 'last_name'] })
-                .populate({ path: 'projectName', select: 'projectName' })
-                // .populate({ path: 'projectManager', model: 'Project' , select:'projectManager', populate: { path: 'projectManager', model: 'Employee' , select:['first_name', 'last_name'] } })
-                // .populate({ path: 'teamLeader', model: 'Project' , select:'projectLeader', populate: { path: 'projectLeader', model: 'Employee' , select:['first_name', 'last_name'] } })
-                .skip(skip).limit(limit).lean();
-
-            return returnData;
-        } else if (reqQuery.role == 'tl') {
-            const departmentData = await departmentAPI.find().lean()
-            console.log('department : ======================',)
+        query = {
+            $and: [{ "employeeId": { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") } },]
         }
-
+        // const employee = await employeeModel.find({_id:reqQuery.search}).lean()
+        // if(employee[0].role == 'tl'){
+        //     const department = await departmentModel.find({}).lean()
+        // }
+        // console.log('employeeeeeeeeeeeeeeeeeeeee: ', employee[0].role)
     }
 
+    query.deleted = false;
+ 
     returnData.total_counts = await reportModel.countDocuments(query).lean();
     returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
     returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
 
     returnData.list = await reportModel.find(query).sort({})
-        .populate({ path: 'employeeName', select: ['first_name', 'last_name'] })
-        .populate({ path: 'projectName', select: 'projectName' })
-        // .populate({ path: 'projectManager', model: 'Project' , select:'projectManager', populate: { path: 'projectManager', model: 'Employee' , select:['first_name', 'last_name'] } })
-        // .populate({ path: 'teamLeader', model: 'Project' , select:'projectLeader', populate: { path: 'projectLeader', model: 'Employee' , select:['first_name', 'last_name'] } })
-        .skip(skip).limit(limit).lean();
+    .populate({path:'employeeName' , select:['first_name','last_name']})
+    .populate({ path:'projectName' , select:'projectName'})
+    // .populate({ path: 'projectManager', model: 'Project' , select:'projectManager', populate: { path: 'projectManager', model: 'Employee' , select:['first_name', 'last_name'] } })
+    // .populate({ path: 'teamLeader', model: 'Project' , select:'projectLeader', populate: { path: 'projectLeader', model: 'Employee' , select:['first_name', 'last_name'] } })
+    .skip(skip).limit(limit).lean();
 
     return returnData;
-
-
 };
 
 
