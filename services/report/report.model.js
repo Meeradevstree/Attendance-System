@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const reportSchema = new Schema(
     {
         reportingDate:{
-            type: String,
+            type: Date,
             required: false
         },
         projectName:{
