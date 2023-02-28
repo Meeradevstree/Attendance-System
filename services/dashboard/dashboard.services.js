@@ -10,8 +10,7 @@ exports.list = async () => {
     let department = await departmentModel.find({}).countDocuments().lean()
     let employee = await employeeModel.find({}).countDocuments().lean()
     let leave = await leaveModel.find({}).countDocuments().lean()
-    let pending = await leaveModel.find({}).countDocuments({status:"pending"}).countDocuments({deleted:"false"}).lean()
-
+    let pending = await leaveModel.find({}).countDocuments({ status: "pending" }).countDocuments({ deleted: "false" }).lean()
 
     returnData.department = department;
     returnData.employee = employee;
@@ -21,6 +20,10 @@ exports.list = async () => {
 
 
 };
+
+exports.listById = async (id) => {
+    console.log('reqBody :::::::::::  :: : : :  : ; ;  : ; ; ; : : : : : : : ', id)
+}
 
 
 /*

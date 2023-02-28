@@ -1,4 +1,5 @@
 const { commonResponse } = require("../../helper");
+const moment = require('moment')
 const reportModel = require("./report.model");
 const employeeModel = require("../employee/employee.model")
 const departmentModel = require("../department/department.model");
@@ -35,14 +36,20 @@ exports.list = async (reqQuery) => {
     }
 
     if (reqQuery.search && reqQuery.search != "") {
+        // const greaterDate = moment(reqQuery.gte).format('YYYY-MM-DD')
+        // const lessDate = moment(reqQuery.lte).format('YYYY-MM-DD')
+
         query = {
-            $and: [{ "employeeId": { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") } },]
+            $and: [{ "employeeId": { $regex: new RegExp(".*" + reqQuery.search.toLowerCase(), "i") } },
+                // { "reportingDate": { $gte: new Date(reqQuery.gte), $lte: new Date(reqQuery.lte) } }
+            ]
         }
         const employee = await employeeModel.find({ _id: reqQuery.search }).lean()
-        if (employee[0].role == 'tl' || employee[0].role == 'pm') {
+        let reportArray = []
+        if (employee && employee[0].role == 'tl') {
             let depArray = []
             let empArray = []
-            let reportArray = []
+
             let department = await departmentModel.find().lean()
             department.map((dep) => {
                 if (dep.teamLeader == reqQuery.search) {
@@ -53,7 +60,9 @@ exports.list = async (reqQuery) => {
                 let employees = await employeeModel.find({ department: a }).sort({ _id: -1 }).populate('roleManagement').populate({ path: 'departmentdata', model: 'department', populate: { path: 'sub_dep_ID', model: 'sub_dep' } }).lean();
                 employees.map((emp) => empArray.push(emp._id))
             })
+
             )
+            empArray.push(reqQuery.search)
             if (result) {
                 let final = await Promise.all(empArray.map(async r => {
                     let report = await reportModel.find({ employeeId: r }).sort({})
@@ -82,23 +91,29 @@ exports.list = async (reqQuery) => {
 
         }
 
-    } else {
-
-        query.deleted = false;
-
-        returnData.total_counts = await reportModel.countDocuments(query).lean();
-        returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
-        returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
-
-        returnData.list = await reportModel.find(query).sort({})
-            .populate({ path: 'employeeName', select: ['first_name', 'last_name'] })
-            .populate({ path: 'projectName', select: 'projectName' })
-            // .populate({ path: 'projectManager', model: 'Project' , select:'projectManager', populate: { path: 'projectManager', model: 'Employee' , select:['first_name', 'last_name'] } })
-            // .populate({ path: 'teamLeader', model: 'Project' , select:'projectLeader', populate: { path: 'projectLeader', model: 'Employee' , select:['first_name', 'last_name'] } })
-            .skip(skip).limit(limit).lean();
-
-        return returnData;
     }
+
+    if (reqQuery.gte && reqQuery.gte != "" || reqQuery.lte && reqQuery.lte != "") {
+        query = {
+            $and: [{ "reportingDate": { $gte: new Date(reqQuery.gte), $lte: new Date(reqQuery.lte) } },]
+        }
+    }
+    console.log('querrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrry : ', query)
+    query.deleted = false;
+
+    returnData.total_counts = await reportModel.countDocuments(query).lean();
+    returnData.total_pages = Math.ceil(returnData.total_counts / parseInt(limit));
+    returnData.current_page = reqQuery.page ? parseInt(reqQuery.page) : 0;
+
+    returnData.list = await reportModel.find(query).sort({})
+        .populate({ path: 'employeeName', select: ['first_name', 'last_name'] })
+        .populate({ path: 'projectName', select: 'projectName' })
+        // .populate({ path: 'projectManager', model: 'Project' , select:'projectManager', populate: { path: 'projectManager', model: 'Employee' , select:['first_name', 'last_name'] } })
+        // .populate({ path: 'teamLeader', model: 'Project' , select:'projectLeader', populate: { path: 'projectLeader', model: 'Employee' , select:['first_name', 'last_name'] } })
+        .skip(skip).limit(limit).lean();
+
+    return returnData;
+
 };
 
 

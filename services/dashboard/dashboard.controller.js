@@ -57,14 +57,31 @@ module.exports = {
     // get by id
     getdashboardById: async (req, res, next) => {
         try {
-            let dashboard = await dashboardService.get(req.role.id);
-            if (dashboard) {
-                commonResponse.success(res, "GET_DASHBOARD_DATA", 200, dashboard);
+            let list = await dashboardService.listById();
+            console.log('res =====================>:  61',list)
+            let resp;
+            if (Object.entries(list).length > 0) {
+                console.log('iffffffffffffffffffffffffffff 64')
+                resp = {
+                    error: false,
+                    statusCode: 200,
+                    messageCode: 'LIST_OF_DASHBOARD',
+                    message: `List of Dashboard`,
+                    data: list
+                }
             } else {
-                return commonResponse.customResponse(res, "DASHBOARD_NOT_FOUND", 404);
+                console.log('elseeeeeeeeeeeeeeeeeeeeeeeee 73')
+                resp = {
+                    error: false,
+                    statusCode: 200,
+                    messageCode: 'NO_DASHBOARD_DATA',
+                    data: list
+                }
             }
+            return commonResponse.customSuccess(res, resp);
         } catch (error) {
-            return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+            console.log("TCL: error", error)
+            return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500)
         }
     },
 
